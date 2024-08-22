@@ -21,3 +21,34 @@
 - **Microbenchmark**: Measure the performance of a small piece of code.
 - **Macrobenchmark**: Measure the performance of a large piece of code.
 - **Profiling**: Measure the performance of a whole application.
+
+&nbsp;
+<br/>
+&nbsp;
+
+:::: {.columns}
+
+::: {.column width="33%"}
+![](./BDN_tutorial/pics/microscope-2-svgrepo-com.svg)
+
+[System.Diagnostics.Stopwatch](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
+
+:::
+
+::: {.column width="33%"}
+![](./BDN_tutorial/pics/telescope-2-svgrepo-com.svg)
+
+BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
+
+:::
+
+::: {.column width="33%"}
+![](./BDN_tutorial/pics/protractor-svgrepo-com.svg)
+
+dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
+
+:::
+
+::::      
+
+
