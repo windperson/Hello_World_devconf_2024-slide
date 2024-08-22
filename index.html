@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -397,7 +462,7 @@ Measure the performance of a whole application.</li>
 <div class="columns">
 <div class="column" style="width:33%;">
 <p><img data-src="./BDN_tutorial/pics/microscope-2-svgrepo-com.svg"></p>
-<p><a href="https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch">System.Diagnostics.Stopwatch</a>, BenchmarkDotNET, NBench</p>
+<p><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch">System.Diagnostics.Stopwatch</a>, BenchmarkDotNET, NBench</p>
 </div><div class="column" style="width:33%;">
 <p><img data-src="./BDN_tutorial/pics/telescope-2-svgrepo-com.svg"></p>
 <p>BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier</p>
@@ -406,8 +471,8 @@ Measure the performance of a whole application.</li>
 <p>dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder</p>
 </div></div>
 </section>
-<section id="a-decent-benchmark-procedure" class="slide level2">
-<h2>A decent Benchmark procedure</h2>
+<section id="a-decent-benchmark-workflow" class="slide level2">
+<h2>A decent Benchmark workflow</h2>
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -431,7 +496,142 @@ Measure the performance of a whole application.</li>
 </div>
 </div>
 </div>
-<p>How many Invocations(<em>operation count</em>) is determined by the <code>PIlot</code> .</p>
+<p>How many Invocations(<em>operation count</em>) is determined by a <code>PIlot</code> procedure.<br>
+BenchmarkDotNET provides above workflow for you.</p>
+</section>
+<section id="a-hello-world-example" class="slide level2 smaller">
+<h2>A Hello World example</h2>
+<p>We can build a quick Hello world example using <a href="https://dotnet.microsoft.com/download">.NET SDK</a> with <a href="https://benchmarkdotnet.org/articles/guides/dotnet-new-templates.html">BenchmarkDotNET templates</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href=""></a>dotnet new <span class="op">-</span>i BenchmarkDotNet<span class="op">.</span><span class="fu">Templates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<img data-src="./BDN_tutorial/pics/install_BDN_template.png" class="r-stretch">
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p>Generate a new Benchmark project:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a>dotnet new benchmark <span class="op">-</span>n HelloBDN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="./BDN_tutorial/pics/create_BDN_project.png" class="r-stretch"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<p>Generated <code>HelloBDN.csproj</code> file:</p>
+<div class="sourceCode" id="cb3" data-code-line-numbers="12,16,17"><pre class="sourceCode numberSource xml number-lines code-with-copy"><code class="sourceCode xml"><span id="cb3-1"><a href=""></a>&lt;<span class="kw">Project</span><span class="ot"> Sdk=</span><span class="st">"Microsoft.NET.Sdk"</span>&gt;</span>
+<span id="cb3-2"><a href=""></a>  &lt;<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb3-3"><a href=""></a>    &lt;<span class="kw">TargetFramework</span>&gt;net8.0&lt;/<span class="kw">TargetFramework</span>&gt;</span>
+<span id="cb3-4"><a href=""></a>    &lt;<span class="kw">OutputType</span>&gt;Exe&lt;/<span class="kw">OutputType</span>&gt;</span>
+<span id="cb3-5"><a href=""></a>  &lt;/<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb3-6"><a href=""></a>  &lt;<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb3-7"><a href=""></a>    &lt;<span class="kw">PlatformTarget</span>&gt;AnyCPU&lt;/<span class="kw">PlatformTarget</span>&gt;</span>
+<span id="cb3-8"><a href=""></a>    &lt;<span class="kw">DebugType</span>&gt;pdbonly&lt;/<span class="kw">DebugType</span>&gt;</span>
+<span id="cb3-9"><a href=""></a>    &lt;<span class="kw">DebugSymbols</span>&gt;true&lt;/<span class="kw">DebugSymbols</span>&gt;</span>
+<span id="cb3-10"><a href=""></a>    &lt;<span class="kw">AllowUnsafeBlocks</span>&gt;true&lt;/<span class="kw">AllowUnsafeBlocks</span>&gt;</span>
+<span id="cb3-11"><a href=""></a>    &lt;<span class="kw">Optimize</span>&gt;true&lt;/<span class="kw">Optimize</span>&gt;</span>
+<span id="cb3-12"><a href=""></a>    &lt;<span class="kw">Configuration</span>&gt;Release&lt;/<span class="kw">Configuration</span>&gt;</span>
+<span id="cb3-13"><a href=""></a>    &lt;<span class="kw">IsPackable</span>&gt;false&lt;/<span class="kw">IsPackable</span>&gt;</span>
+<span id="cb3-14"><a href=""></a>  &lt;/<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb3-15"><a href=""></a>  &lt;<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb3-16"><a href=""></a>    &lt;<span class="kw">PackageReference</span><span class="ot"> Include=</span><span class="st">"BenchmarkDotNet"</span><span class="ot"> Version=</span><span class="st">"0.14.0"</span> /&gt;</span>
+<span id="cb3-17"><a href=""></a>    &lt;<span class="kw">PackageReference</span><span class="ot"> Include=</span><span class="st">"BenchmarkDotNet.Diagnostics.Windows"</span><span class="ot"> Version=</span><span class="st">"0.14.0"</span>/&gt;</span>
+<span id="cb3-18"><a href=""></a>  &lt;/<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb3-19"><a href=""></a>&lt;/<span class="kw">Project</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>By default, BDN will need project to be run as <code>Release</code> mode.</li>
+<li>The <code>BenchmarkDotNet.Diagnostics.Windows</code> package is for Windows OS.</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<p>Generated <code>Benchmarks.cs</code> file:</p>
+<div class="sourceCode" id="cb4" data-code-line-numbers="9-19"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb4-1"><a href=""></a><span class="kw">using</span> System<span class="op">;</span></span>
+<span id="cb4-2"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">;</span></span>
+<span id="cb4-3"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Attributes</span><span class="op">;</span></span>
+<span id="cb4-4"><a href=""></a></span>
+<span id="cb4-5"><a href=""></a><span class="kw">namespace</span> HelloBDN</span>
+<span id="cb4-6"><a href=""></a><span class="op">{</span></span>
+<span id="cb4-7"><a href=""></a>    <span class="kw">public</span> <span class="kw">class</span> Benchmarks</span>
+<span id="cb4-8"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb4-9"><a href=""></a>        <span class="op">[</span>Benchmark<span class="op">]</span></span>
+<span id="cb4-10"><a href=""></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Scenario1</span><span class="op">()</span></span>
+<span id="cb4-11"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb4-12"><a href=""></a>            <span class="co">// Implement your benchmark here</span></span>
+<span id="cb4-13"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb4-14"><a href=""></a></span>
+<span id="cb4-15"><a href=""></a>        <span class="op">[</span>Benchmark<span class="op">]</span></span>
+<span id="cb4-16"><a href=""></a>        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">Scenario2</span><span class="op">()</span></span>
+<span id="cb4-17"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb4-18"><a href=""></a>            <span class="co">// Implement your benchmark here</span></span>
+<span id="cb4-19"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb4-20"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb4-21"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><a href="https://benchmarkdotnet.org/api/BenchmarkDotNet.Attributes.BenchmarkAttribute.html"><code>[Benchmark]</code></a> attribute marks a method as a benchmark case, it will got “Invocation” multiple times and BDN will collect its execution time, calculate.</li>
+</ul>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<p>Generated <code>Program.cs</code> file:</p>
+<div class="sourceCode" id="cb5" data-code-line-numbers="10-14"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb5-1"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Configs</span><span class="op">;</span></span>
+<span id="cb5-2"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Running</span><span class="op">;</span></span>
+<span id="cb5-3"><a href=""></a></span>
+<span id="cb5-4"><a href=""></a><span class="kw">namespace</span> HelloBDN</span>
+<span id="cb5-5"><a href=""></a><span class="op">{</span></span>
+<span id="cb5-6"><a href=""></a>    <span class="kw">public</span> <span class="kw">class</span> Program</span>
+<span id="cb5-7"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb5-8"><a href=""></a>        <span class="kw">public</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span><span class="op">(</span><span class="dt">string</span><span class="op">[]</span> args<span class="op">)</span></span>
+<span id="cb5-9"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb5-10"><a href=""></a>            <span class="dt">var</span> config <span class="op">=</span> DefaultConfig<span class="op">.</span><span class="fu">Instance</span><span class="op">;</span></span>
+<span id="cb5-11"><a href=""></a>            <span class="dt">var</span> summary <span class="op">=</span> BenchmarkRunner<span class="op">.</span><span class="fu">Run</span><span class="op">&lt;</span>Benchmarks<span class="op">&gt;(</span>config<span class="op">,</span> args<span class="op">);</span></span>
+<span id="cb5-12"><a href=""></a></span>
+<span id="cb5-13"><a href=""></a>            <span class="co">// Use this to select benchmarks from the console:</span></span>
+<span id="cb5-14"><a href=""></a>            <span class="co">// var summaries = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);</span></span>
+<span id="cb5-15"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb5-16"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb5-17"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><code>BenchmarkRunner.Run&lt;Benchmarks&gt;(config, args)</code> will run all benchmarks in <code>Benchmarks</code> class.</li>
+<li>If you need to tweak the BDN running benchmark behavior, you can create a custom <code>IConfig</code> class or using fluid API style to create config object and use it in <code>BenchmarkRunner.Run&lt;T&gt;()</code> method.</li>
+</ul>
+</section>
+<section id="run-the-benchmark" class="slide level2">
+<h2>Run the benchmark</h2>
+<p>Inside project folder, run:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href=""></a>dotnet run <span class="op">-</span>c Release</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="r-stack">
+<div class="fragment">
+<p><img data-src="./BDN_tutorial/pics/running_HelloBDN_project-1.png"></p>
+</div>
+<div class="fragment fade-in">
+<p><img data-src="./BDN_tutorial/pics/running_HelloBDN_project-2.png"></p>
+</div>
+</div>
+</section>
+<section id="benchmarkdotnet-report" class="slide level2">
+<h2>BenchmarkDotNET report</h2>
+<p>After running the benchmark, BDN will generate a report in the console, and also generate report file(s) in <code>BenchmarkDotNet.Artifacts/results</code> folder.</p>
+<p><img data-src="./BDN_tutorial/pics/BDN_project_report_location.png"></p>
+<p><img data-src="./BDN_tutorial/pics/BDN_project_html_report.png"></p>
+<p>So we achieved a quick benchmark demo with BenchmarkDotNET.</p>
+</section>
+<section id="bdn-mechanism" class="slide level2 small scrollable">
+<h2>BDN mechanism</h2>
+<p>When we run the benchmark, <a href="https://benchmarkdotnet.org/articles/guides/how-it-works.html">BDN do the following steps</a>:</p>
+<ol type="1">
+<li>BenchmarkRunner generates an isolated project per each runtime settings and builds it in Release mode.</li>
+<li>Next, we take each method/job/params combination and try to measure its performance by launching benchmark process several times (LaunchCount).</li>
+<li>An invocation of the workload method is an operation. A bunch of operation is an iteration. If you have an IterationSetup method, it will be invoked before each iteration, but not between operations. We have the following type of iterations:
+<ul>
+<li>Pilot: The best operation count will be chosen.</li>
+<li>OverheadWarmup, OverheadWorkload: BenchmarkDotNet overhead will be evaluated.</li>
+<li>ActualWarmup: Warmup of the workload method.</li>
+<li>ActualWorkload: Actual measurements.</li>
+<li>Result = ActualWorkload - &lt;MedianOverhead&gt;</li>
+</ul></li>
+<li>After all of the measurements, BenchmarkDotNet creates:
+<ul>
+<li>An instance of the Summary class that contains all information about benchmark runs.</li>
+<li>A set of files that contains summary in human-readable and machine-readable formats.</li>
+<li>A set of plots.</li>
+</ul></li>
+</ol>
 </section>
 <section id="use-bdn-on-various-c-applications" class="slide level2">
 <h2>Use BDN on various C# applications</h2>
