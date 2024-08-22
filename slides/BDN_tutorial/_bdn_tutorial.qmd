@@ -33,7 +33,7 @@
 ::: {.column width="33%"}
 ![](./BDN_tutorial/pics/microscope-2-svgrepo-com.svg)
 
-[System.Diagnostics.Stopwatch](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
+[System.Diagnostics.Stopwatch](https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
 
 :::
 
@@ -53,7 +53,7 @@ dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
 
 ::::      
 
-## A decent Benchmark procedure
+## A decent Benchmark workflow
 
 ```{mermaid}
 flowchart LR
@@ -70,4 +70,159 @@ flowchart LR
   D -.-> E1(["<b><code>Invocation</code></b>"])
 ```
 
-How many Invocations(_operation count_) is determined by the `PIlot` .
+How many Invocations(_operation count_) is determined by a `PIlot` procedure.  
+BenchmarkDotNET provides above workflow for you.
+
+## A Hello World example {.smaller}
+
+We can build a quick Hello world example using [.NET SDK](https://dotnet.microsoft.com/download) with [BenchmarkDotNET templates](https://benchmarkdotnet.org/articles/guides/dotnet-new-templates.html).
+
+```{.powershell}
+dotnet new -i BenchmarkDotNet.Templates
+```
+
+![](./BDN_tutorial/pics/install_BDN_template.png){.r-stretch}
+
+##
+
+Generate a new Benchmark project:
+
+```{.powershell}
+dotnet new benchmark -n HelloBDN
+```
+
+![](./BDN_tutorial/pics/create_BDN_project.png)
+
+## 
+
+Generated `HelloBDN.csproj` file:
+
+```{.xml code-line-numbers="12,16,17"}
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <Configuration>Release</Configuration>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.14.0"/>
+  </ItemGroup>
+</Project>
+```
+
+* By default, BDN will need project to be run as `Release` mode.
+* The `BenchmarkDotNet.Diagnostics.Windows` package is for Windows OS.
+
+##
+
+Generated `Benchmarks.cs` file:
+
+```{.csharp code-line-numbers="9-19"}
+using System;
+using BenchmarkDotNet;
+using BenchmarkDotNet.Attributes;
+
+namespace HelloBDN
+{
+    public class Benchmarks
+    {
+        [Benchmark]
+        public void Scenario1()
+        {
+            // Implement your benchmark here
+        }
+
+        [Benchmark]
+        public void Scenario2()
+        {
+            // Implement your benchmark here
+        }
+    }
+}
+
+```
+
+* [`[Benchmark]`](https://benchmarkdotnet.org/api/BenchmarkDotNet.Attributes.BenchmarkAttribute.html) attribute marks a method as a benchmark case, it will got "Invocation" multiple times and BDN will collect its execution time, calculate.
+
+##
+
+Generated `Program.cs` file:
+
+```{.csharp code-line-numbers="10-14"}
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Running;
+
+namespace HelloBDN
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var config = DefaultConfig.Instance;
+            var summary = BenchmarkRunner.Run<Benchmarks>(config, args);
+
+            // Use this to select benchmarks from the console:
+            // var summaries = BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
+        }
+    }
+}
+```
+
+* `BenchmarkRunner.Run<Benchmarks>(config, args)` will run all benchmarks in `Benchmarks` class.
+* If you need to tweak the BDN running benchmark behavior, you can create a custom `IConfig` class or using fluid API style to create config object and use it in `BenchmarkRunner.Run<T>()` method.
+
+## Run the benchmark
+
+Inside project folder, run:
+
+```{.powershell}
+dotnet run -c Release
+```
+
+::: {.r-stack}
+::: {.fragment}
+![](./BDN_tutorial/pics/running_HelloBDN_project-1.png)
+:::
+
+::: {.fragment .fade-in}
+![](./BDN_tutorial/pics/running_HelloBDN_project-2.png)
+:::
+:::
+
+## BenchmarkDotNET report 
+
+After running the benchmark, BDN will generate a report in the console, and also generate report file(s) in `BenchmarkDotNet.Artifacts/results` folder.
+
+
+![](./BDN_tutorial/pics/BDN_project_report_location.png)
+
+
+![](./BDN_tutorial/pics/BDN_project_html_report.png)
+
+So we achieved a quick benchmark demo with BenchmarkDotNET.
+
+## BDN mechanism {.small .scrollable}
+
+When we run the benchmark, [BDN do the following steps](https://benchmarkdotnet.org/articles/guides/how-it-works.html):
+
+1. BenchmarkRunner generates an isolated project per each runtime settings and builds it in Release mode.
+2. Next, we take each method/job/params combination and try to measure its performance by launching benchmark process several times (LaunchCount).
+3. An invocation of the workload method is an operation. A bunch of operation is an iteration. If you have an IterationSetup method, it will be invoked before each iteration, but not between operations. We have the following type of iterations:
+   * Pilot: The best operation count will be chosen.
+   * OverheadWarmup, OverheadWorkload: BenchmarkDotNet overhead will be evaluated.
+   * ActualWarmup: Warmup of the workload method.
+   * ActualWorkload: Actual measurements.
+   * Result = ActualWorkload - &lt;MedianOverhead&gt;
+4. After all of the measurements, BenchmarkDotNet creates:
+   * An instance of the Summary class that contains all information about benchmark runs.
+   * A set of files that contains summary in human-readable and machine-readable formats.
+   * A set of plots.
