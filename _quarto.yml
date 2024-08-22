@@ -1,4 +1,0 @@
-project: 
-  title: "BenchmarkDotNET 科學化 .NET 應用效能調校"
-  render: 
-    - slides/index.qmd
