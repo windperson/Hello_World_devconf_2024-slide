@@ -1,0 +1,39 @@
+---
+title: BenchmarkDotNET<br/>科學化 .NET 應用效能調校
+
+author: 老鮑伯
+format:
+    revealjs:
+        width: 1700
+        height: 1050
+        margin: 0.2
+        slide-tone: false
+        theme: simple
+        menu:
+            side: right
+        include-in-header: 
+            text: |
+                <style>
+                .center-xy {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translateY(-50%), translateX(-50%);
+                transform: translateY(-50%), translateX(-50%);
+                }
+                </style>
+---
+
+
+## Agenda
+
+* BenchmarkDotNET 入門
+* 多種 C＃ 開發應用場景(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
+* 整合 BenchmarkDotNET 到 GitHub Action CI
+
+{{< include BDN_tutorial/_bdn_tutorial.qmd >}}
+
+## Use BDN on various C# applications
+
+To use BDN on various C# applications, you need to ... (TBD)
