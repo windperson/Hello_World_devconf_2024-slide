@@ -320,6 +320,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="index_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="index_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <style>
   .center-xy {
   margin: 0;
@@ -355,37 +358,42 @@
 <li>整合 BenchmarkDotNET 到 GitHub Action CI</li>
 </ul>
 </section>
-<section id="benchmarkdotnet-入門" class="slide level2">
-<h2>BenchmarkDotNet 入門</h2>
+<section id="benchmarkdotnet-intro" class="slide level2 center">
+<h2>BenchmarkDotNet Intro</h2>
 </section>
 <section id="what-is-benchmarkdotnet" class="slide level2">
 <h2>What is BenchmarkDotNET?</h2>
-<ul>
-<li><strong>BenchmarkDotNet(<em>BDN</em>)</strong>: .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./BDN_tutorial/pics/logo-wide.png" alt="web site loge">
+<p><strong>BenchmarkDotNet(<em>BDN</em>)</strong>: .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./BDN_tutorial/pics/logo-wide.png" alt="web site loge"></p>
 <ul>
 <li>MIT License</li>
 <li>GitHub: <a href="https://github.com/dotnet/BenchmarkDotNet" class="uri">https://github.com/dotnet/BenchmarkDotNet</a></li>
 <li>Homepage: <a href="https://benchmarkdotnet.org/" class="uri">https://benchmarkdotnet.org/</a></li>
 <li>.NET foundation project: <a href="https://dotnetfoundation.org/projects/benchmarkdotnet" class="uri">https://dotnetfoundation.org/projects/benchmarkdotnet</a></li>
-</ul></li>
-<li>BDN can help you to:
+</ul>
+</section>
+<section id="bdn-can-help-you-to" class="slide level2">
+<h2>BDN can help you to:</h2>
 <ul>
 <li>Easily writing micro &amp; macro benchmarks for your code.</li>
 <li>Measure the performance of your code.</li>
 <li>Compare the performance of your code on different environments<br>
 (x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JIT).</li>
 <li>Generate markdown, CSV, JSON, HTML, reports / png plots.</li>
-</ul></li>
 </ul>
 </section>
 <section id="microbenchmark-macrobenchmark-profiling" class="slide level2">
 <h2>Microbenchmark / Macrobenchmark / Profiling</h2>
 <ul>
-<li><strong>Microbenchmark</strong>: Measure the performance of a small piece of code.</li>
-<li><strong>Macrobenchmark</strong>: Measure the performance of a large piece of code.</li>
-<li><strong>Profiling</strong>: Measure the performance of a whole application.</li>
+<li><strong>Microbenchmark</strong>:<br>
+Measure the performance of a small piece of code.</li>
+<li><strong>Macrobenchmark</strong>:<br>
+Measure the performance of a large piece of code.</li>
+<li><strong>Profiling</strong>:<br>
+Measure the performance of a whole application.</li>
 </ul>
-<p>&nbsp; <br> &nbsp;</p>
+</section>
+<section id="section" class="slide level2 smaller">
+<h2></h2>
 <div class="columns">
 <div class="column" style="width:33%;">
 <p><img data-src="./BDN_tutorial/pics/microscope-2-svgrepo-com.svg"></p>
@@ -397,6 +405,33 @@
 <p><img data-src="./BDN_tutorial/pics/protractor-svgrepo-com.svg"></p>
 <p>dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder</p>
 </div></div>
+</section>
+<section id="a-decent-benchmark-procedure" class="slide level2">
+<h2>A decent Benchmark procedure</h2>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[prepare] ==&gt; B("&lt;b&gt;GlobalSetup&lt;/b&gt;")
+  B ==&gt; C("&lt;b&gt;Warmup&lt;/b&gt;")
+  C ==&gt; D[["&lt;b&gt;Iteration&lt;/b&gt;"]]
+  E1 --erroneous&lt;br/&gt;execution--x X[/Outliner/]
+  D ==&gt; F(GlobalCleanup)
+  F ==&gt; G((("collect result")))
+  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>How many Invocations(<em>operation count</em>) is determined by the <code>PIlot</code> .</p>
 </section>
 <section id="use-bdn-on-various-c-applications" class="slide level2">
 <h2>Use BDN on various C# applications</h2>
@@ -583,12 +618,12 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1700,
+        width: 1200,
 
-        height: 1050,
+        height: 900,
 
         // Factor of the display size that should remain empty around the content
-        margin: 0.2,
+        margin: 0.1,
 
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
