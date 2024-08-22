@@ -1,30 +1,32 @@
-## BenchmarkDotNet 入門
+## BenchmarkDotNet Intro {.center}
 
 ## What is BenchmarkDotNET?
 
--  **BenchmarkDotNet(_BDN_)**: .NET library for benchmarking you C#/F#/VB code. <br/>![web site loge](./BDN_tutorial/pics/logo-wide.png)
-   - MIT License
-   - GitHub: <https://github.com/dotnet/BenchmarkDotNet>
-   - Homepage: <https://benchmarkdotnet.org/>
-   - .NET foundation project: <https://dotnetfoundation.org/projects/benchmarkdotnet>
+**BenchmarkDotNet(_BDN_)**: .NET library for benchmarking you C#/F#/VB code. <br/>![web site loge](./BDN_tutorial/pics/logo-wide.png)
 
+* MIT License
+* GitHub: <https://github.com/dotnet/BenchmarkDotNet>
+* Homepage: <https://benchmarkdotnet.org/>
+* .NET foundation project: <https://dotnetfoundation.org/projects/benchmarkdotnet>
 
-- BDN can help you to:
-  - Easily writing micro & macro benchmarks for your code. 
-  - Measure the performance of your code.
-  - Compare the performance of your code on different environments  
-     (x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JIT).
-  - Generate markdown, CSV, JSON, HTML, reports / png plots.
+## BDN can help you to:
+
+* Easily writing micro & macro benchmarks for your code. 
+* Measure the performance of your code.
+* Compare the performance of your code on different environments  
+   (x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JIT).
+* Generate markdown, CSV, JSON, HTML, reports / png plots.
 
 ## Microbenchmark / Macrobenchmark / Profiling
 
-- **Microbenchmark**: Measure the performance of a small piece of code.
-- **Macrobenchmark**: Measure the performance of a large piece of code.
-- **Profiling**: Measure the performance of a whole application.
+- **Microbenchmark**:  
+   Measure the performance of a small piece of code.
+- **Macrobenchmark**:  
+   Measure the performance of a large piece of code.
+- **Profiling**:  
+   Measure the performance of a whole application.
 
-&nbsp;
-<br/>
-&nbsp;
+## {.smaller}
 
 :::: {.columns}
 
@@ -51,4 +53,21 @@ dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
 
 ::::      
 
+## A decent Benchmark procedure
 
+```{mermaid}
+flowchart LR
+  A[prepare] ==> B("<b>GlobalSetup</b>")
+  B ==> C("<b>Warmup</b>")
+  C ==> D[["<b>Iteration</b>"]]
+  E1 --erroneous<br/>execution--x X[/Outliner/]
+  D ==> F(GlobalCleanup)
+  F ==> G((("collect result")))
+  D -.-> E1(["<b><code>Invocation</code></b>"])
+  D -.-> E1(["<b><code>Invocation</code></b>"])
+  D -.-> E1(["<b><code>Invocation</code></b>"])
+  D -.-> E1(["<b><code>Invocation</code></b>"])
+  D -.-> E1(["<b><code>Invocation</code></b>"])
+```
+
+How many Invocations(_operation count_) is determined by the `PIlot` .

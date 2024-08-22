@@ -4,9 +4,8 @@ title: BenchmarkDotNET<br/>科學化 .NET 應用效能調校
 author: 老鮑伯
 format:
     revealjs:
-        width: 1700
-        height: 1050
-        margin: 0.2
+        width: 1200
+        height: 900
         slide-tone: false
         theme: simple
         menu:
