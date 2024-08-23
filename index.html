@@ -633,6 +633,293 @@ BenchmarkDotNET provides above workflow for you.</p>
 </ul></li>
 </ol>
 </section>
+<section id="microbenchmark-example-project" class="slide level2">
+<h2>Microbenchmark example project</h2>
+<p>A microbenchmark example with BDN to prove characteristic of four Fibonacci Sequence generate algorithm:</p>
+<ul>
+<li>Simple Loop (<strong><em>O(n)</em></strong>)</li>
+<li>Recursion (<strong><em>O(2^n)</em></strong>)</li>
+<li><a href="https://www.cuemath.com/numbers/fibonacci-series/">Golden Ration math formula</a> (approximation, <strong><em>O(1)</em></strong>)</li>
+<li><a href="https://www.nayuki.io/page/fast-fibonacci-algorithms">Matrix exponentiation</a> (<strong><em>O(log(n))</em></strong>)</li>
+</ul>
+<p>Source code: <a href="https://github.com/windperson/DemoFibonacciBDN" class="uri">https://github.com/windperson/DemoFibonacciBDN</a></p>
+</section>
+<section id="example-project-structure" class="slide level2">
+<h2>Example project structure</h2>
+
+<img data-src="./BDN_tutorial/pics/microbenchmark_project_structure.png" class="r-stretch"><ul>
+<li><code>FibonaccCore</code> project is a class library project, contains four Fibonacci Sequence generate algorithm.</li>
+<li><code>FibSeqMicroBench</code> project is a console project that we write BDN benchmark test code here.</li>
+</ul>
+</section>
+<section id="c-code" class="slide level2 smaller scrollable">
+<h2>C# code</h2>
+<ul>
+<li>SequenceLib.cs file in <code>FibonaccCore</code> project:</li>
+</ul>
+<div class="sourceCode" id="cb7" data-code-line-numbers="8,36,53,64"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href=""></a><span class="kw">public</span> <span class="kw">static</span> <span class="kw">class</span> SequenceLib</span>
+<span id="cb7-2"><a href=""></a><span class="op">{</span></span>
+<span id="cb7-3"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-4"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using loop implementation</span></span>
+<span id="cb7-5"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-6"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-7"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-8"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingLoop</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-9"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-10"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-11"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-12"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-13"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-14"><a href=""></a>        <span class="kw">else</span></span>
+<span id="cb7-15"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-16"><a href=""></a>            <span class="dt">int</span> a <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-17"><a href=""></a>            <span class="dt">int</span> b <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-18"><a href=""></a>            <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-19"><a href=""></a></span>
+<span id="cb7-20"><a href=""></a>            <span class="kw">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb7-21"><a href=""></a>            <span class="op">{</span></span>
+<span id="cb7-22"><a href=""></a>                result <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb7-23"><a href=""></a>                a <span class="op">=</span> b<span class="op">;</span></span>
+<span id="cb7-24"><a href=""></a>                b <span class="op">=</span> result<span class="op">;</span></span>
+<span id="cb7-25"><a href=""></a>            <span class="op">}</span></span>
+<span id="cb7-26"><a href=""></a></span>
+<span id="cb7-27"><a href=""></a>            <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb7-28"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-29"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-30"><a href=""></a></span>
+<span id="cb7-31"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-32"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using recursion implementation</span></span>
+<span id="cb7-33"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-34"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-35"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-36"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-37"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-38"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-39"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-40"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-41"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-42"><a href=""></a>        <span class="kw">else</span></span>
+<span id="cb7-43"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-44"><a href=""></a>            <span class="kw">return</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n<span class="dv">-2</span><span class="op">);</span></span>
+<span id="cb7-45"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-46"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-47"><a href=""></a></span>
+<span id="cb7-48"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-49"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Golden Ration approximation math formula</span></span>
+<span id="cb7-50"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-51"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-52"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-53"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-54"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-55"><a href=""></a>        <span class="dt">double</span> phi <span class="op">=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">+</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">))</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-56"><a href=""></a>        <span class="kw">return</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>Math<span class="op">.</span><span class="fu">Round</span><span class="op">(</span>Math<span class="op">.</span><span class="fu">Pow</span><span class="op">(</span>phi<span class="op">,</span> n<span class="op">)</span> <span class="op">/</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">));</span></span>
+<span id="cb7-57"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-58"><a href=""></a></span>
+<span id="cb7-59"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-60"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )</span></span>
+<span id="cb7-61"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-62"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-63"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-64"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-65"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-66"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-67"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-68"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-69"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-70"><a href=""></a></span>
+<span id="cb7-71"><a href=""></a>        <span class="dt">int</span><span class="op">[,]</span> F <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
+<span id="cb7-72"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb7-73"><a href=""></a></span>
+<span id="cb7-74"><a href=""></a>        <span class="kw">return</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-75"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-76"><a href=""></a></span>
+<span id="cb7-77"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Power</span><span class="op">(</span><span class="dt">int</span><span class="op">[,]</span> F<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-78"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-79"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-80"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-81"><a href=""></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb7-82"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-83"><a href=""></a></span>
+<span id="cb7-84"><a href=""></a>        <span class="dt">int</span><span class="op">[,]</span> M <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
+<span id="cb7-85"><a href=""></a></span>
+<span id="cb7-86"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">/</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-87"><a href=""></a>        <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> F<span class="op">);</span></span>
+<span id="cb7-88"><a href=""></a></span>
+<span id="cb7-89"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">%</span> <span class="dv">2</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb7-90"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-91"><a href=""></a>            <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> M<span class="op">);</span></span>
+<span id="cb7-92"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-93"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-94"><a href=""></a>    </span>
+<span id="cb7-95"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Multiply</span><span class="op">(</span><span class="dt">int</span><span class="op">[,]</span> F<span class="op">,</span> <span class="dt">int</span><span class="op">[,]</span> M<span class="op">)</span></span>
+<span id="cb7-96"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-97"><a href=""></a>        <span class="dt">int</span> x <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-98"><a href=""></a>        <span class="dt">int</span> y <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb7-99"><a href=""></a>        <span class="dt">int</span> z <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-100"><a href=""></a>        <span class="dt">int</span> w <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb7-101"><a href=""></a></span>
+<span id="cb7-102"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb7-103"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb7-104"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> z<span class="op">;</span></span>
+<span id="cb7-105"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> w<span class="op">;</span></span>
+<span id="cb7-106"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-107"><a href=""></a>    </span>
+<span id="cb7-108"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="c-code-1" class="slide level2 smaller scrollable">
+<h2>C# code</h2>
+<ul>
+<li>FibonacciSeqBenchmarks.cs file in <code>FibonaccCore</code> project:</li>
+</ul>
+<div class="sourceCode" id="cb8" data-code-line-numbers="6,9-10,12-16,18-22,24-28,30-34"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Attributes</span><span class="op">;</span></span>
+<span id="cb8-2"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Engines</span><span class="op">;</span></span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="kw">namespace</span> FibSeqMicroBench<span class="op">;</span></span>
+<span id="cb8-5"><a href=""></a></span>
+<span id="cb8-6"><a href=""></a><span class="op">[</span><span class="fu">SimpleJob</span><span class="op">(</span>RunStrategy<span class="op">.</span><span class="fu">Throughput</span><span class="op">)]</span></span>
+<span id="cb8-7"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> FibonacciSeqBenchmarks</span>
+<span id="cb8-8"><a href=""></a><span class="op">{</span></span>
+<span id="cb8-9"><a href=""></a>    <span class="op">[</span><span class="fu">Params</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">50</span><span class="op">)]</span></span>
+<span id="cb8-10"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> Nth <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb8-11"><a href=""></a>    </span>
+<span id="cb8-12"><a href=""></a>    <span class="op">[</span><span class="fu">Benchmark</span><span class="op">(</span>Baseline <span class="op">=</span> <span class="kw">true</span><span class="op">),</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">)]</span></span>
+<span id="cb8-13"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingLoop</span><span class="op">()</span></span>
+<span id="cb8-14"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-15"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingLoop</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-16"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-17"><a href=""></a></span>
+<span id="cb8-18"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">,</span> <span class="st">"slow"</span><span class="op">)]</span></span>
+<span id="cb8-19"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingRecursion</span><span class="op">()</span></span>
+<span id="cb8-20"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-21"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-22"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-23"><a href=""></a></span>
+<span id="cb8-24"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"approximate"</span><span class="op">)]</span></span>
+<span id="cb8-25"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingGoldenRatio</span><span class="op">()</span></span>
+<span id="cb8-26"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-27"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-28"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-29"><a href=""></a></span>
+<span id="cb8-30"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"fast"</span><span class="op">)]</span></span>
+<span id="cb8-31"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingMatrixExponentiation</span><span class="op">()</span></span>
+<span id="cb8-32"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-33"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-34"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-35"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Program.cs file in <code>FibSeqMicroBench</code> project:</li>
+</ul>
+<div class="sourceCode" id="cb9" data-code-line-numbers="4"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb9-1"><a href=""></a><span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span><span class="op">(</span><span class="dt">string</span><span class="op">[]</span> args<span class="op">)</span></span>
+<span id="cb9-2"><a href=""></a><span class="op">{</span></span>
+<span id="cb9-3"><a href=""></a>  <span class="dt">var</span> bdnConfig <span class="op">=</span> DefaultConfig<span class="op">.</span><span class="fu">Instance</span><span class="op">;</span></span>
+<span id="cb9-4"><a href=""></a>  BenchmarkSwitcher<span class="op">.</span><span class="fu">FromAssembly</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>Program<span class="op">).</span><span class="fu">Assembly</span><span class="op">).</span><span class="fu">Run</span><span class="op">(</span>args<span class="op">,</span> bdnConfig<span class="op">);</span></span>
+<span id="cb9-5"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="project-files" class="slide level2 smaller scrollable">
+<h2>Project files</h2>
+<ul>
+<li><code>FibSeqMicroBench.csproj</code> file:</li>
+</ul>
+<div class="sourceCode" id="cb10" data-code-line-numbers="8-12,16,20"><pre class="sourceCode numberSource xml number-lines code-with-copy"><code class="sourceCode xml"><span id="cb10-1"><a href=""></a>&lt;<span class="kw">Project</span><span class="ot"> Sdk=</span><span class="st">"Microsoft.NET.Sdk"</span>&gt;</span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a>    &lt;<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb10-4"><a href=""></a>        &lt;<span class="kw">OutputType</span>&gt;Exe&lt;/<span class="kw">OutputType</span>&gt;</span>
+<span id="cb10-5"><a href=""></a>        &lt;<span class="kw">TargetFramework</span>&gt;net8.0&lt;/<span class="kw">TargetFramework</span>&gt;</span>
+<span id="cb10-6"><a href=""></a>        &lt;<span class="kw">ImplicitUsings</span>&gt;enable&lt;/<span class="kw">ImplicitUsings</span>&gt;</span>
+<span id="cb10-7"><a href=""></a>        &lt;<span class="kw">Nullable</span>&gt;enable&lt;/<span class="kw">Nullable</span>&gt;</span>
+<span id="cb10-8"><a href=""></a>        &lt;<span class="kw">Optimize</span>&gt;true&lt;/<span class="kw">Optimize</span>&gt;</span>
+<span id="cb10-9"><a href=""></a>        &lt;<span class="kw">Configuration</span>&gt;release&lt;/<span class="kw">Configuration</span>&gt;</span>
+<span id="cb10-10"><a href=""></a>        &lt;<span class="kw">IsPackable</span>&gt;false&lt;/<span class="kw">IsPackable</span>&gt;</span>
+<span id="cb10-11"><a href=""></a>        &lt;<span class="kw">DebugType</span>&gt;pdbonly&lt;/<span class="kw">DebugType</span>&gt;</span>
+<span id="cb10-12"><a href=""></a>        &lt;<span class="kw">DebugSymbols</span>&gt;true&lt;/<span class="kw">DebugSymbols</span>&gt;</span>
+<span id="cb10-13"><a href=""></a>    &lt;/<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb10-14"><a href=""></a></span>
+<span id="cb10-15"><a href=""></a>    &lt;<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb10-16"><a href=""></a>      &lt;<span class="kw">ProjectReference</span><span class="ot"> Include=</span><span class="st">"..\..\FibonacciCore\FibonacciCore.csproj"</span> /&gt;</span>
+<span id="cb10-17"><a href=""></a>    &lt;/<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb10-18"><a href=""></a></span>
+<span id="cb10-19"><a href=""></a>    &lt;<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb10-20"><a href=""></a>      &lt;<span class="kw">PackageReference</span><span class="ot"> Include=</span><span class="st">"BenchmarkDotNet"</span><span class="ot"> Version=</span><span class="st">"0.14.0"</span> /&gt;</span>
+<span id="cb10-21"><a href=""></a>    &lt;/<span class="kw">ItemGroup</span>&gt;</span>
+<span id="cb10-22"><a href=""></a></span>
+<span id="cb10-23"><a href=""></a>&lt;/<span class="kw">Project</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="project-file" class="slide level2 smaller scrollable">
+<h2>Project file</h2>
+<ul>
+<li><code>FibonacciCore.csproj</code> file:</li>
+</ul>
+<div class="sourceCode" id="cb11" data-code-line-numbers="9-13"><pre class="sourceCode numberSource xml number-lines code-with-copy"><code class="sourceCode xml"><span id="cb11-1"><a href=""></a>&lt;<span class="kw">Project</span><span class="ot"> Sdk=</span><span class="st">"Microsoft.NET.Sdk"</span>&gt;</span>
+<span id="cb11-2"><a href=""></a></span>
+<span id="cb11-3"><a href=""></a>    &lt;<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb11-4"><a href=""></a>        &lt;<span class="kw">TargetFramework</span>&gt;net8.0&lt;/<span class="kw">TargetFramework</span>&gt;</span>
+<span id="cb11-5"><a href=""></a>        &lt;<span class="kw">ImplicitUsings</span>&gt;enable&lt;/<span class="kw">ImplicitUsings</span>&gt;</span>
+<span id="cb11-6"><a href=""></a>        &lt;<span class="kw">Nullable</span>&gt;enable&lt;/<span class="kw">Nullable</span>&gt;</span>
+<span id="cb11-7"><a href=""></a>    &lt;/<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb11-8"><a href=""></a></span>
+<span id="cb11-9"><a href=""></a>    &lt;<span class="kw">PropertyGroup</span><span class="ot"> Condition=</span><span class="st">" '$(Configuration)' == 'Release' "</span>&gt;</span>
+<span id="cb11-10"><a href=""></a>        &lt;<span class="kw">Optimize</span>&gt;true&lt;/<span class="kw">Optimize</span>&gt;</span>
+<span id="cb11-11"><a href=""></a>        &lt;<span class="kw">DebugType</span>&gt;pdbonly&lt;/<span class="kw">DebugType</span>&gt;</span>
+<span id="cb11-12"><a href=""></a>        &lt;<span class="kw">DebugSymbols</span>&gt;true&lt;/<span class="kw">DebugSymbols</span>&gt;</span>
+<span id="cb11-13"><a href=""></a>    &lt;/<span class="kw">PropertyGroup</span>&gt;</span>
+<span id="cb11-14"><a href=""></a></span>
+<span id="cb11-15"><a href=""></a>&lt;/<span class="kw">Project</span>&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="run-the-microbenchmark" class="slide level2">
+<h2>Run the microbenchmark</h2>
+<p>At first you may attempt to run the benchmark with <code>dotnet run -c Release</code> command directly inside the <em>FibSeqMicroBench</em> folder, but you will get an error message like this:</p>
+
+<img data-src="./BDN_tutorial/pics/not_release_mode_error_on_starting_microbenchmark_project.png" class="r-stretch"><p>This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don’t specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.</p>
+<p>So you need to execuate the <code>dotnet run</code> command in the solution folder.</p>
+<p>(See readme file in the github project root folder)</p>
+</section>
+<section id="run-the-microbenchmark-with-arguments" class="slide level2 smaller scrollable">
+<h2>Run the microbenchmark with arguments</h2>
+<p>You can invoke some BDN command line arguments to control the benchmark running behavior:</p>
+<ul>
+<li><code>-f --filter</code> : filter the benchmark cases to run.</li>
+<li><code>--list tree</code> or <code>--list flat</code> : list all benchmark cases. <img data-src="./BDN_tutorial/pics/list_microbenchmark_project_tests.png"></li>
+<li><code>--help</code> : show help message. <img data-src="./BDN_tutorial/pics/get_microbenchmark_project_help.png"></li>
+</ul>
+</section>
+<section id="run-the-microbenchmark-1" class="slide level2 scrollable">
+<h2>Run the microbenchmark</h2>
+
+<img data-src="./BDN_tutorial/pics/run_fibSeq_micro-benchmark.png" class="r-stretch"></section>
+<section id="finish-microbenchmark" class="slide level2 scrollable">
+<h2>Finish microbenchmark</h2>
+
+<img data-src="./BDN_tutorial/pics/done_fibSeq_micro-benchmark.png" class="r-stretch"></section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>BenchmarkDotNET is a powerful tool for measuring the performance of your code.</li>
+<li>It is easy to write benchmarks with BDN.</li>
+</ul>
+</section>
+<section id="opensource-project-that-use-bdn" class="slide level2 smaller scrollable">
+<h2>Opensource project that use BDN:</h2>
+<p>Micro Benchmarks of PowerShell 7:<br>
+<a href="https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks" class="uri">https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks</a></p>
+<p>dotnet performance test using BDN to do micro benchmark:<br>
+<a href="https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md" class="uri">https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md</a></p>
+<p>The dotnet runtime benchmark tool Microsoft.Crank can combine using BDN to do micro benchmark:<br>
+<a href="https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md" class="uri">https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md</a></p>
+<p>C# Open-Telemetry SDK core component benchmark:<br>
+<a href="https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks" class="uri">https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks</a></p>
+<p>.NET MAUI performance test:<br>
+<a href="https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid" class="uri">https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid</a></p>
+<p>Benchmark on ASP.NET Core Orleans:<br>
+<a href="https://github.com/dotnet/orleans/tree/main/test/Benchmarks" class="uri">https://github.com/dotnet/orleans/tree/main/test/Benchmarks</a></p>
+<p>Benchmark on Dapper:<br>
+<a href="https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance" class="uri">https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance</a></p>
+<p>Math library benchmark of Silk.NET:<br>
+<a href="https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks" class="uri">https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks</a></p>
+<p>Benchmark ML.NET:<br>
+<a href="https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests" class="uri">https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests</a></p>
+<p>ComputeSharp’s various Benchmarks project:<br>
+<a href="https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark" class="uri">https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark</a></p>
+</section>
 <section id="use-bdn-on-various-c-applications" class="slide level2">
 <h2>Use BDN on various C# applications</h2>
 <p>To use BDN on various C# applications, you need to … (TBD)</p>
