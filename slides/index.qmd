@@ -27,9 +27,9 @@ format:
 
 ## Agenda
 
-* BenchmarkDotNET 入門
-* 多種 C＃ 開發應用場景(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
-* 整合 BenchmarkDotNET 到 GitHub Action CI
+1. BenchmarkDotNET 入門
+2. 多種 C＃ 開發應用場景(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
+3. 整合 BenchmarkDotNET 到 GitHub Action CI
 
 {{< include BDN_tutorial/_bdn_tutorial.qmd >}}
 
