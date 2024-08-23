@@ -226,3 +226,310 @@ When we run the benchmark, [BDN do the following steps](https://benchmarkdotnet.
    * An instance of the Summary class that contains all information about benchmark runs.
    * A set of files that contains summary in human-readable and machine-readable formats.
    * A set of plots.
+
+## Microbenchmark example project
+
+A microbenchmark example with BDN to prove characteristic of four Fibonacci Sequence generate algorithm:
+
+* Simple Loop (***O(n)***)
+* Recursion (***O(2^n)***)
+* [Golden Ration math formula](https://www.cuemath.com/numbers/fibonacci-series/) (approximation, ***O(1)***)
+* [Matrix exponentiation](https://www.nayuki.io/page/fast-fibonacci-algorithms) (***O(log(n))***)
+
+Source code: <https://github.com/windperson/DemoFibonacciBDN>
+
+## Example project structure
+
+![](./BDN_tutorial/pics/microbenchmark_project_structure.png)
+
+* <code>FibonaccCore</code> project is a class library project, contains four Fibonacci Sequence generate algorithm.
+* <code>FibSeqMicroBench</code> project is a console project that we write BDN benchmark test code here.
+
+## C# code {.smaller .scrollable}
+
+* SequenceLib.cs file in <code>FibonaccCore</code> project:
+
+```{.csharp code-line-numbers="8,36,53,64"}
+public static class SequenceLib
+{
+    /// <summary>
+    /// Calculate Fibonacci number using loop implementation
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static int FibonacciUsingLoop(int n)
+    {
+        if (n <= 1)
+        {
+            return n;
+        }
+        else
+        {
+            int a = 0;
+            int b = 1;
+            int result = 0;
+
+            for (int i = 2; i <= n; i++)
+            {
+                result = a + b;
+                a = b;
+                b = result;
+            }
+
+            return result;
+        }
+    }
+
+    /// <summary>
+    /// Calculate Fibonacci number using recursion implementation
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static int FibonacciUsingRecursion(int n)
+    {
+        if (n <= 1)
+        {
+            return n;
+        }
+        else
+        {
+            return FibonacciUsingRecursion(n - 1) * FibonacciUsingRecursion(n-2);
+        }
+    }
+
+    /// <summary>
+    /// Calculate Fibonacci number using Golden Ration approximation math formula
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static int FibonacciUsingGoldenRatio(int n)
+    {
+        double phi = (1 + Math.Sqrt(5)) / 2;
+        return (int)Math.Round(Math.Pow(phi, n) / Math.Sqrt(5));
+    }
+
+    /// <summary>
+    /// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static int FibonacciUsingMatrixExponentiation(int n)
+    {
+        if (n <= 1)
+        {
+            return n;
+        }
+
+        int[,] F = { { 1, 1 }, { 1, 0 } };
+        Power(F, n - 1);
+
+        return F[0, 0];
+    }
+
+    private static void Power(int[,] F, int n)
+    {
+        if (n <= 1)
+        {
+            return;
+        }
+
+        int[,] M = { { 1, 1 }, { 1, 0 } };
+
+        Power(F, n / 2);
+        Multiply(F, F);
+
+        if (n % 2 != 0)
+        {
+            Multiply(F, M);
+        }
+    }
+    
+    private static void Multiply(int[,] F, int[,] M)
+    {
+        int x = F[0, 0] * M[0, 0] + F[0, 1] * M[1, 0];
+        int y = F[0, 0] * M[0, 1] + F[0, 1] * M[1, 1];
+        int z = F[1, 0] * M[0, 0] + F[1, 1] * M[1, 0];
+        int w = F[1, 0] * M[0, 1] + F[1, 1] * M[1, 1];
+
+        F[0, 0] = x;
+        F[0, 1] = y;
+        F[1, 0] = z;
+        F[1, 1] = w;
+    }
+    
+}
+```
+
+## C# code {.smaller .scrollable}
+
+* FibonacciSeqBenchmarks.cs file in <code>FibonaccCore</code> project:
+
+```{.csharp code-line-numbers="6,9-10,12-16,18-22,24-28,30-34"}
+using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
+
+namespace FibSeqMicroBench;
+
+[SimpleJob(RunStrategy.Throughput)]
+public class FibonacciSeqBenchmarks
+{
+    [Params(1, 3, 5, 10, 20, 50)]
+    public int Nth { get; set; }
+    
+    [Benchmark(Baseline = true), BenchmarkCategory("simple")]
+    public int FibSeqUsingLoop()
+    {
+        return FibonacciCore.SequenceLib.FibonacciUsingLoop(Nth);
+    }
+
+    [Benchmark, BenchmarkCategory("simple", "slow")]
+    public int FibSeqUsingRecursion()
+    {
+        return FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
+    }
+
+    [Benchmark, BenchmarkCategory("math", "approximate")]
+    public int FibSeqUsingGoldenRatio()
+    {
+        return FibonacciCore.SequenceLib.FibonacciUsingGoldenRatio(Nth);
+    }
+
+    [Benchmark, BenchmarkCategory("math", "fast")]
+    public int FibSeqUsingMatrixExponentiation()
+    {
+        return FibonacciCore.SequenceLib.FibonacciUsingMatrixExponentiation(Nth);
+    }
+}
+```
+
+* Program.cs file in <code>FibSeqMicroBench</code> project:
+
+```{.csharp code-line-numbers="4"}
+static void Main(string[] args)
+{
+  var bdnConfig = DefaultConfig.Instance;
+  BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, bdnConfig);
+}
+```
+
+## Project files {.smaller .scrollable}
+
+* <code>FibSeqMicroBench.csproj</code> file:
+
+```{.xml code-line-numbers="8-12,16,20"}
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Optimize>true</Optimize>
+        <Configuration>release</Configuration>
+        <IsPackable>false</IsPackable>
+        <DebugType>pdbonly</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\FibonacciCore\FibonacciCore.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BenchmarkDotNet" Version="0.14.0" />
+    </ItemGroup>
+
+</Project>
+```
+
+## Project file {.smaller .scrollable}
+
+* <code>FibonacciCore.csproj</code> file:
+
+```{.xml code-line-numbers="9-13"}
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <Optimize>true</Optimize>
+        <DebugType>pdbonly</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+</Project>
+```
+
+## Run the microbenchmark
+
+At first you may attempt to run the benchmark with `dotnet run -c Release` command directly inside the _FibSeqMicroBench_ folder, but you will get an error message like this:
+
+![](./BDN_tutorial/pics/not_release_mode_error_on_starting_microbenchmark_project.png)
+
+This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don't specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.
+
+So you need to execuate the `dotnet run` command in the solution folder.
+
+(See readme file in the github project root folder)
+
+
+## Run the microbenchmark with arguments {.smaller .scrollable}
+
+You can invoke some BDN command line arguments to control the benchmark running behavior:
+
+* `-f --filter` : filter the benchmark cases to run.
+* `--list tree` or `--list flat` : list all benchmark cases.
+    ![](./BDN_tutorial/pics/list_microbenchmark_project_tests.png)
+* `--help` : show help message.
+    ![](./BDN_tutorial/pics/get_microbenchmark_project_help.png)
+
+## Run the microbenchmark {.scrollable}
+
+![](./BDN_tutorial/pics/run_fibSeq_micro-benchmark.png)
+
+## Finish microbenchmark {.scrollable}
+
+![](./BDN_tutorial/pics/done_fibSeq_micro-benchmark.png)
+
+## Conclusion
+
+* BenchmarkDotNET is a powerful tool for measuring the performance of your code.
+* It is easy to write benchmarks with BDN.
+
+## Opensource project that use BDN: {.smaller .scrollable}
+
+Micro Benchmarks of PowerShell 7:  
+<https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks>
+
+dotnet performance test using BDN to do micro benchmark:  
+<https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md>
+
+The dotnet runtime benchmark tool Microsoft.Crank can combine using BDN to do micro benchmark:  
+<https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md>
+
+C# Open-Telemetry SDK core component benchmark:  
+<https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks>
+
+.NET MAUI performance test:  
+<https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid>
+
+Benchmark on ASP.NET Core Orleans:  
+<https://github.com/dotnet/orleans/tree/main/test/Benchmarks>
+
+Benchmark on Dapper:  
+<https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance>
+
+Math library benchmark of Silk.NET:  
+<https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks>
+
+Benchmark ML.NET:  
+<https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests>
+
+ComputeSharp's various Benchmarks project:  
+<https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark>
+
+
