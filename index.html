@@ -496,8 +496,12 @@ Measure the performance of a whole application.</li>
 </div>
 </div>
 </div>
-<p>How many Invocations(<em>operation count</em>) is determined by a <code>PIlot</code> procedure.<br>
-BenchmarkDotNET provides above workflow for you.</p>
+<ul>
+<li>Warmup is to warm up the JIT compiler (eq. <a href="https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/">RyuJIT</a>).</li>
+<li>How many Invocations(<em>operation count</em>) is determined by a <code>PIlot</code> procedure.<br>
+</li>
+<li>BenchmarkDotNET provides above workflow for you.</li>
+</ul>
 </section>
 <section id="a-hello-world-example" class="slide level2 smaller">
 <h2>A Hello World example</h2>
@@ -897,8 +901,8 @@ BenchmarkDotNET provides above workflow for you.</p>
 <li>It is easy to write benchmarks with BDN.</li>
 </ul>
 </section>
-<section id="opensource-project-that-use-bdn" class="slide level2 smaller scrollable">
-<h2>Opensource project that use BDN:</h2>
+<section id="opensource-projects-that-use-bdn" class="slide level2 smaller scrollable">
+<h2>Opensource projects that use BDN:</h2>
 <p>Micro Benchmarks of PowerShell 7:<br>
 <a href="https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks" class="uri">https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks</a></p>
 <p>dotnet performance test using BDN to do micro benchmark:<br>
