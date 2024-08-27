@@ -70,8 +70,9 @@ flowchart LR
   D -.-> E1(["<b><code>Invocation</code></b>"])
 ```
 
-How many Invocations(_operation count_) is determined by a `PIlot` procedure.  
-BenchmarkDotNET provides above workflow for you.
+* Warmup is to warm up the JIT compiler (eq. [RyuJIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/)).
+* How many Invocations(_operation count_) is determined by a `PIlot` procedure.  
+* BenchmarkDotNET provides above workflow for you.
 
 ## A Hello World example {.smaller}
 
@@ -500,7 +501,7 @@ You can invoke some BDN command line arguments to control the benchmark running 
 * BenchmarkDotNET is a powerful tool for measuring the performance of your code.
 * It is easy to write benchmarks with BDN.
 
-## Opensource project that use BDN: {.smaller .scrollable}
+## Opensource projects that use BDN: {.smaller .scrollable}
 
 Micro Benchmarks of PowerShell 7:  
 <https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks>
