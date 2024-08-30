@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="老鮑伯">
   <title>BenchmarkDotNET 科學化 .NET 應用效能調校</title>
@@ -428,7 +428,7 @@
 </section>
 <section id="what-is-benchmarkdotnet" class="slide level2">
 <h2>What is BenchmarkDotNET?</h2>
-<p><strong>BenchmarkDotNet(<em>BDN</em>)</strong>: .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./BDN_tutorial/pics/logo-wide.png" alt="web site loge"></p>
+<p><strong>BenchmarkDotNet</strong>(<strong><em>BDN</em></strong>): .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./BDN_tutorial/pics/logo-wide.png" alt="web site loge"></p>
 <ul>
 <li>MIT License</li>
 <li>GitHub: <a href="https://github.com/dotnet/BenchmarkDotNet" class="uri">https://github.com/dotnet/BenchmarkDotNet</a></li>
@@ -442,7 +442,7 @@
 <li>Easily writing micro &amp; macro benchmarks for your code.</li>
 <li>Measure the performance of your code.</li>
 <li>Compare the performance of your code on different environments<br>
-(x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JIT).</li>
+(x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JITs).</li>
 <li>Generate markdown, CSV, JSON, HTML, reports / png plots.</li>
 </ul>
 </section>
@@ -473,23 +473,21 @@ Measure the performance of a whole application.</li>
 </section>
 <section id="a-decent-benchmark-workflow" class="slide level2">
 <h2>A decent Benchmark workflow</h2>
+<p><br><br></p>
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  A[prepare] ==&gt; B("&lt;b&gt;GlobalSetup&lt;/b&gt;")
-  B ==&gt; C("&lt;b&gt;Warmup&lt;/b&gt;")
-  C ==&gt; D[["&lt;b&gt;Iteration&lt;/b&gt;"]]
-  E1 --erroneous&lt;br/&gt;execution--x X[/Outliner/]
-  D ==&gt; F(GlobalCleanup)
-  F ==&gt; G((("collect result")))
-  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
-  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
-  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
-  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
-  D -.-&gt; E1(["&lt;b&gt;&lt;code&gt;Invocation&lt;/code&gt;&lt;/b&gt;"])
+  A[prepare] ==&gt; B("&lt;em&gt;&lt;b&gt;GlobalSetup&lt;/b&gt;&lt;/em&gt;")
+  B ==&gt; C("&lt;em&gt;&lt;b&gt;Warmup&lt;/b&gt;&lt;/em&gt;")
+  C ==&gt; D[["🔁&lt;em&gt;&lt;b&gt;Iteration&lt;/b&gt;&lt;/em&gt;"]]
+  E1 --erroneous&lt;br/&gt;execution--x X[/"&lt;em&gt;Outliner&lt;/em&gt;&lt;br/&gt;❌"/]
+  D ===&gt; F("&lt;em&gt;&lt;b&gt;GlobalCleanup&lt;/b&gt;&lt;/em&gt;")
+  F ==&gt; G((("collect result&lt;br/&gt;📈")))
+  D -.-&gt; E1(["&lt;em&gt;&lt;b&gt;Invocation&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"])
+  E1 -.-&gt; D
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -497,7 +495,7 @@ Measure the performance of a whole application.</li>
 </div>
 </div>
 <ul>
-<li>Warmup is to warm up the JIT compiler (eq. <a href="https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/">RyuJIT</a>).</li>
+<li>Warmup is for warming up the JIT compiler (eq. <a href="https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/">RyuJIT</a>) or let <a href="https://learn.microsoft.com/dotnet/framework/tools/ngen-exe-native-image-generator">Ngen.exe</a> to create native images.</li>
 <li>How many Invocations(<em>operation count</em>) is determined by a <code>PIlot</code> procedure.<br>
 </li>
 <li>BenchmarkDotNET provides above workflow for you.</li>
@@ -506,13 +504,13 @@ Measure the performance of a whole application.</li>
 <section id="a-hello-world-example" class="slide level2 smaller">
 <h2>A Hello World example</h2>
 <p>We can build a quick Hello world example using <a href="https://dotnet.microsoft.com/download">.NET SDK</a> with <a href="https://benchmarkdotnet.org/articles/guides/dotnet-new-templates.html">BenchmarkDotNET templates</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb1-1"><a href=""></a>dotnet new <span class="op">-</span>i BenchmarkDotNet<span class="op">.</span><span class="fu">Templates</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>dotnet new -i BenchmarkDotNet.Templates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <img data-src="./BDN_tutorial/pics/install_BDN_template.png" class="r-stretch">
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
 <p>Generate a new Benchmark project:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb2-1"><a href=""></a>dotnet new benchmark <span class="op">-</span>n HelloBDN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href=""></a>dotnet new benchmark -n HelloBDN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="./BDN_tutorial/pics/create_BDN_project.png" class="r-stretch"></section>
 <section id="section-2" class="slide level2">
@@ -598,7 +596,7 @@ Measure the performance of a whole application.</li>
 <section id="run-the-benchmark" class="slide level2">
 <h2>Run the benchmark</h2>
 <p>Inside project folder, run:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource powershell number-lines code-with-copy"><code class="sourceCode powershell"><span id="cb6-1"><a href=""></a>dotnet run <span class="op">-</span>c Release</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>dotnet run -c Release</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="r-stack">
 <div class="fragment">
 <p><img data-src="./BDN_tutorial/pics/running_HelloBDN_project-1.png"></p>
@@ -643,8 +641,9 @@ Measure the performance of a whole application.</li>
 <ul>
 <li>Simple Loop (<strong><em>O(n)</em></strong>)</li>
 <li>Recursion (<strong><em>O(2^n)</em></strong>)</li>
-<li><a href="https://www.cuemath.com/numbers/fibonacci-series/">Golden Ration math formula</a> (approximation, <strong><em>O(1)</em></strong>)</li>
+<li><a href="https://www.wikihow.com/Calculate-the-Fibonacci-Sequence#Using-Binet.27s-Formula-and-the-Golden-Ratio">Golden Ration math formula</a> (approximation, <strong><em>O(1)</em></strong>)</li>
 <li><a href="https://www.nayuki.io/page/fast-fibonacci-algorithms">Matrix exponentiation</a> (<strong><em>O(log(n))</em></strong>)</li>
+<li><a href="https://www.nayuki.io/page/fast-fibonacci-algorithms">Fast doubling</a> (<strong><em>O(log(n))</em></strong>)</li>
 </ul>
 <p>Source code: <a href="https://github.com/windperson/DemoFibonacciBDN" class="uri">https://github.com/windperson/DemoFibonacciBDN</a></p>
 </section>
@@ -899,6 +898,7 @@ Measure the performance of a whole application.</li>
 <ul>
 <li>BenchmarkDotNET is a powerful tool for measuring the performance of your code.</li>
 <li>It is easy to write benchmarks with BDN.</li>
+<li>You can abandon the test via throwing an exception in the benchmark method.</li>
 </ul>
 </section>
 <section id="opensource-projects-that-use-bdn" class="slide level2 smaller scrollable">
