@@ -2,7 +2,7 @@
 
 ## What is BenchmarkDotNET?
 
-**BenchmarkDotNet(_BDN_)**: .NET library for benchmarking you C#/F#/VB code. <br/>![web site loge](./BDN_tutorial/pics/logo-wide.png)
+**BenchmarkDotNet**(**_BDN_**): .NET library for benchmarking you C#/F#/VB code. <br/>![web site loge]({{< meta bdn_1_prefix >}}/pics/logo-wide.png)
 
 * MIT License
 * GitHub: <https://github.com/dotnet/BenchmarkDotNet>
@@ -14,7 +14,7 @@
 * Easily writing micro & macro benchmarks for your code. 
 * Measure the performance of your code.
 * Compare the performance of your code on different environments  
-   (x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JIT).
+   (x86 v.s. x64, .NET Framework/.NET Core/.NET 5+/Mono, different JITs).
 * Generate markdown, CSV, JSON, HTML, reports / png plots.
 
 ## Microbenchmark / Macrobenchmark / Profiling
@@ -31,21 +31,21 @@
 :::: {.columns}
 
 ::: {.column width="33%"}
-![](./BDN_tutorial/pics/microscope-2-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}/pics/microscope-2-svgrepo-com.svg)
 
 [System.Diagnostics.Stopwatch](https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
 
 :::
 
 ::: {.column width="33%"}
-![](./BDN_tutorial/pics/telescope-2-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}/pics/telescope-2-svgrepo-com.svg)
 
 BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
 
 :::
 
 ::: {.column width="33%"}
-![](./BDN_tutorial/pics/protractor-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}/pics/protractor-svgrepo-com.svg)
 
 dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
 
@@ -55,22 +55,20 @@ dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
 
 ## A decent Benchmark workflow
 
+<br/><br/>
 ```{mermaid}
 flowchart LR
-  A[prepare] ==> B("<b>GlobalSetup</b>")
-  B ==> C("<b>Warmup</b>")
-  C ==> D[["<b>Iteration</b>"]]
-  E1 --erroneous<br/>execution--x X[/Outliner/]
-  D ==> F(GlobalCleanup)
-  F ==> G((("collect result")))
-  D -.-> E1(["<b><code>Invocation</code></b>"])
-  D -.-> E1(["<b><code>Invocation</code></b>"])
-  D -.-> E1(["<b><code>Invocation</code></b>"])
-  D -.-> E1(["<b><code>Invocation</code></b>"])
-  D -.-> E1(["<b><code>Invocation</code></b>"])
+  A[prepare] ==> B("<em><b>GlobalSetup</b></em>")
+  B ==> C("<em><b>Warmup</b></em>")
+  C ==> D[["🔁<em><b>Iteration</b></em>"]]
+  E1 --erroneous<br/>execution--x X[/"<em>Outliner</em><br/>❌"/]
+  D ===> F("<em><b>GlobalCleanup</b></em>")
+  F ==> G((("collect result<br/>📈")))
+  D -.-> E1(["<em><b>Invocation</b></em><br/>(measure time🕥)"])
+  E1 -.-> D
 ```
 
-* Warmup is to warm up the JIT compiler (eq. [RyuJIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/)).
+* Warmup is for warming up the JIT compiler (eq. [RyuJIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/)) or let [Ngen.exe](https://learn.microsoft.com/dotnet/framework/tools/ngen-exe-native-image-generator) to create native images.
 * How many Invocations(_operation count_) is determined by a `PIlot` procedure.  
 * BenchmarkDotNET provides above workflow for you.
 
@@ -78,21 +76,21 @@ flowchart LR
 
 We can build a quick Hello world example using [.NET SDK](https://dotnet.microsoft.com/download) with [BenchmarkDotNET templates](https://benchmarkdotnet.org/articles/guides/dotnet-new-templates.html).
 
-```{.powershell}
+```{.shell}
 dotnet new -i BenchmarkDotNet.Templates
 ```
 
-![](./BDN_tutorial/pics/install_BDN_template.png){.r-stretch}
+![]({{< meta bdn_1_prefix >}}/pics/install_BDN_template.png){.r-stretch}
 
 ##
 
 Generate a new Benchmark project:
 
-```{.powershell}
+```{.shell}
 dotnet new benchmark -n HelloBDN
 ```
 
-![](./BDN_tutorial/pics/create_BDN_project.png)
+![]({{< meta bdn_1_prefix >}}/pics/create_BDN_project.png)
 
 ## 
 
@@ -185,17 +183,17 @@ namespace HelloBDN
 
 Inside project folder, run:
 
-```{.powershell}
+```{.shell}
 dotnet run -c Release
 ```
 
 ::: {.r-stack}
 ::: {.fragment}
-![](./BDN_tutorial/pics/running_HelloBDN_project-1.png)
+![]({{< meta bdn_1_prefix >}}/pics/running_HelloBDN_project-1.png)
 :::
 
 ::: {.fragment .fade-in}
-![](./BDN_tutorial/pics/running_HelloBDN_project-2.png)
+![]({{< meta bdn_1_prefix >}}/pics/running_HelloBDN_project-2.png)
 :::
 :::
 
@@ -204,10 +202,10 @@ dotnet run -c Release
 After running the benchmark, BDN will generate a report in the console, and also generate report file(s) in `BenchmarkDotNet.Artifacts/results` folder.
 
 
-![](./BDN_tutorial/pics/BDN_project_report_location.png)
+![]({{< meta bdn_1_prefix >}}/pics/BDN_project_report_location.png)
 
 
-![](./BDN_tutorial/pics/BDN_project_html_report.png)
+![]({{< meta bdn_1_prefix >}}/pics/BDN_project_html_report.png)
 
 So we achieved a quick benchmark demo with BenchmarkDotNET.
 
@@ -234,14 +232,16 @@ A microbenchmark example with BDN to prove characteristic of four Fibonacci Sequ
 
 * Simple Loop (***O(n)***)
 * Recursion (***O(2^n)***)
-* [Golden Ration math formula](https://www.cuemath.com/numbers/fibonacci-series/) (approximation, ***O(1)***)
+* [Golden Ration math formula](https://www.wikihow.com/Calculate-the-Fibonacci-Sequence#Using-Binet.27s-Formula-and-the-Golden-Ratio
+) (approximation, ***O(1)***)
 * [Matrix exponentiation](https://www.nayuki.io/page/fast-fibonacci-algorithms) (***O(log(n))***)
+* [Fast doubling](https://www.nayuki.io/page/fast-fibonacci-algorithms) (***O(log(n))***)
 
 Source code: <https://github.com/windperson/DemoFibonacciBDN>
 
 ## Example project structure
 
-![](./BDN_tutorial/pics/microbenchmark_project_structure.png)
+![]({{< meta bdn_1_prefix >}}/pics/microbenchmark_project_structure.png)
 
 * <code>FibonaccCore</code> project is a class library project, contains four Fibonacci Sequence generate algorithm.
 * <code>FibSeqMicroBench</code> project is a console project that we write BDN benchmark test code here.
@@ -469,7 +469,7 @@ static void Main(string[] args)
 
 At first you may attempt to run the benchmark with `dotnet run -c Release` command directly inside the _FibSeqMicroBench_ folder, but you will get an error message like this:
 
-![](./BDN_tutorial/pics/not_release_mode_error_on_starting_microbenchmark_project.png)
+![]({{< meta bdn_1_prefix >}}/pics/not_release_mode_error_on_starting_microbenchmark_project.png)
 
 This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don't specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.
 
@@ -484,22 +484,23 @@ You can invoke some BDN command line arguments to control the benchmark running 
 
 * `-f --filter` : filter the benchmark cases to run.
 * `--list tree` or `--list flat` : list all benchmark cases.
-    ![](./BDN_tutorial/pics/list_microbenchmark_project_tests.png)
+    ![]({{< meta bdn_1_prefix >}}/pics/list_microbenchmark_project_tests.png)
 * `--help` : show help message.
-    ![](./BDN_tutorial/pics/get_microbenchmark_project_help.png)
+    ![]({{< meta bdn_1_prefix >}}/pics/get_microbenchmark_project_help.png)
 
 ## Run the microbenchmark {.scrollable}
 
-![](./BDN_tutorial/pics/run_fibSeq_micro-benchmark.png)
+![]({{< meta bdn_1_prefix >}}/pics/run_fibSeq_micro-benchmark.png)
 
 ## Finish microbenchmark {.scrollable}
 
-![](./BDN_tutorial/pics/done_fibSeq_micro-benchmark.png)
+![]({{< meta bdn_1_prefix >}}/pics/done_fibSeq_micro-benchmark.png)
 
 ## Conclusion
 
 * BenchmarkDotNET is a powerful tool for measuring the performance of your code.
 * It is easy to write benchmarks with BDN.
+* You can abandon the test via throwing an exception in the benchmark method.
 
 ## Opensource projects that use BDN: {.smaller .scrollable}
 

@@ -22,6 +22,8 @@ format:
                 transform: translateY(-50%), translateX(-50%);
                 }
                 </style>
+from: markdown+emoji
+bdn_1_prefix: ./BDN_tutorial
 ---
 
 
