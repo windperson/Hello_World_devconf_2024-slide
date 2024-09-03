@@ -1,5 +1,3 @@
-## BenchmarkDotNet Intro {.center}
-
 ## What is BenchmarkDotNET?
 
 **BenchmarkDotNet**(**_BDN_**): .NET library for benchmarking you C#/F#/VB code. <br/>![web site loge]({{< meta bdn_1_prefix >}}/pics/logo-wide.png)

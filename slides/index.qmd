@@ -26,15 +26,18 @@ from: markdown+emoji
 bdn_1_prefix: ./BDN_tutorial
 ---
 
-
-## Agenda
+# Agenda
 
 1. BenchmarkDotNET 入門
-2. 多種 C＃ 開發應用場景(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
+2. 多種 C＃ 開發應用場景<br/>(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
 3. 整合 BenchmarkDotNET 到 GitHub Action CI
+
+# BenchmarkDotNET 入門
 
 {{< include BDN_tutorial/_bdn_tutorial.qmd >}}
 
-## Use BDN on various C# applications
+# Use BDN on various C# applications
 
-To use BDN on various C# applications, you need to ... (TBD)
+## Use BDN on ASP.NET Core Web API
+
+ (TBD)
