@@ -29,6 +29,8 @@
 :::: {.columns}
 
 ::: {.column width="33%"}
+
+### _Microbenchmark_ {.center}
 ![]({{< meta bdn_1_prefix >}}/pics/microscope-2-svgrepo-com.svg)
 
 [System.Diagnostics.Stopwatch](https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
@@ -36,6 +38,8 @@
 :::
 
 ::: {.column width="33%"}
+
+### _Macrobenchmark_ {.center}
 ![]({{< meta bdn_1_prefix >}}/pics/telescope-2-svgrepo-com.svg)
 
 BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
@@ -43,6 +47,8 @@ BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
 :::
 
 ::: {.column width="33%"}
+
+### _Profiling_ {.center}
 ![]({{< meta bdn_1_prefix >}}/pics/protractor-svgrepo-com.svg)
 
 dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
@@ -66,7 +72,7 @@ flowchart LR
   E1 -.-> D
 ```
 
-* Warmup is for warming up the JIT compiler (eq. [RyuJIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/)) or let [Ngen.exe](https://learn.microsoft.com/dotnet/framework/tools/ngen-exe-native-image-generator) to create native images.
+* Warmup is for warming up the JIT compiler (eq. [RyuJIT](https://devblogs.microsoft.com/dotnet/performance-improvements-in-ryujit-in-net-core-and-net-framework/)) or let [Ngen.exe](https://learn.microsoft.com/dotnet/framework/tools/ngen-exe-native-image-generator) to create native images, or [Tired Compilation](https://github.com/dotnet/runtime/blob/main/docs/design/features/tiered-compilation.md) stick to a steady state.
 * How many Invocations(_operation count_) is determined by a `PIlot` procedure.  
 * BenchmarkDotNET provides above workflow for you.
 
