@@ -28,9 +28,21 @@ bdn_1_prefix: ./BDN_tutorial
 
 # Agenda
 
-1. BenchmarkDotNET 入門
-2. 多種 C＃ 開發應用場景<br/>(ASP.NET Core Web API, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)使用 BenchmarkDotNET
+:::: {.columns}
+::: {.column width="80%"}
+
+1. BenchmarkDotNET 入門  
+2. 多種 C＃ 開發應用場景<br/>(ASP.NET Core Web API/gRPC/Orleans, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)<br/>使用 BenchmarkDotNET
 3. 整合 BenchmarkDotNET 到 GitHub Action CI
+
+:::
+
+::: {.column width="20%"}
+
+<div style="text-align: center;"><img src="./pics/slide_url.svg" srcset="./pics/slide_url.png" width="200" height="200" style="vertical-align: middle"/><br/>Slide URL</div>
+
+:::
+::::
 
 # BenchmarkDotNET 入門
 
