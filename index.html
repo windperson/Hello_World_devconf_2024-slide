@@ -914,6 +914,7 @@ Measure the performance of a whole application.</li>
 <li>It is easy to write benchmarks with BDN.</li>
 <li>You can abandon the test via throwing an exception in the benchmark method.</li>
 <li>Use environment variables to control the benchmark running behavior.</li>
+<li>Math Theory v.s. Real World Computer Architecture.</li>
 </ul>
 </section></section>
 <section>
@@ -952,7 +953,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <section id="web-deal-with-asp.net-core-dependency-injection" class="slide level2 scrollable">
 <h2>Web ( deal with ASP.NET Core Dependency Injection)</h2>
 <p><strong>[GlobalSetup]</strong> / <strong>[GlobalCleanup]</strong> / <strong>[IterationSetup]</strong> / <strong>[IterationCleanup]</strong> attributes to manually setup/cleanup the DI container.</p>
-<div class="sourceCode" id="cb12" data-code-line-numbers="4-21, 42-46, 56-60, 62-66"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href=""></a><span class="kw">private</span> ServiceProvider _serviceProvider <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
+<div class="sourceCode" id="cb12" data-code-line-numbers="4-21,42-46,56-60,62-66"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href=""></a><span class="kw">private</span> ServiceProvider _serviceProvider <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
 <span id="cb12-2"><a href=""></a><span class="kw">private</span> Echo<span class="op">.</span><span class="fu">EchoClient</span> _client <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
 <span id="cb12-3"><a href=""></a></span>
 <span id="cb12-4"><a href=""></a><span class="op">[</span>GlobalSetup<span class="op">]</span></span>
@@ -999,6 +1000,14 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <span id="cb12-45"><a href=""></a><span class="op">{</span></span>
 <span id="cb12-46"><a href=""></a>    _serviceProvider<span class="op">.</span><span class="fu">Dispose</span><span class="op">();</span></span>
 <span id="cb12-47"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="benchmarking-result" class="slide level2 scrollable">
+<h2>Benchmarking result</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./CSharp_BDN_examples/pics/microservice_benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
 </section>
 <section id="desktop-native" class="slide level2">
 <h2>Desktop Native</h2>
