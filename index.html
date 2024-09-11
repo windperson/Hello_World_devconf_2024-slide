@@ -923,9 +923,88 @@ Measure the performance of a whole application.</li>
 </section>
 <section id="web" class="slide level2">
 <h2>Web</h2>
+<p>For microservice architecture,<br>
+We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.<br>
+(A kind of Macro benchmark project)<br>
+<a href="https://github.com/windperson/DemoAspNetCoreMacroBenchmark" class="uri">https://github.com/windperson/DemoAspNetCoreMacroBenchmark</a></p>
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; W[["Web API endpoint"]]
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; g[["gRPC Service"]]
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; O[["MS Orleans Silo"]]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li>When design test data &amp; benchmark method signature, Be caution of <a href="https://github.com/dotnet/roslyn/issues/39676">C# Compiler limitation</a>:</li>
+</ul>
+<blockquote>
+<p>CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.</p>
+</blockquote>
+</section>
+<section id="web-deal-with-asp.net-core-dependency-injection" class="slide level2 scrollable">
+<h2>Web ( deal with ASP.NET Core Dependency Injection)</h2>
+<p><strong>[GlobalSetup]</strong> / <strong>[GlobalCleanup]</strong> / <strong>[IterationSetup]</strong> / <strong>[IterationCleanup]</strong> attributes to manually setup/cleanup the DI container.</p>
+<div class="sourceCode" id="cb12" data-code-line-numbers="4-21, 42-46, 56-60, 62-66"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href=""></a><span class="kw">private</span> ServiceProvider _serviceProvider <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
+<span id="cb12-2"><a href=""></a><span class="kw">private</span> Echo<span class="op">.</span><span class="fu">EchoClient</span> _client <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="op">[</span>GlobalSetup<span class="op">]</span></span>
+<span id="cb12-5"><a href=""></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">PrepareClient</span><span class="op">()</span></span>
+<span id="cb12-6"><a href=""></a><span class="op">{</span></span>
+<span id="cb12-7"><a href=""></a>    <span class="dt">var</span> serviceCollection <span class="op">=</span> <span class="kw">new</span> <span class="fu">ServiceCollection</span><span class="op">();</span></span>
+<span id="cb12-8"><a href=""></a>    serviceCollection<span class="op">.</span><span class="fu">AddGrpcClient</span><span class="op">&lt;</span>Echo<span class="op">.</span><span class="fu">EchoClient</span><span class="op">&gt;(</span></span>
+<span id="cb12-9"><a href=""></a>        options <span class="op">=&gt;</span></span>
+<span id="cb12-10"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb12-11"><a href=""></a>            options<span class="op">.</span><span class="fu">Address</span> <span class="op">=</span> <span class="kw">new</span> <span class="fu">Uri</span><span class="op">(</span><span class="st">"https://localhost:7228"</span><span class="op">);</span></span>
+<span id="cb12-12"><a href=""></a>            options<span class="op">.</span><span class="fu">ChannelOptionsActions</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span>channelOptions <span class="op">=&gt;</span></span>
+<span id="cb12-13"><a href=""></a>            <span class="op">{</span></span>
+<span id="cb12-14"><a href=""></a>                <span class="co">// you need to raise the message size limit to send large messages</span></span>
+<span id="cb12-15"><a href=""></a>                <span class="co">// see https://github.com/grpc/grpc-dotnet/issues/2277#issuecomment-1728559455</span></span>
+<span id="cb12-16"><a href=""></a>                channelOptions<span class="op">.</span><span class="fu">MaxSendMessageSize</span> <span class="op">=</span> <span class="dt">int</span><span class="op">.</span><span class="fu">MaxValue</span><span class="op">;</span></span>
+<span id="cb12-17"><a href=""></a>                channelOptions<span class="op">.</span><span class="fu">MaxReceiveMessageSize</span> <span class="op">=</span> <span class="dt">int</span><span class="op">.</span><span class="fu">MaxValue</span><span class="op">;</span></span>
+<span id="cb12-18"><a href=""></a>            <span class="op">});</span></span>
+<span id="cb12-19"><a href=""></a>        <span class="op">});</span></span>
+<span id="cb12-20"><a href=""></a>    _serviceProvider <span class="op">=</span> serviceCollection<span class="op">.</span><span class="fu">BuildServiceProvider</span><span class="op">();</span></span>
+<span id="cb12-21"><a href=""></a><span class="op">}</span></span>
+<span id="cb12-22"><a href=""></a></span>
+<span id="cb12-23"><a href=""></a><span class="op">[</span>IterationSetup<span class="op">]</span></span>
+<span id="cb12-24"><a href=""></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">InitGrpcClient</span><span class="op">()</span></span>
+<span id="cb12-25"><a href=""></a><span class="op">{</span></span>
+<span id="cb12-26"><a href=""></a>    _client <span class="op">=</span> _serviceProvider<span class="op">.</span><span class="fu">GetRequiredService</span><span class="op">&lt;</span>Echo<span class="op">.</span><span class="fu">EchoClient</span><span class="op">&gt;();</span></span>
+<span id="cb12-27"><a href=""></a><span class="op">}</span></span>
+<span id="cb12-28"><a href=""></a></span>
+<span id="cb12-29"><a href=""></a><span class="op">[</span>Benchmark<span class="op">]</span></span>
+<span id="cb12-30"><a href=""></a><span class="op">[</span><span class="fu">ArgumentsSource</span><span class="op">(</span><span class="fu">nameof</span><span class="op">(</span>GetTestData<span class="op">))]</span></span>
+<span id="cb12-31"><a href=""></a><span class="kw">public</span> async Task<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="fu">gRPC_Invoke</span><span class="op">(</span>RequestMsg request<span class="op">)</span></span>
+<span id="cb12-32"><a href=""></a><span class="op">{</span></span>
+<span id="cb12-33"><a href=""></a>    <span class="dt">var</span> reply <span class="op">=</span> await _client<span class="op">.</span><span class="fu">EchoAsync</span><span class="op">(</span><span class="kw">new</span> EchoRequest <span class="op">{</span> Message <span class="op">=</span> request<span class="op">.</span><span class="fu">Message</span> <span class="op">});</span></span>
+<span id="cb12-34"><a href=""></a>    <span class="kw">return</span> reply<span class="op">.</span><span class="fu">Message</span><span class="op">;</span></span>
+<span id="cb12-35"><a href=""></a><span class="op">}</span></span>
+<span id="cb12-36"><a href=""></a></span>
+<span id="cb12-37"><a href=""></a><span class="op">[</span>IterationCleanup<span class="op">]</span></span>
+<span id="cb12-38"><a href=""></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">CleanupClient</span><span class="op">()</span></span>
+<span id="cb12-39"><a href=""></a><span class="op">{</span></span>
+<span id="cb12-40"><a href=""></a>    _client <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
+<span id="cb12-41"><a href=""></a><span class="op">}</span></span>
+<span id="cb12-42"><a href=""></a></span>
+<span id="cb12-43"><a href=""></a><span class="op">[</span>GlobalCleanup<span class="op">]</span></span>
+<span id="cb12-44"><a href=""></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">CleanupServiceProvider</span><span class="op">()</span></span>
+<span id="cb12-45"><a href=""></a><span class="op">{</span></span>
+<span id="cb12-46"><a href=""></a>    _serviceProvider<span class="op">.</span><span class="fu">Dispose</span><span class="op">();</span></span>
+<span id="cb12-47"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="desktop-native" class="slide level2">
 <h2>Desktop Native</h2>
+<p>BDN can support .NET Core/.NET5+ WPF / WinForm applications.<br>
+(Besure to set the <a href="https://benchmarkdotnet.org/articles/samples/IntroStaThread.html#sample-introstathread"><strong>[STAThread]</strong> attribute</a> on benchmark method)<br>
+<a href="https://github.com/windperson/DemoWpfAppBDN" class="uri">https://github.com/windperson/DemoWpfAppBDN</a></p>
 </section>
 <section id="blazor-wasm" class="slide level2 smaller scrollable">
 <h2>Blazor / WASM</h2>
@@ -940,8 +1019,8 @@ Measure the performance of a whole application.</li>
 <li>Install <a href="https://linux.how2shout.com/3-ways-to-install-nodejs-npm-on-ubuntu-22-04-lts-jammy">Node.js v18</a></li>
 <li><a href="https://github.com/dotnet/aspnetcore/issues/54938#issuecomment-2040544249">Git clone aspnetcore repo</a></li>
 <li>On Windows you need to install Visual Studio with proper C++ workload via ./eng/scripts/InstallVisualStudio.ps1</li>
-<li>Run ..cmd on Windows or ./restore.sh on Linux/macOS at the root of git repository.</li>
-<li>Go to ./src/Components folder, run ..cmd on Windows or ./build.sh on Linux/macOS (Note: if there’s some build fail about NPM/Webpack, just ignore it)</li>
+<li>Run <code>restore.cmd</code> on Windows or <code>restore.sh</code> on Linux/macOS at the root of git repository.</li>
+<li>Go to ./src/Components folder, run <code>build.cmd</code> on Windows or <code>build.sh</code> on Linux/macOS (Note: if there’s some build fail about NPM/Webpack, just ignore it)</li>
 <li>Go to ./src/Components/Components/pref, run <code>dotnet run -c Release -- -f '*'</code> to run benchmarks.</li>
 </ol></li>
 </ul>
@@ -983,8 +1062,8 @@ Measure the performance of a whole application.</li>
 </ul>
 </section></section>
 <section>
-<section id="github-action-ci-integration-other-tools-and-resources" class="title-slide slide level1 center">
-<h1>GitHub Action CI Integration, Other Tools and Resources</h1>
+<section id="github-action-ci-integration-other-tools" class="title-slide slide level1 center">
+<h1>GitHub Action CI Integration &amp; Other Tools</h1>
 
 </section>
 <section id="github-action-ci-integration" class="slide level2">
