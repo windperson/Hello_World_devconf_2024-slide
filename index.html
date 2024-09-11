@@ -916,11 +916,68 @@ Measure the performance of a whole application.</li>
 <li>Use environment variables to control the benchmark running behavior.</li>
 </ul>
 </section></section>
+<section>
 <section id="use-bdn-on-various-c-applications" class="title-slide slide level1 center">
 <h1>Use BDN on various C# applications</h1>
 
 </section>
+<section id="web" class="slide level2">
+<h2>Web</h2>
+</section>
+<section id="desktop-native" class="slide level2">
+<h2>Desktop Native</h2>
+</section>
+<section id="blazor-wasm" class="slide level2 smaller scrollable">
+<h2>Blazor / WASM</h2>
+<ul>
+<li>WASM benchmarks needs to run on Linux machine, and build dotnet runtime from source code:<br>
+<a href="https://benchmarkdotnet.org/articles/configs/toolchains.html#wasm" class="uri">https://benchmarkdotnet.org/articles/configs/toolchains.html#wasm</a></li>
+<li>3rd party example Blazor component benchmark project:<br>
+<a href="https://github.com/egil/Benchmark.Blazor" class="uri">https://github.com/egil/Benchmark.Blazor</a></li>
+<li>ASP.NET Core Blazor Component rendertree benchmark:<br>
+<a href="https://github.com/dotnet/aspnetcore/tree/main/src/Components/Components/perf" class="uri">https://github.com/dotnet/aspnetcore/tree/main/src/Components/Components/perf</a>
+<ol type="1">
+<li>Install <a href="https://linux.how2shout.com/3-ways-to-install-nodejs-npm-on-ubuntu-22-04-lts-jammy">Node.js v18</a></li>
+<li><a href="https://github.com/dotnet/aspnetcore/issues/54938#issuecomment-2040544249">Git clone aspnetcore repo</a></li>
+<li>On Windows you need to install Visual Studio with proper C++ workload via ./eng/scripts/InstallVisualStudio.ps1</li>
+<li>Run ..cmd on Windows or ./restore.sh on Linux/macOS at the root of git repository.</li>
+<li>Go to ./src/Components folder, run ..cmd on Windows or ./build.sh on Linux/macOS (Note: if there’s some build fail about NPM/Webpack, just ignore it)</li>
+<li>Go to ./src/Components/Components/pref, run <code>dotnet run -c Release -- -f '*'</code> to run benchmarks.</li>
+</ol></li>
+</ul>
+</section>
+<section id="section-5" class="slide level2 scrollable">
+<h2></h2>
+<img data-src="./CSharp_BDN_examples/pics/Blazor_rendertree_benchmark.png" class="r-stretch">
+</section>
+<section id="ai-ml-onnx-runtime" class="slide level2">
+<h2>AI / ML (ONNX Runtime)</h2>
+<ul>
+<li>Demo project of ONNX Runtime with BenchmarkDotNet<br>
+<a href="https://github.com/windperson/DemoOnnxRuntimeBDN" class="uri">https://github.com/windperson/DemoOnnxRuntimeBDN</a></li>
+<li>You can use <a href="https://github.com/microsoft/perfview">perfview</a> to analyze the native part characteristcs of ONNX Runtime</li>
+</ul>
 
+<img data-src="./CSharp_BDN_examples/pics/ONNX_runtime_screen_shot.png" class="r-stretch"></section>
+<section id="mobile" class="slide level2">
+<h2>Mobile</h2>
+<p>Benchmark on Xamarin Forms / .NET MAUI Android &amp; iOS:</p>
+<p><a href="https://github.com/dotnet/BenchmarkDotNet/issues/2242" class="uri">https://github.com/dotnet/BenchmarkDotNet/issues/2242</a></p>
+<p><a href="https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid" class="uri">https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid</a></p>
+</section>
+<section id="game-engine" class="slide level2">
+<h2>Game Engine</h2>
+<ul>
+<li><p>Unity3D game engine =&gt; Can’t due to its underlying compiler:<br>
+<a href="https://github.com/dotnet/BenchmarkDotNet/issues/759" class="uri">https://github.com/dotnet/BenchmarkDotNet/issues/759</a></p></li>
+<li><p>Godot game engine nuget package for running BDN on its C# script:<br>
+<a href="https://github.com/ZerxZ/BenchmarkDotNet.Godot" class="uri">https://github.com/ZerxZ/BenchmarkDotNet.Godot</a></p></li>
+<li><p>Benchmark Dispatcher.Sort() v.s. Array.Sort() of Stride 3D Game Engine:<br>
+<a href="https://github.com/stride3d/stride/issues/1792#issue-1901631515" class="uri">https://github.com/stride3d/stride/issues/1792#issue-1901631515</a></p></li>
+<li><p>Benchmark native memcpy v.s. Buffer.MemoryCopy:<br>
+<a href="https://github.com/stride3d/stride/pull/536#issue-511071979" class="uri">https://github.com/stride3d/stride/pull/536#issue-511071979</a></p></li>
+</ul>
+</section></section>
 <section>
 <section id="github-action-ci-integration-other-tools-and-resources" class="title-slide slide level1 center">
 <h1>GitHub Action CI Integration, Other Tools and Resources</h1>
@@ -967,8 +1024,8 @@ Measure the performance of a whole application.</li>
 <a href="https://github.com/topics/benchmarkdotnet" class="uri">https://github.com/topics/benchmarkdotnet</a></li>
 </ul>
 </section>
-<section id="thanks-for-your-attention" class="slide level2 center-xy">
-<h2>Thanks for your attention!</h2>
+<section id="thanks-q-a" class="slide level2 center-xy">
+<h2>Thanks / Q &amp; A</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
