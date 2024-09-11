@@ -1,0 +1,27 @@
+## GitHub Action CI integration
+
+* GitHub Action plugin to include Micro Benchmark on CI/CD:  
+  <https://github.com/benchmark-action/github-action-benchmark>
+  default using BDN on .NET C#:  
+  <https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md>
+
+* Or just using command line in GitHub Action .yml file:  
+  <https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed>
+
+* Microsoft Crank benchmark tool:  
+  <https://github.com/dotnet/crank>
+
+## BenchmarkDotNet additional tools
+
+* Using Benchmark.NET ETWProfiler with PerfView:  
+  <https://adamsitnik.com/ETW-Profiler/>  
+  <https://adamsitnik.com/Sample-Perf-Investigation/>
+
+* Using Visual Studio profiler to see BDN test case benchmark diagnostic data:  
+  <https://learn.microsoft.com/en-us/visualstudio/profiling/profiling-with-benchmark-dotnet>
+
+* Using JetBrain dotTrace to diagnose BDN test case:  
+  <https://blog.jetbrains.com/dotnet/2023/07/11/dottrace-comes-to-benchmarkdotnet/>
+
+* Use R lang to draw performance compare graph:  
+  <https://makolyte.com/comparing-performance-with-benchmarkdotnet-graphs/>

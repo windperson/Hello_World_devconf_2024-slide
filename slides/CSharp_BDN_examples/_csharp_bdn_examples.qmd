@@ -17,9 +17,9 @@
 	5. Go to ./src/Components folder, run .\build.cmd on Windows or ./build.sh on Linux/macOS (Note: if there's some build fail about NPM/Webpack, just ignore it)
 	6. Go to ./src/Components/Components/pref, run `dotnet run -c Release -- -f '*'` to run benchmarks. 
 
-## {.scrollable}
+## Benchmarking screen shot {.scrollable}
 
-![]({{< meta bdn_2_prefix >}}/pics/Blazor_rendertree_benchmark.png){.r-stretch}
+![]({{< meta bdn_2_prefix >}}/pics/Blazor_rendertree_benchmark.png){.nostretch fig-align="center" width="100%"}
 
 ## AI / ML (ONNX Runtime)
 
