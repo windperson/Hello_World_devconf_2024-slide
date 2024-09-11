@@ -506,3 +506,4 @@ You can invoke some BDN command line arguments to control the benchmark running 
 * It is easy to write benchmarks with BDN.
 * You can abandon the test via throwing an exception in the benchmark method.
 * Use environment variables to control the benchmark running behavior.
+* Math Theory v.s. Real World Computer Architecture.

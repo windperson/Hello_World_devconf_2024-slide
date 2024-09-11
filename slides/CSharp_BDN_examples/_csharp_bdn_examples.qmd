@@ -20,7 +20,7 @@ flowchart LR
 
 **[GlobalSetup]** / **[GlobalCleanup]** / **[IterationSetup]** / **[IterationCleanup]** attributes to manually setup/cleanup the DI container.
 
-```{.csharp code-line-numbers="4-21, 42-46, 56-60, 62-66"}
+```{.csharp code-line-numbers="4-21,42-46,56-60,62-66"}
 private ServiceProvider _serviceProvider = null!;
 private Echo.EchoClient _client = null!;
 
@@ -69,6 +69,10 @@ public void CleanupServiceProvider()
     _serviceProvider.Dispose();
 }
 ```
+
+## Benchmarking result {.scrollable}
+
+![]({{< meta bdn_2_prefix >}}/pics/microservice_benchmark_result.png){.nostretch fig-align="center" width="100%"}
 
 ## Desktop Native
 
