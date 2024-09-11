@@ -423,7 +423,7 @@
 <li>BenchmarkDotNET 入門<br>
 </li>
 <li>多種 C＃ 開發應用場景<br>(ASP.NET Core Web API/gRPC/Orleans, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)<br>使用 BenchmarkDotNET</li>
-<li>整合 BenchmarkDotNET 到 GitHub Action CI</li>
+<li>GitHub Action CI 整合、相關工具與資源分享</li>
 </ol>
 </div><div class="column" style="width:20%;">
 <div style="text-align: center;">
@@ -913,15 +913,29 @@ Measure the performance of a whole application.</li>
 <li>BenchmarkDotNET is a powerful tool for measuring the performance of your code.</li>
 <li>It is easy to write benchmarks with BDN.</li>
 <li>You can abandon the test via throwing an exception in the benchmark method.</li>
+<li>Use environment variables to control the benchmark running behavior.</li>
 </ul>
+</section></section>
+<section id="use-bdn-on-various-c-applications" class="title-slide slide level1 center">
+<h1>Use BDN on various C# applications</h1>
+
+</section>
+
+<section>
+<section id="github-action-ci-integration-other-tools-and-resources" class="title-slide slide level1 center">
+<h1>GitHub Action CI Integration, Other Tools and Resources</h1>
+
 </section>
 <section id="opensource-projects-that-use-bdn" class="slide level2 smaller scrollable">
 <h2>Opensource projects that use BDN:</h2>
+<p>“dotnet performance” use BDN to do micro benchmark:<br>
+<a href="https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md" class="uri">https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md</a></p>
+<p>gRpc ASP.NET core microbenchmark:<br>
+<a href="https://github.com/grpc/grpc-dotnet/tree/master/perf/Grpc.AspNetCore.Microbenchmarks" class="uri">https://github.com/grpc/grpc-dotnet/tree/master/perf/Grpc.AspNetCore.Microbenchmarks</a></p>
+<p>ASP.NET Core routing component micro benchmarks: <a href="https://github.com/dotnet/aspnetcore/tree/main/src/Http/Routing/perf/Microbenchmarks" class="uri">https://github.com/dotnet/aspnetcore/tree/main/src/Http/Routing/perf/Microbenchmarks</a></p>
 <p>Micro Benchmarks of PowerShell 7:<br>
 <a href="https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks" class="uri">https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks</a></p>
-<p>dotnet performance test using BDN to do micro benchmark:<br>
-<a href="https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md" class="uri">https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md</a></p>
-<p>The dotnet runtime benchmark tool Microsoft.Crank can combine using BDN to do micro benchmark:<br>
+<p>The dotnet runtime benchmark tool Microsoft.Crank can combine use of BDN to do micro benchmark:<br>
 <a href="https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md" class="uri">https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md</a></p>
 <p>C# Open-Telemetry SDK core component benchmark:<br>
 <a href="https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks" class="uri">https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks</a></p>
@@ -937,15 +951,24 @@ Measure the performance of a whole application.</li>
 <a href="https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests" class="uri">https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests</a></p>
 <p>ComputeSharp’s various Benchmarks project:<br>
 <a href="https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark" class="uri">https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark</a></p>
-</section></section>
-<section>
-<section id="use-bdn-on-various-c-applications" class="title-slide slide level1 center">
-<h1>Use BDN on various C# applications</h1>
-
 </section>
-<section id="use-bdn-on-asp.net-core-web-api" class="slide level2">
-<h2>Use BDN on ASP.NET Core Web API</h2>
-<p>(TBD)</p>
+<section id="learning-resources" class="slide level2 scrollable">
+<h2>Learning resources</h2>
+<ul>
+<li>BenchmarkDotNet official documentation:<br>
+<a href="https://benchmarkdotnet.org/articles/overview.html" class="uri">https://benchmarkdotnet.org/articles/overview.html</a></li>
+<li>Book: <strong>Pro .NET Benchmarking</strong> by Andrey Akinshin:<br>
+<a href="https://aakinshin.net/prodotnetbenchmarking/" class="uri">https://aakinshin.net/prodotnetbenchmarking/</a> <a href="https://www.tenlong.com.tw/products/9781484249406" class="uri">https://www.tenlong.com.tw/products/9781484249406</a></li>
+<li>Udemy course: <strong>Benchmarking .NET Core Applications</strong>:<br>
+<a href="https://www.udemy.com/course/benchmarking-dotnet-core-applications/" class="uri">https://www.udemy.com/course/benchmarking-dotnet-core-applications/</a></li>
+<li>Benchmarking ASP.NET Application with .NET Crank:<br>
+<a href="https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8" class="uri">https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8</a></li>
+<li>See source codes of BenchmarkDotNet usage:<br>
+<a href="https://github.com/topics/benchmarkdotnet" class="uri">https://github.com/topics/benchmarkdotnet</a></li>
+</ul>
+</section>
+<section id="thanks-for-your-attention" class="slide level2 center-xy">
+<h2>Thanks for your attention!</h2>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
