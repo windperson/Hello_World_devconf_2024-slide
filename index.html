@@ -674,163 +674,248 @@ Measure the performance of a whole application.</li>
 <ul>
 <li>SequenceLib.cs file in <code>FibonaccCore</code> project:</li>
 </ul>
-<div class="sourceCode" id="cb7" data-code-line-numbers="8,36,53,64"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href=""></a><span class="kw">public</span> <span class="kw">static</span> <span class="kw">class</span> SequenceLib</span>
+<div class="sourceCode" id="cb7" data-code-line-numbers="8,34,52,72,121"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb7-1"><a href=""></a><span class="kw">public</span> <span class="kw">static</span> <span class="kw">class</span> SequenceLib</span>
 <span id="cb7-2"><a href=""></a><span class="op">{</span></span>
 <span id="cb7-3"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
 <span id="cb7-4"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using loop implementation</span></span>
 <span id="cb7-5"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
 <span id="cb7-6"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
 <span id="cb7-7"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
-<span id="cb7-8"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingLoop</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-8"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> BigInteger <span class="fu">FibonacciUsingLoop</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
 <span id="cb7-9"><a href=""></a>    <span class="op">{</span></span>
 <span id="cb7-10"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb7-11"><a href=""></a>        <span class="op">{</span></span>
 <span id="cb7-12"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
 <span id="cb7-13"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-14"><a href=""></a>        <span class="kw">else</span></span>
-<span id="cb7-15"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-16"><a href=""></a>            <span class="dt">int</span> a <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-17"><a href=""></a>            <span class="dt">int</span> b <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb7-18"><a href=""></a>            <span class="dt">int</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-19"><a href=""></a></span>
-<span id="cb7-20"><a href=""></a>            <span class="kw">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb7-21"><a href=""></a>            <span class="op">{</span></span>
-<span id="cb7-22"><a href=""></a>                result <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
-<span id="cb7-23"><a href=""></a>                a <span class="op">=</span> b<span class="op">;</span></span>
-<span id="cb7-24"><a href=""></a>                b <span class="op">=</span> result<span class="op">;</span></span>
-<span id="cb7-25"><a href=""></a>            <span class="op">}</span></span>
-<span id="cb7-26"><a href=""></a></span>
-<span id="cb7-27"><a href=""></a>            <span class="kw">return</span> result<span class="op">;</span></span>
-<span id="cb7-28"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-29"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb7-30"><a href=""></a></span>
-<span id="cb7-31"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
-<span id="cb7-32"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using recursion implementation</span></span>
-<span id="cb7-33"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
-<span id="cb7-34"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
-<span id="cb7-35"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
-<span id="cb7-36"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
-<span id="cb7-37"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb7-38"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb7-39"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-40"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
-<span id="cb7-41"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-42"><a href=""></a>        <span class="kw">else</span></span>
-<span id="cb7-43"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-44"><a href=""></a>            <span class="kw">return</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="op">*</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n<span class="dv">-2</span><span class="op">);</span></span>
-<span id="cb7-45"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-46"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb7-47"><a href=""></a></span>
-<span id="cb7-48"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
-<span id="cb7-49"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Golden Ration approximation math formula</span></span>
-<span id="cb7-50"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
-<span id="cb7-51"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
-<span id="cb7-52"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
-<span id="cb7-53"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
-<span id="cb7-54"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb7-55"><a href=""></a>        <span class="dt">double</span> phi <span class="op">=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">+</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">))</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb7-56"><a href=""></a>        <span class="kw">return</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>Math<span class="op">.</span><span class="fu">Round</span><span class="op">(</span>Math<span class="op">.</span><span class="fu">Pow</span><span class="op">(</span>phi<span class="op">,</span> n<span class="op">)</span> <span class="op">/</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">));</span></span>
-<span id="cb7-57"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-14"><a href=""></a></span>
+<span id="cb7-15"><a href=""></a>        <span class="dt">var</span> a <span class="op">=</span> <span class="kw">new</span> <span class="fu">BigInteger</span><span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-16"><a href=""></a>        <span class="dt">var</span> b <span class="op">=</span> <span class="kw">new</span> <span class="fu">BigInteger</span><span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb7-17"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> <span class="kw">new</span> <span class="fu">BigInteger</span><span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-18"><a href=""></a></span>
+<span id="cb7-19"><a href=""></a>        <span class="kw">for</span> <span class="op">(</span><span class="dt">var</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> n<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb7-20"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-21"><a href=""></a>            result <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb7-22"><a href=""></a>            a <span class="op">=</span> b<span class="op">;</span></span>
+<span id="cb7-23"><a href=""></a>            b <span class="op">=</span> result<span class="op">;</span></span>
+<span id="cb7-24"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-25"><a href=""></a></span>
+<span id="cb7-26"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb7-27"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-28"><a href=""></a></span>
+<span id="cb7-29"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-30"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using recursion implementation</span></span>
+<span id="cb7-31"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-32"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-33"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-34"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> BigInteger <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-35"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-36"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-37"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-38"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-39"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-40"><a href=""></a>        <span class="kw">else</span></span>
+<span id="cb7-41"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-42"><a href=""></a>            <span class="kw">return</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n <span class="op">-</span> <span class="dv">1</span><span class="op">)</span> <span class="op">+</span> <span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>n <span class="op">-</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-43"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-44"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-45"><a href=""></a></span>
+<span id="cb7-46"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-47"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Golden Ration approximation math formula</span></span>
+<span id="cb7-48"><a href=""></a>    <span class="co">/// https://www.wikihow.com/Calculate-the-Fibonacci-Sequence#Using-Binet.27s-Formula-and-the-Golden-Ratio</span></span>
+<span id="cb7-49"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-50"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-51"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-52"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> BigInteger <span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-53"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-54"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-55"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-56"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-57"><a href=""></a>        <span class="op">}</span></span>
 <span id="cb7-58"><a href=""></a></span>
-<span id="cb7-59"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
-<span id="cb7-60"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )</span></span>
-<span id="cb7-61"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
-<span id="cb7-62"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
-<span id="cb7-63"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
-<span id="cb7-64"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">int</span> <span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
-<span id="cb7-65"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb7-66"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb7-67"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-68"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
-<span id="cb7-69"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-70"><a href=""></a></span>
-<span id="cb7-71"><a href=""></a>        <span class="dt">int</span><span class="op">[,]</span> F <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
-<span id="cb7-72"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb7-73"><a href=""></a></span>
-<span id="cb7-74"><a href=""></a>        <span class="kw">return</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
-<span id="cb7-75"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb7-76"><a href=""></a></span>
-<span id="cb7-77"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Power</span><span class="op">(</span><span class="dt">int</span><span class="op">[,]</span> F<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
-<span id="cb7-78"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb7-79"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb7-80"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-81"><a href=""></a>            <span class="kw">return</span><span class="op">;</span></span>
-<span id="cb7-82"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-83"><a href=""></a></span>
-<span id="cb7-84"><a href=""></a>        <span class="dt">int</span><span class="op">[,]</span> M <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
-<span id="cb7-85"><a href=""></a></span>
-<span id="cb7-86"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">/</span> <span class="dv">2</span><span class="op">);</span></span>
-<span id="cb7-87"><a href=""></a>        <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> F<span class="op">);</span></span>
-<span id="cb7-88"><a href=""></a></span>
-<span id="cb7-89"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">%</span> <span class="dv">2</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb7-90"><a href=""></a>        <span class="op">{</span></span>
-<span id="cb7-91"><a href=""></a>            <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> M<span class="op">);</span></span>
-<span id="cb7-92"><a href=""></a>        <span class="op">}</span></span>
-<span id="cb7-93"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb7-94"><a href=""></a>    </span>
-<span id="cb7-95"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Multiply</span><span class="op">(</span><span class="dt">int</span><span class="op">[,]</span> F<span class="op">,</span> <span class="dt">int</span><span class="op">[,]</span> M<span class="op">)</span></span>
-<span id="cb7-96"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb7-97"><a href=""></a>        <span class="dt">int</span> x <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
-<span id="cb7-98"><a href=""></a>        <span class="dt">int</span> y <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
-<span id="cb7-99"><a href=""></a>        <span class="dt">int</span> z <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
-<span id="cb7-100"><a href=""></a>        <span class="dt">int</span> w <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
-<span id="cb7-101"><a href=""></a></span>
-<span id="cb7-102"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
-<span id="cb7-103"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> y<span class="op">;</span></span>
-<span id="cb7-104"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> z<span class="op">;</span></span>
-<span id="cb7-105"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> w<span class="op">;</span></span>
-<span id="cb7-106"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb7-107"><a href=""></a>    </span>
-<span id="cb7-108"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-59"><a href=""></a>        <span class="co">// will be inaccurate after 70th Fibonacci number</span></span>
+<span id="cb7-60"><a href=""></a>        <span class="co">// https://stackoverflow.com/questions/41938313/n-th-fibonacci-with-binets-formula-not-accurate-after-70#41938441</span></span>
+<span id="cb7-61"><a href=""></a>        <span class="dt">var</span> phi <span class="op">=</span> <span class="op">(</span><span class="dv">1</span> <span class="op">+</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">))</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-62"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> <span class="op">(</span>Math<span class="op">.</span><span class="fu">Pow</span><span class="op">(</span>phi<span class="op">,</span> n<span class="op">)</span> <span class="op">-</span> Math<span class="op">.</span><span class="fu">Pow</span><span class="op">(</span><span class="dv">1</span> <span class="op">-</span> phi<span class="op">,</span> n<span class="op">))</span> <span class="op">/</span> Math<span class="op">.</span><span class="fu">Sqrt</span><span class="op">(</span><span class="dv">5</span><span class="op">);</span></span>
+<span id="cb7-63"><a href=""></a>        <span class="kw">return</span> <span class="kw">new</span> <span class="fu">BigInteger</span><span class="op">(</span>Math<span class="op">.</span><span class="fu">Round</span><span class="op">(</span>result<span class="op">));</span></span>
+<span id="cb7-64"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-65"><a href=""></a></span>
+<span id="cb7-66"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-67"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Matrix Exponentiation</span></span>
+<span id="cb7-68"><a href=""></a>    <span class="co">/// https://www.nayuki.io/page/fast-fibonacci-algorithms</span></span>
+<span id="cb7-69"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-70"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-71"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-72"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> BigInteger <span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-73"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-74"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-75"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-76"><a href=""></a>            <span class="kw">return</span> n<span class="op">;</span></span>
+<span id="cb7-77"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-78"><a href=""></a></span>
+<span id="cb7-79"><a href=""></a>        BigInteger<span class="op">[,]</span> F <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
+<span id="cb7-80"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb7-81"><a href=""></a></span>
+<span id="cb7-82"><a href=""></a>        <span class="kw">return</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-83"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-84"><a href=""></a></span>
+<span id="cb7-85"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Power</span><span class="op">(</span>BigInteger<span class="op">[,]</span> F<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-86"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-87"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb7-88"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-89"><a href=""></a>            <span class="kw">return</span><span class="op">;</span></span>
+<span id="cb7-90"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-91"><a href=""></a></span>
+<span id="cb7-92"><a href=""></a>        BigInteger<span class="op">[,]</span> M <span class="op">=</span> <span class="op">{</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span> <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span> <span class="op">}</span> <span class="op">};</span></span>
+<span id="cb7-93"><a href=""></a></span>
+<span id="cb7-94"><a href=""></a>        <span class="fu">Power</span><span class="op">(</span>F<span class="op">,</span> n <span class="op">/</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-95"><a href=""></a>        <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> F<span class="op">);</span></span>
+<span id="cb7-96"><a href=""></a></span>
+<span id="cb7-97"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>n <span class="op">%</span> <span class="dv">2</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb7-98"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-99"><a href=""></a>            <span class="fu">Multiply</span><span class="op">(</span>F<span class="op">,</span> M<span class="op">);</span></span>
+<span id="cb7-100"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-101"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-102"><a href=""></a></span>
+<span id="cb7-103"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">Multiply</span><span class="op">(</span>BigInteger<span class="op">[,]</span> F<span class="op">,</span> BigInteger<span class="op">[,]</span> M<span class="op">)</span></span>
+<span id="cb7-104"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-105"><a href=""></a>        <span class="dt">var</span> x <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-106"><a href=""></a>        <span class="dt">var</span> y <span class="op">=</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb7-107"><a href=""></a>        <span class="dt">var</span> z <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-108"><a href=""></a>        <span class="dt">var</span> w <span class="op">=</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+</span> F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">*</span> M<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb7-109"><a href=""></a></span>
+<span id="cb7-110"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb7-111"><a href=""></a>        F<span class="op">[</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> y<span class="op">;</span></span>
+<span id="cb7-112"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">]</span> <span class="op">=</span> z<span class="op">;</span></span>
+<span id="cb7-113"><a href=""></a>        F<span class="op">[</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> w<span class="op">;</span></span>
+<span id="cb7-114"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-115"><a href=""></a></span>
+<span id="cb7-116"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;summary&gt;</span></span>
+<span id="cb7-117"><a href=""></a>    <span class="co">/// Calculate Fibonacci number using Fast Doubling ( https://www.nayuki.io/page/fast-fibonacci-algorithms )</span></span>
+<span id="cb7-118"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;/summary&gt;</span></span>
+<span id="cb7-119"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;param</span><span class="ot"> name=</span><span class="dt">"n"</span><span class="kw">&gt;&lt;/param&gt;</span></span>
+<span id="cb7-120"><a href=""></a>    <span class="co">/// </span><span class="kw">&lt;returns&gt;&lt;/returns&gt;</span></span>
+<span id="cb7-121"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> BigInteger <span class="fu">FibonacciUsingFastDoubling</span><span class="op">(</span><span class="dt">int</span> n<span class="op">)</span></span>
+<span id="cb7-122"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb7-123"><a href=""></a>        <span class="dt">var</span> a <span class="op">=</span> BigInteger<span class="op">.</span><span class="fu">Zero</span><span class="op">;</span></span>
+<span id="cb7-124"><a href=""></a>        <span class="dt">var</span> b <span class="op">=</span> BigInteger<span class="op">.</span><span class="fu">One</span><span class="op">;</span></span>
+<span id="cb7-125"><a href=""></a>        <span class="kw">for</span> <span class="op">(</span><span class="dt">var</span> i <span class="op">=</span> <span class="dv">31</span><span class="op">;</span> i <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--)</span></span>
+<span id="cb7-126"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb7-127"><a href=""></a>            <span class="dt">var</span> d <span class="op">=</span> a <span class="op">*</span> <span class="op">(</span>b <span class="op">*</span> <span class="dv">2</span> <span class="op">-</span> a<span class="op">);</span></span>
+<span id="cb7-128"><a href=""></a>            <span class="dt">var</span> e <span class="op">=</span> a <span class="op">*</span> a <span class="op">+</span> b <span class="op">*</span> b<span class="op">;</span></span>
+<span id="cb7-129"><a href=""></a>            a <span class="op">=</span> d<span class="op">;</span></span>
+<span id="cb7-130"><a href=""></a>            b <span class="op">=</span> e<span class="op">;</span></span>
+<span id="cb7-131"><a href=""></a>            <span class="kw">if</span> <span class="op">((((</span><span class="dt">uint</span><span class="op">)</span>n <span class="op">&gt;&gt;</span> i<span class="op">)</span> <span class="op">&amp;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb7-132"><a href=""></a>            <span class="op">{</span></span>
+<span id="cb7-133"><a href=""></a>                <span class="dt">var</span> c <span class="op">=</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb7-134"><a href=""></a>                a <span class="op">=</span> b<span class="op">;</span></span>
+<span id="cb7-135"><a href=""></a>                b <span class="op">=</span> c<span class="op">;</span></span>
+<span id="cb7-136"><a href=""></a>            <span class="op">}</span></span>
+<span id="cb7-137"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb7-138"><a href=""></a></span>
+<span id="cb7-139"><a href=""></a>        <span class="kw">return</span> a<span class="op">;</span></span>
+<span id="cb7-140"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb7-141"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="c-code-1" class="slide level2 smaller scrollable">
 <h2>C# code</h2>
 <ul>
 <li>FibonacciSeqBenchmarks.cs file in <code>FibonaccCore</code> project:</li>
 </ul>
-<div class="sourceCode" id="cb8" data-code-line-numbers="6,9-10,12-16,18-22,24-28,30-34"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Attributes</span><span class="op">;</span></span>
-<span id="cb8-2"><a href=""></a><span class="kw">using</span> BenchmarkDotNet<span class="op">.</span><span class="fu">Engines</span><span class="op">;</span></span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="kw">namespace</span> FibSeqMicroBench<span class="op">;</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb8-1"><a href=""></a><span class="op">[</span><span class="fu">RankColumn</span><span class="op">(</span>NumeralSystem<span class="op">.</span><span class="fu">Roman</span><span class="op">)]</span></span>
+<span id="cb8-2"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> FibonacciSeqBenchmarks</span>
+<span id="cb8-3"><a href=""></a><span class="op">{</span></span>
+<span id="cb8-4"><a href=""></a>    <span class="op">[</span><span class="fu">ParamsSource</span><span class="op">(</span><span class="fu">nameof</span><span class="op">(</span>NthValues<span class="op">))]</span> <span class="kw">public</span> <span class="dt">int</span> Nth <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
 <span id="cb8-5"><a href=""></a></span>
-<span id="cb8-6"><a href=""></a><span class="op">[</span><span class="fu">SimpleJob</span><span class="op">(</span>RunStrategy<span class="op">.</span><span class="fu">Throughput</span><span class="op">)]</span></span>
-<span id="cb8-7"><a href=""></a><span class="kw">public</span> <span class="kw">class</span> FibonacciSeqBenchmarks</span>
-<span id="cb8-8"><a href=""></a><span class="op">{</span></span>
-<span id="cb8-9"><a href=""></a>    <span class="op">[</span><span class="fu">Params</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">50</span><span class="op">)]</span></span>
-<span id="cb8-10"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> Nth <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb8-11"><a href=""></a>    </span>
-<span id="cb8-12"><a href=""></a>    <span class="op">[</span><span class="fu">Benchmark</span><span class="op">(</span>Baseline <span class="op">=</span> <span class="kw">true</span><span class="op">),</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">)]</span></span>
-<span id="cb8-13"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingLoop</span><span class="op">()</span></span>
-<span id="cb8-14"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb8-15"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingLoop</span><span class="op">(</span>Nth<span class="op">);</span></span>
-<span id="cb8-16"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb8-17"><a href=""></a></span>
-<span id="cb8-18"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">,</span> <span class="st">"slow"</span><span class="op">)]</span></span>
-<span id="cb8-19"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingRecursion</span><span class="op">()</span></span>
-<span id="cb8-20"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb8-21"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>Nth<span class="op">);</span></span>
-<span id="cb8-22"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb8-23"><a href=""></a></span>
-<span id="cb8-24"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"approximate"</span><span class="op">)]</span></span>
-<span id="cb8-25"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingGoldenRatio</span><span class="op">()</span></span>
-<span id="cb8-26"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb8-27"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span>Nth<span class="op">);</span></span>
-<span id="cb8-28"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb8-29"><a href=""></a></span>
-<span id="cb8-30"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"fast"</span><span class="op">)]</span></span>
-<span id="cb8-31"><a href=""></a>    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">FibSeqUsingMatrixExponentiation</span><span class="op">()</span></span>
-<span id="cb8-32"><a href=""></a>    <span class="op">{</span></span>
-<span id="cb8-33"><a href=""></a>        <span class="kw">return</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span>Nth<span class="op">);</span></span>
-<span id="cb8-34"><a href=""></a>    <span class="op">}</span></span>
-<span id="cb8-35"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href=""></a>    <span class="kw">public</span> <span class="kw">static</span> IEnumerable<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> NthValues <span class="op">=&gt;</span> ActualFibonacci<span class="op">.</span><span class="fu">Keys</span><span class="op">;</span></span>
+<span id="cb8-7"><a href=""></a></span>
+<span id="cb8-8"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">int</span> RecursionUpperLimit <span class="op">=&gt;</span></span>
+<span id="cb8-9"><a href=""></a>        <span class="dt">int</span><span class="op">.</span><span class="fu">TryParse</span><span class="op">(</span>Environment<span class="op">.</span><span class="fu">GetEnvironmentVariable</span><span class="op">(</span>Const<span class="op">.</span><span class="fu">RecursionUpperLimit</span><span class="op">),</span> <span class="kw">out</span> <span class="dt">var</span> limit<span class="op">)</span></span>
+<span id="cb8-10"><a href=""></a>            <span class="op">?</span> limit</span>
+<span id="cb8-11"><a href=""></a>            <span class="op">:</span> Const<span class="op">.</span><span class="fu">RecursionUpperLimitValue</span><span class="op">;</span></span>
+<span id="cb8-12"><a href=""></a></span>
+<span id="cb8-13"><a href=""></a>    <span class="op">[</span><span class="fu">Benchmark</span><span class="op">(</span>Baseline <span class="op">=</span> <span class="kw">true</span><span class="op">),</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">,</span> <span class="st">"canonical"</span><span class="op">)]</span></span>
+<span id="cb8-14"><a href=""></a>    <span class="kw">public</span> BigInteger <span class="fu">FibSeqUsingLoop</span><span class="op">()</span></span>
+<span id="cb8-15"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-16"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingLoop</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-17"><a href=""></a>        <span class="fu">ValidateCorrectness</span><span class="op">(</span>Nth<span class="op">,</span> result<span class="op">);</span></span>
+<span id="cb8-18"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb8-19"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-20"><a href=""></a></span>
+<span id="cb8-21"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"simple"</span><span class="op">,</span> <span class="st">"slow"</span><span class="op">)]</span></span>
+<span id="cb8-22"><a href=""></a>    <span class="kw">public</span> BigInteger <span class="fu">FibSeqUsingRecursion</span><span class="op">()</span></span>
+<span id="cb8-23"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-24"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>Nth <span class="op">&gt;</span> RecursionUpperLimit<span class="op">)</span></span>
+<span id="cb8-25"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb8-26"><a href=""></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">NotSupportedException</span><span class="op">(</span>$<span class="st">"Recursion will run too long for {Nth}th over {RecursionUpperLimit}th"</span><span class="op">);</span></span>
+<span id="cb8-27"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb8-28"><a href=""></a></span>
+<span id="cb8-29"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingRecursion</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-30"><a href=""></a>        <span class="fu">ValidateCorrectness</span><span class="op">(</span>Nth<span class="op">,</span> result<span class="op">);</span></span>
+<span id="cb8-31"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb8-32"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-33"><a href=""></a></span>
+<span id="cb8-34"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"approximate"</span><span class="op">)]</span></span>
+<span id="cb8-35"><a href=""></a>    <span class="kw">public</span> BigInteger <span class="fu">FibSeqUsingGoldenRatio</span><span class="op">()</span></span>
+<span id="cb8-36"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-37"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingGoldenRatio</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-38"><a href=""></a>        <span class="fu">ValidateCorrectness</span><span class="op">(</span>Nth<span class="op">,</span> result<span class="op">);</span></span>
+<span id="cb8-39"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb8-40"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-41"><a href=""></a></span>
+<span id="cb8-42"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"fast"</span><span class="op">)]</span></span>
+<span id="cb8-43"><a href=""></a>    <span class="kw">public</span> BigInteger <span class="fu">FibSeqUsingMatrixExponentiation</span><span class="op">()</span></span>
+<span id="cb8-44"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-45"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingMatrixExponentiation</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-46"><a href=""></a>        <span class="fu">ValidateCorrectness</span><span class="op">(</span>Nth<span class="op">,</span> result<span class="op">);</span></span>
+<span id="cb8-47"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb8-48"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-49"><a href=""></a></span>
+<span id="cb8-50"><a href=""></a>    <span class="op">[</span>Benchmark<span class="op">,</span> <span class="fu">BenchmarkCategory</span><span class="op">(</span><span class="st">"math"</span><span class="op">,</span> <span class="st">"faster"</span><span class="op">)]</span></span>
+<span id="cb8-51"><a href=""></a>    <span class="kw">public</span> BigInteger <span class="fu">FibSeqUsingFastDoubling</span><span class="op">()</span></span>
+<span id="cb8-52"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-53"><a href=""></a>        <span class="dt">var</span> result <span class="op">=</span> FibonacciCore<span class="op">.</span><span class="fu">SequenceLib</span><span class="op">.</span><span class="fu">FibonacciUsingFastDoubling</span><span class="op">(</span>Nth<span class="op">);</span></span>
+<span id="cb8-54"><a href=""></a>        <span class="fu">ValidateCorrectness</span><span class="op">(</span>Nth<span class="op">,</span> result<span class="op">);</span></span>
+<span id="cb8-55"><a href=""></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb8-56"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-57"><a href=""></a></span>
+<span id="cb8-58"><a href=""></a>    <span class="dv">#region Check Fibonacci correctness</span></span>
+<span id="cb8-59"><a href=""></a></span>
+<span id="cb8-60"><a href=""></a>    <span class="co">// see https://r-knott.surrey.ac.uk/Fibonacci/fibtable.html for precomputed Fibonacci series</span></span>
+<span id="cb8-61"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> IReadOnlyDictionary<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> BigInteger<span class="op">&gt;</span> ActualFibonacci <span class="op">=&gt;</span> <span class="kw">new</span> Dictionary<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> BigInteger<span class="op">&gt;()</span></span>
+<span id="cb8-62"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-63"><a href=""></a>        <span class="op">{</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span> <span class="op">},</span></span>
+<span id="cb8-64"><a href=""></a>        <span class="co">/* too long so omit it ... */</span></span>
+<span id="cb8-65"><a href=""></a>        <span class="op">{</span> <span class="dv">300</span><span class="op">,</span> BigInteger<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span><span class="st">"222232244629420445529739893461909967206666939096499764990979600"</span><span class="op">)</span> <span class="op">}</span></span>
+<span id="cb8-66"><a href=""></a>    <span class="op">};</span></span>
+<span id="cb8-67"><a href=""></a></span>
+<span id="cb8-68"><a href=""></a>    <span class="op">[</span><span class="fu">MethodImpl</span><span class="op">(</span>MethodImplOptions<span class="op">.</span><span class="fu">NoInlining</span><span class="op">)]</span></span>
+<span id="cb8-69"><a href=""></a>    <span class="kw">private</span> <span class="kw">static</span> <span class="dt">void</span> <span class="fu">ValidateCorrectness</span><span class="op">(</span><span class="dt">int</span> Nth<span class="op">,</span> BigInteger result<span class="op">)</span></span>
+<span id="cb8-70"><a href=""></a>    <span class="op">{</span></span>
+<span id="cb8-71"><a href=""></a>        <span class="kw">if</span> <span class="op">(</span>ActualFibonacci<span class="op">[</span>Nth<span class="op">]</span> <span class="op">!=</span> result<span class="op">)</span></span>
+<span id="cb8-72"><a href=""></a>        <span class="op">{</span></span>
+<span id="cb8-73"><a href=""></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArithmeticException</span><span class="op">(</span></span>
+<span id="cb8-74"><a href=""></a>                $<span class="st">"Fibonacci calculation failed, actual {Nth}th is '{ActualFibonacci[Nth]}', but calculated is '{result}'"</span><span class="op">);</span></span>
+<span id="cb8-75"><a href=""></a>        <span class="op">}</span></span>
+<span id="cb8-76"><a href=""></a>    <span class="op">}</span></span>
+<span id="cb8-77"><a href=""></a></span>
+<span id="cb8-78"><a href=""></a>    <span class="dv">#endregion</span></span>
+<span id="cb8-79"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Program.cs file in <code>FibSeqMicroBench</code> project:</li>
 </ul>
 <div class="sourceCode" id="cb9" data-code-line-numbers="4"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb9-1"><a href=""></a><span class="kw">static</span> <span class="dt">void</span> <span class="fu">Main</span><span class="op">(</span><span class="dt">string</span><span class="op">[]</span> args<span class="op">)</span></span>
 <span id="cb9-2"><a href=""></a><span class="op">{</span></span>
-<span id="cb9-3"><a href=""></a>  <span class="dt">var</span> bdnConfig <span class="op">=</span> DefaultConfig<span class="op">.</span><span class="fu">Instance</span><span class="op">;</span></span>
-<span id="cb9-4"><a href=""></a>  BenchmarkSwitcher<span class="op">.</span><span class="fu">FromAssembly</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>Program<span class="op">).</span><span class="fu">Assembly</span><span class="op">).</span><span class="fu">Run</span><span class="op">(</span>args<span class="op">,</span> bdnConfig<span class="op">);</span></span>
-<span id="cb9-5"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a href=""></a>    <span class="dt">var</span> bdnConfig <span class="op">=</span></span>
+<span id="cb9-4"><a href=""></a>        DefaultConfig<span class="op">.</span><span class="fu">Instance</span><span class="op">.</span><span class="fu">AddJob</span><span class="op">(</span></span>
+<span id="cb9-5"><a href=""></a>            Job<span class="op">.</span><span class="fu">ShortRun</span><span class="op">.</span><span class="fu">WithStrategy</span><span class="op">(</span>RunStrategy<span class="op">.</span><span class="fu">Throughput</span><span class="op">)</span></span>
+<span id="cb9-6"><a href=""></a>                <span class="op">.</span><span class="fu">WithIterationCount</span><span class="op">(</span><span class="dv">5</span><span class="op">)</span></span>
+<span id="cb9-7"><a href=""></a>                <span class="op">.</span><span class="fu">WithEnvironmentVariable</span><span class="op">(</span><span class="kw">new</span> <span class="fu">EnvironmentVariable</span><span class="op">(</span>Const<span class="op">.</span><span class="fu">RecursionUpperLimit</span><span class="op">,</span></span>
+<span id="cb9-8"><a href=""></a>                    $<span class="st">"{Const.RecursionUpperLimitValue}"</span><span class="op">))</span></span>
+<span id="cb9-9"><a href=""></a>                <span class="op">.</span><span class="fu">WithPowerPlan</span><span class="op">(</span>PowerPlan<span class="op">.</span><span class="fu">UserPowerPlan</span><span class="op">)</span></span>
+<span id="cb9-10"><a href=""></a>                <span class="op">.</span><span class="fu">AsDefault</span><span class="op">());</span></span>
+<span id="cb9-11"><a href=""></a></span>
+<span id="cb9-12"><a href=""></a>    BenchmarkSwitcher<span class="op">.</span><span class="fu">FromAssembly</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>Program<span class="op">).</span><span class="fu">Assembly</span><span class="op">).</span><span class="fu">Run</span><span class="op">(</span>args<span class="op">,</span> bdnConfig<span class="op">);</span></span>
+<span id="cb9-13"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="project-files" class="slide level2 smaller scrollable">
 <h2>Project files</h2>
@@ -951,7 +1036,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 </blockquote>
 </section>
 <section id="web-deal-with-asp.net-core-dependency-injection" class="slide level2 scrollable">
-<h2>Web ( deal with ASP.NET Core Dependency Injection)</h2>
+<h2>Web <br>( deal with ASP.NET Core Dependency Injection)</h2>
 <p><strong>[GlobalSetup]</strong> / <strong>[GlobalCleanup]</strong> / <strong>[IterationSetup]</strong> / <strong>[IterationCleanup]</strong> attributes to manually setup/cleanup the DI container.</p>
 <div class="sourceCode" id="cb12" data-code-line-numbers="4-21,42-46,56-60,62-66"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href=""></a><span class="kw">private</span> ServiceProvider _serviceProvider <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
 <span id="cb12-2"><a href=""></a><span class="kw">private</span> Echo<span class="op">.</span><span class="fu">EchoClient</span> _client <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
