@@ -946,9 +946,13 @@ Measure the performance of a whole application.</li>
 </ol></li>
 </ul>
 </section>
-<section id="section-5" class="slide level2 scrollable">
-<h2></h2>
-<img data-src="./CSharp_BDN_examples/pics/Blazor_rendertree_benchmark.png" class="r-stretch">
+<section id="benchmarking-screen-shot" class="slide level2 scrollable">
+<h2>Benchmarking screen shot</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./CSharp_BDN_examples/pics/Blazor_rendertree_benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
 </section>
 <section id="ai-ml-onnx-runtime" class="slide level2">
 <h2>AI / ML (ONNX Runtime)</h2>
@@ -982,6 +986,32 @@ Measure the performance of a whole application.</li>
 <section id="github-action-ci-integration-other-tools-and-resources" class="title-slide slide level1 center">
 <h1>GitHub Action CI Integration, Other Tools and Resources</h1>
 
+</section>
+<section id="github-action-ci-integration" class="slide level2">
+<h2>GitHub Action CI integration</h2>
+<ul>
+<li><p>GitHub Action plugin to include Micro Benchmark on CI/CD:<br>
+<a href="https://github.com/benchmark-action/github-action-benchmark" class="uri">https://github.com/benchmark-action/github-action-benchmark</a> default using BDN on .NET C#:<br>
+<a href="https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md" class="uri">https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md</a></p></li>
+<li><p>Or just using command line in GitHub Action .yml file:<br>
+<a href="https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed" class="uri">https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed</a></p></li>
+<li><p>Microsoft Crank benchmark tool:<br>
+<a href="https://github.com/dotnet/crank" class="uri">https://github.com/dotnet/crank</a></p></li>
+</ul>
+</section>
+<section id="benchmarkdotnet-additional-tools" class="slide level2">
+<h2>BenchmarkDotNet additional tools</h2>
+<ul>
+<li><p>Using Benchmark.NET ETWProfiler with PerfView:<br>
+<a href="https://adamsitnik.com/ETW-Profiler/" class="uri">https://adamsitnik.com/ETW-Profiler/</a><br>
+<a href="https://adamsitnik.com/Sample-Perf-Investigation/" class="uri">https://adamsitnik.com/Sample-Perf-Investigation/</a></p></li>
+<li><p>Using Visual Studio profiler to see BDN test case benchmark diagnostic data:<br>
+<a href="https://learn.microsoft.com/en-us/visualstudio/profiling/profiling-with-benchmark-dotnet" class="uri">https://learn.microsoft.com/en-us/visualstudio/profiling/profiling-with-benchmark-dotnet</a></p></li>
+<li><p>Using JetBrain dotTrace to diagnose BDN test case:<br>
+<a href="https://blog.jetbrains.com/dotnet/2023/07/11/dottrace-comes-to-benchmarkdotnet/" class="uri">https://blog.jetbrains.com/dotnet/2023/07/11/dottrace-comes-to-benchmarkdotnet/</a></p></li>
+<li><p>Use R lang to draw performance compare graph:<br>
+<a href="https://makolyte.com/comparing-performance-with-benchmarkdotnet-graphs/" class="uri">https://makolyte.com/comparing-performance-with-benchmarkdotnet-graphs/</a></p></li>
+</ul>
 </section>
 <section id="opensource-projects-that-use-bdn" class="slide level2 smaller scrollable">
 <h2>Opensource projects that use BDN:</h2>
