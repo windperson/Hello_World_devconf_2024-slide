@@ -254,7 +254,7 @@ Source code: <https://github.com/windperson/DemoFibonacciBDN>
 
 * SequenceLib.cs file in <code>FibonaccCore</code> project:
 
-```{.csharp code-line-numbers="8,36,53,64"}
+```{.csharp code-line-numbers="8,34,52,72,121"}
 public static class SequenceLib
 {
     /// <summary>
@@ -262,27 +262,25 @@ public static class SequenceLib
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
-    public static int FibonacciUsingLoop(int n)
+    public static BigInteger FibonacciUsingLoop(int n)
     {
         if (n <= 1)
         {
             return n;
         }
-        else
+
+        var a = new BigInteger(0);
+        var b = new BigInteger(1);
+        var result = new BigInteger(0);
+
+        for (var i = 2; i <= n; i++)
         {
-            int a = 0;
-            int b = 1;
-            int result = 0;
-
-            for (int i = 2; i <= n; i++)
-            {
-                result = a + b;
-                a = b;
-                b = result;
-            }
-
-            return result;
+            result = a + b;
+            a = b;
+            b = result;
         }
+
+        return result;
     }
 
     /// <summary>
@@ -290,7 +288,7 @@ public static class SequenceLib
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
-    public static int FibonacciUsingRecursion(int n)
+    public static BigInteger FibonacciUsingRecursion(int n)
     {
         if (n <= 1)
         {
@@ -298,47 +296,57 @@ public static class SequenceLib
         }
         else
         {
-            return FibonacciUsingRecursion(n - 1) * FibonacciUsingRecursion(n-2);
+            return FibonacciUsingRecursion(n - 1) + FibonacciUsingRecursion(n - 2);
         }
     }
 
     /// <summary>
     /// Calculate Fibonacci number using Golden Ration approximation math formula
+    /// https://www.wikihow.com/Calculate-the-Fibonacci-Sequence#Using-Binet.27s-Formula-and-the-Golden-Ratio
     /// </summary>
     /// <param name="n"></param>
     /// <returns></returns>
-    public static int FibonacciUsingGoldenRatio(int n)
-    {
-        double phi = (1 + Math.Sqrt(5)) / 2;
-        return (int)Math.Round(Math.Pow(phi, n) / Math.Sqrt(5));
-    }
-
-    /// <summary>
-    /// Calculate Fibonacci number using Matrix Exponentiation ( https://www.nayuki.io/page/fast-fibonacci-algorithms )
-    /// </summary>
-    /// <param name="n"></param>
-    /// <returns></returns>
-    public static int FibonacciUsingMatrixExponentiation(int n)
+    public static BigInteger FibonacciUsingGoldenRatio(int n)
     {
         if (n <= 1)
         {
             return n;
         }
 
-        int[,] F = { { 1, 1 }, { 1, 0 } };
+        // will be inaccurate after 70th Fibonacci number
+        // https://stackoverflow.com/questions/41938313/n-th-fibonacci-with-binets-formula-not-accurate-after-70#41938441
+        var phi = (1 + Math.Sqrt(5)) / 2;
+        var result = (Math.Pow(phi, n) - Math.Pow(1 - phi, n)) / Math.Sqrt(5);
+        return new BigInteger(Math.Round(result));
+    }
+
+    /// <summary>
+    /// Calculate Fibonacci number using Matrix Exponentiation
+    /// https://www.nayuki.io/page/fast-fibonacci-algorithms
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static BigInteger FibonacciUsingMatrixExponentiation(int n)
+    {
+        if (n <= 1)
+        {
+            return n;
+        }
+
+        BigInteger[,] F = { { 1, 1 }, { 1, 0 } };
         Power(F, n - 1);
 
         return F[0, 0];
     }
 
-    private static void Power(int[,] F, int n)
+    private static void Power(BigInteger[,] F, int n)
     {
         if (n <= 1)
         {
             return;
         }
 
-        int[,] M = { { 1, 1 }, { 1, 0 } };
+        BigInteger[,] M = { { 1, 1 }, { 1, 0 } };
 
         Power(F, n / 2);
         Multiply(F, F);
@@ -348,20 +356,45 @@ public static class SequenceLib
             Multiply(F, M);
         }
     }
-    
-    private static void Multiply(int[,] F, int[,] M)
+
+    private static void Multiply(BigInteger[,] F, BigInteger[,] M)
     {
-        int x = F[0, 0] * M[0, 0] + F[0, 1] * M[1, 0];
-        int y = F[0, 0] * M[0, 1] + F[0, 1] * M[1, 1];
-        int z = F[1, 0] * M[0, 0] + F[1, 1] * M[1, 0];
-        int w = F[1, 0] * M[0, 1] + F[1, 1] * M[1, 1];
+        var x = F[0, 0] * M[0, 0] + F[0, 1] * M[1, 0];
+        var y = F[0, 0] * M[0, 1] + F[0, 1] * M[1, 1];
+        var z = F[1, 0] * M[0, 0] + F[1, 1] * M[1, 0];
+        var w = F[1, 0] * M[0, 1] + F[1, 1] * M[1, 1];
 
         F[0, 0] = x;
         F[0, 1] = y;
         F[1, 0] = z;
         F[1, 1] = w;
     }
-    
+
+    /// <summary>
+    /// Calculate Fibonacci number using Fast Doubling ( https://www.nayuki.io/page/fast-fibonacci-algorithms )
+    /// </summary>
+    /// <param name="n"></param>
+    /// <returns></returns>
+    public static BigInteger FibonacciUsingFastDoubling(int n)
+    {
+        var a = BigInteger.Zero;
+        var b = BigInteger.One;
+        for (var i = 31; i >= 0; i--)
+        {
+            var d = a * (b * 2 - a);
+            var e = a * a + b * b;
+            a = d;
+            b = e;
+            if ((((uint)n >> i) & 1) != 0)
+            {
+                var c = a + b;
+                a = b;
+                b = c;
+            }
+        }
+
+        return a;
+    }
 }
 ```
 
@@ -369,41 +402,85 @@ public static class SequenceLib
 
 * FibonacciSeqBenchmarks.cs file in <code>FibonaccCore</code> project:
 
-```{.csharp code-line-numbers="6,9-10,12-16,18-22,24-28,30-34"}
-using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Engines;
-
-namespace FibSeqMicroBench;
-
-[SimpleJob(RunStrategy.Throughput)]
+```{.csharp}
+[RankColumn(NumeralSystem.Roman)]
 public class FibonacciSeqBenchmarks
 {
-    [Params(1, 3, 5, 10, 20, 50)]
-    public int Nth { get; set; }
-    
-    [Benchmark(Baseline = true), BenchmarkCategory("simple")]
-    public int FibSeqUsingLoop()
+    [ParamsSource(nameof(NthValues))] public int Nth { get; set; }
+
+    public static IEnumerable<int> NthValues => ActualFibonacci.Keys;
+
+    private static int RecursionUpperLimit =>
+        int.TryParse(Environment.GetEnvironmentVariable(Const.RecursionUpperLimit), out var limit)
+            ? limit
+            : Const.RecursionUpperLimitValue;
+
+    [Benchmark(Baseline = true), BenchmarkCategory("simple", "canonical")]
+    public BigInteger FibSeqUsingLoop()
     {
-        return FibonacciCore.SequenceLib.FibonacciUsingLoop(Nth);
+        var result = FibonacciCore.SequenceLib.FibonacciUsingLoop(Nth);
+        ValidateCorrectness(Nth, result);
+        return result;
     }
 
     [Benchmark, BenchmarkCategory("simple", "slow")]
-    public int FibSeqUsingRecursion()
+    public BigInteger FibSeqUsingRecursion()
     {
-        return FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
+        if (Nth > RecursionUpperLimit)
+        {
+            throw new NotSupportedException($"Recursion will run too long for {Nth}th over {RecursionUpperLimit}th");
+        }
+
+        var result = FibonacciCore.SequenceLib.FibonacciUsingRecursion(Nth);
+        ValidateCorrectness(Nth, result);
+        return result;
     }
 
     [Benchmark, BenchmarkCategory("math", "approximate")]
-    public int FibSeqUsingGoldenRatio()
+    public BigInteger FibSeqUsingGoldenRatio()
     {
-        return FibonacciCore.SequenceLib.FibonacciUsingGoldenRatio(Nth);
+        var result = FibonacciCore.SequenceLib.FibonacciUsingGoldenRatio(Nth);
+        ValidateCorrectness(Nth, result);
+        return result;
     }
 
     [Benchmark, BenchmarkCategory("math", "fast")]
-    public int FibSeqUsingMatrixExponentiation()
+    public BigInteger FibSeqUsingMatrixExponentiation()
     {
-        return FibonacciCore.SequenceLib.FibonacciUsingMatrixExponentiation(Nth);
+        var result = FibonacciCore.SequenceLib.FibonacciUsingMatrixExponentiation(Nth);
+        ValidateCorrectness(Nth, result);
+        return result;
     }
+
+    [Benchmark, BenchmarkCategory("math", "faster")]
+    public BigInteger FibSeqUsingFastDoubling()
+    {
+        var result = FibonacciCore.SequenceLib.FibonacciUsingFastDoubling(Nth);
+        ValidateCorrectness(Nth, result);
+        return result;
+    }
+
+    #region Check Fibonacci correctness
+
+    // see https://r-knott.surrey.ac.uk/Fibonacci/fibtable.html for precomputed Fibonacci series
+    private static IReadOnlyDictionary<int, BigInteger> ActualFibonacci => new Dictionary<int, BigInteger>()
+    {
+        { 1, 1 },
+        /* too long so omit it ... */
+        { 300, BigInteger.Parse("222232244629420445529739893461909967206666939096499764990979600") }
+    };
+
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static void ValidateCorrectness(int Nth, BigInteger result)
+    {
+        if (ActualFibonacci[Nth] != result)
+        {
+            throw new ArithmeticException(
+                $"Fibonacci calculation failed, actual {Nth}th is '{ActualFibonacci[Nth]}', but calculated is '{result}'");
+        }
+    }
+
+    #endregion
 }
 ```
 
@@ -412,8 +489,16 @@ public class FibonacciSeqBenchmarks
 ```{.csharp code-line-numbers="4"}
 static void Main(string[] args)
 {
-  var bdnConfig = DefaultConfig.Instance;
-  BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, bdnConfig);
+    var bdnConfig =
+        DefaultConfig.Instance.AddJob(
+            Job.ShortRun.WithStrategy(RunStrategy.Throughput)
+                .WithIterationCount(5)
+                .WithEnvironmentVariable(new EnvironmentVariable(Const.RecursionUpperLimit,
+                    $"{Const.RecursionUpperLimitValue}"))
+                .WithPowerPlan(PowerPlan.UserPowerPlan)
+                .AsDefault());
+
+    BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, bdnConfig);
 }
 ```
 

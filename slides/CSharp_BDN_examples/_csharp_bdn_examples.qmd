@@ -16,7 +16,7 @@ flowchart LR
 
 > CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.  
 
-## Web ( deal with ASP.NET Core Dependency Injection) {.scrollable}
+## Web <br/>( deal with ASP.NET Core Dependency Injection) {.scrollable}
 
 **[GlobalSetup]** / **[GlobalCleanup]** / **[IterationSetup]** / **[IterationCleanup]** attributes to manually setup/cleanup the DI container.
 
