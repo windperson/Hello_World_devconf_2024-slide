@@ -54,7 +54,7 @@ bdn_3_prefix: ./GitHub_Action_CI
 
 {{< include CSharp_BDN_examples/_csharp_bdn_examples.qmd >}}
 
-# GitHub Action CI Integration, Other Tools and Resources
+# GitHub Action CI Integration & Other Tools 
 
 {{< include GitHub_Action_CI/_github_action_ci.qmd >}}
 

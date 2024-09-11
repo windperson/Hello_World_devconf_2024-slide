@@ -1,6 +1,80 @@
 ## Web
 
+For microservice architecture,  
+We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.  
+(A kind of Macro benchmark project)  
+<https://github.com/windperson/DemoAspNetCoreMacroBenchmark>
+
+```{mermaid}
+flowchart LR
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> W[["Web API endpoint"]]
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> g[["gRPC Service"]]
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> O[["MS Orleans Silo"]]
+```
+
+* When design test data & benchmark method signature, Be caution of [C# Compiler limitation](https://github.com/dotnet/roslyn/issues/39676):  
+
+> CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.  
+
+## Web ( deal with ASP.NET Core Dependency Injection) {.scrollable}
+
+**[GlobalSetup]** / **[GlobalCleanup]** / **[IterationSetup]** / **[IterationCleanup]** attributes to manually setup/cleanup the DI container.
+
+```{.csharp code-line-numbers="4-21, 42-46, 56-60, 62-66"}
+private ServiceProvider _serviceProvider = null!;
+private Echo.EchoClient _client = null!;
+
+[GlobalSetup]
+public void PrepareClient()
+{
+    var serviceCollection = new ServiceCollection();
+    serviceCollection.AddGrpcClient<Echo.EchoClient>(
+        options =>
+        {
+            options.Address = new Uri("https://localhost:7228");
+            options.ChannelOptionsActions.Add(channelOptions =>
+            {
+                // you need to raise the message size limit to send large messages
+                // see https://github.com/grpc/grpc-dotnet/issues/2277#issuecomment-1728559455
+                channelOptions.MaxSendMessageSize = int.MaxValue;
+                channelOptions.MaxReceiveMessageSize = int.MaxValue;
+            });
+        });
+    _serviceProvider = serviceCollection.BuildServiceProvider();
+}
+
+[IterationSetup]
+public void InitGrpcClient()
+{
+    _client = _serviceProvider.GetRequiredService<Echo.EchoClient>();
+}
+
+[Benchmark]
+[ArgumentsSource(nameof(GetTestData))]
+public async Task<string> gRPC_Invoke(RequestMsg request)
+{
+    var reply = await _client.EchoAsync(new EchoRequest { Message = request.Message });
+    return reply.Message;
+}
+
+[IterationCleanup]
+public void CleanupClient()
+{
+    _client = null!;
+}
+
+[GlobalCleanup]
+public void CleanupServiceProvider()
+{
+    _serviceProvider.Dispose();
+}
+```
+
 ## Desktop Native
+
+BDN can support .NET Core/.NET5+ WPF / WinForm applications.  
+(Besure to set the [**[STAThread]** attribute](https://benchmarkdotnet.org/articles/samples/IntroStaThread.html#sample-introstathread) on benchmark method)  
+<https://github.com/windperson/DemoWpfAppBDN>
 
 ## Blazor / WASM {.smaller .scrollable}
 
@@ -13,8 +87,8 @@
 	1. Install [Node.js v18](https://linux.how2shout.com/3-ways-to-install-nodejs-npm-on-ubuntu-22-04-lts-jammy)
 	2. [Git clone aspnetcore repo](https://github.com/dotnet/aspnetcore/issues/54938#issuecomment-2040544249)
 	3. On Windows you need to install Visual Studio with proper C++ workload via ./eng/scripts/InstallVisualStudio.ps1
-	4. Run .\restore.cmd on Windows or ./restore.sh on Linux/macOS at the root of git repository.
-	5. Go to ./src/Components folder, run .\build.cmd on Windows or ./build.sh on Linux/macOS (Note: if there's some build fail about NPM/Webpack, just ignore it)
+	4. Run `restore.cmd` on Windows or `restore.sh` on Linux/macOS at the root of git repository.
+	5. Go to ./src/Components folder, run `build.cmd` on Windows or `build.sh` on Linux/macOS (Note: if there's some build fail about NPM/Webpack, just ignore it)
 	6. Go to ./src/Components/Components/pref, run `dotnet run -c Release -- -f '*'` to run benchmarks. 
 
 ## Benchmarking screen shot {.scrollable}
