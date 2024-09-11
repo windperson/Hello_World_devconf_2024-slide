@@ -1,0 +1,55 @@
+## Web
+
+## Desktop Native
+
+## Blazor / WASM {.smaller .scrollable}
+
+* WASM benchmarks needs to run on Linux machine, and build dotnet runtime from source code:  
+  <https://benchmarkdotnet.org/articles/configs/toolchains.html#wasm>
+* 3rd party example Blazor component benchmark project:  
+  <https://github.com/egil/Benchmark.Blazor>
+* ASP.NET Core Blazor Component rendertree benchmark:  
+  <https://github.com/dotnet/aspnetcore/tree/main/src/Components/Components/perf>
+	1. Install [Node.js v18](https://linux.how2shout.com/3-ways-to-install-nodejs-npm-on-ubuntu-22-04-lts-jammy)
+	2. [Git clone aspnetcore repo](https://github.com/dotnet/aspnetcore/issues/54938#issuecomment-2040544249)
+	3. On Windows you need to install Visual Studio with proper C++ workload via ./eng/scripts/InstallVisualStudio.ps1
+	4. Run .\restore.cmd on Windows or ./restore.sh on Linux/macOS at the root of git repository.
+	5. Go to ./src/Components folder, run .\build.cmd on Windows or ./build.sh on Linux/macOS (Note: if there's some build fail about NPM/Webpack, just ignore it)
+	6. Go to ./src/Components/Components/pref, run `dotnet run -c Release -- -f '*'` to run benchmarks. 
+
+## {.scrollable}
+
+![]({{< meta bdn_2_prefix >}}/pics/Blazor_rendertree_benchmark.png){.r-stretch}
+
+## AI / ML (ONNX Runtime)
+
+* Demo project of ONNX Runtime with BenchmarkDotNet  
+  <https://github.com/windperson/DemoOnnxRuntimeBDN>
+* You can use [perfview](https://github.com/microsoft/perfview) to analyze the native part characteristcs of ONNX Runtime
+
+![]({{< meta bdn_2_prefix >}}/pics/ONNX_runtime_screen_shot.png)
+
+## Mobile
+
+Benchmark on Xamarin Forms / .NET MAUI Android & iOS:
+
+<https://github.com/dotnet/BenchmarkDotNet/issues/2242>
+
+<https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid>
+
+## Game Engine
+
+* Unity3D game engine => Can't due to its underlying compiler:  
+  <https://github.com/dotnet/BenchmarkDotNet/issues/759>
+
+* Godot game  engine nuget package for running BDN on its C# script:  
+  <https://github.com/ZerxZ/BenchmarkDotNet.Godot>
+
+* Benchmark Dispatcher.Sort() v.s. Array.Sort() of Stride 3D Game Engine:  
+  <https://github.com/stride3d/stride/issues/1792#issue-1901631515>
+
+* Benchmark native memcpy v.s. Buffer.MemoryCopy:  
+  <https://github.com/stride3d/stride/pull/536#issue-511071979>
+
+
+

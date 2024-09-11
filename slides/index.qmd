@@ -24,8 +24,8 @@ format:
                 </style>
 from: markdown+emoji
 bdn_1_prefix: ./BDN_tutorial
-bdn_cs_prefix: ./CSharp_BDN_examples
-bdn_github_action_prefix: ./GitHub_Action_CI
+bdn_2_prefix: ./CSharp_BDN_examples
+bdn_3_prefix: ./GitHub_Action_CI
 ---
 
 # Agenda
@@ -110,4 +110,4 @@ ComputeSharp's various Benchmarks project:
 * See source codes of BenchmarkDotNet usage:  
   <https://github.com/topics/benchmarkdotnet>  
 
-## Thanks for your attention! {.center-xy}
+## Thanks / Q & A {.center-xy}
