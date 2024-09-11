@@ -505,37 +505,4 @@ You can invoke some BDN command line arguments to control the benchmark running 
 * BenchmarkDotNET is a powerful tool for measuring the performance of your code.
 * It is easy to write benchmarks with BDN.
 * You can abandon the test via throwing an exception in the benchmark method.
-
-## Opensource projects that use BDN: {.smaller .scrollable}
-
-Micro Benchmarks of PowerShell 7:  
-<https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks>
-
-dotnet performance test using BDN to do micro benchmark:  
-<https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md>
-
-The dotnet runtime benchmark tool Microsoft.Crank can combine using BDN to do micro benchmark:  
-<https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md>
-
-C# Open-Telemetry SDK core component benchmark:  
-<https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks>
-
-.NET MAUI performance test:  
-<https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid>
-
-Benchmark on ASP.NET Core Orleans:  
-<https://github.com/dotnet/orleans/tree/main/test/Benchmarks>
-
-Benchmark on Dapper:  
-<https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance>
-
-Math library benchmark of Silk.NET:  
-<https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks>
-
-Benchmark ML.NET:  
-<https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests>
-
-ComputeSharp's various Benchmarks project:  
-<https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark>
-
-
+* Use environment variables to control the benchmark running behavior.

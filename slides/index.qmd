@@ -24,6 +24,8 @@ format:
                 </style>
 from: markdown+emoji
 bdn_1_prefix: ./BDN_tutorial
+bdn_cs_prefix: ./CSharp_BDN_examples
+bdn_github_action_prefix: ./GitHub_Action_CI
 ---
 
 # Agenda
@@ -33,7 +35,7 @@ bdn_1_prefix: ./BDN_tutorial
 
 1. BenchmarkDotNET 入門  
 2. 多種 C＃ 開發應用場景<br/>(ASP.NET Core Web API/gRPC/Orleans, Blazor, ONNX Runtime, MAUI, WPF, Godot Game Engine)<br/>使用 BenchmarkDotNET
-3. 整合 BenchmarkDotNET 到 GitHub Action CI
+3. GitHub Action CI 整合、相關工具與資源分享
 
 :::
 
@@ -50,6 +52,62 @@ bdn_1_prefix: ./BDN_tutorial
 
 # Use BDN on various C# applications
 
-## Use BDN on ASP.NET Core Web API
+{{< include CSharp_BDN_examples/_csharp_bdn_examples.qmd >}}
 
- (TBD)
+# GitHub Action CI Integration, Other Tools and Resources
+
+{{< include GitHub_Action_CI/_github_action_ci.qmd >}}
+
+## Opensource projects that use BDN: {.smaller .scrollable}
+
+"dotnet performance" use BDN to do micro benchmark:  
+<https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md>
+
+gRpc ASP.NET core microbenchmark:  
+<https://github.com/grpc/grpc-dotnet/tree/master/perf/Grpc.AspNetCore.Microbenchmarks>
+
+ASP.NET Core routing component micro benchmarks:
+<https://github.com/dotnet/aspnetcore/tree/main/src/Http/Routing/perf/Microbenchmarks>
+
+Micro Benchmarks of PowerShell 7:  
+<https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks>
+
+The dotnet runtime benchmark tool Microsoft.Crank can combine use of BDN to do micro benchmark:  
+<https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md>
+
+C# Open-Telemetry SDK core component benchmark:  
+<https://github.com/open-telemetry/opentelemetry-dotnet/tree/main/test/Benchmarks>
+
+.NET MAUI performance test:  
+<https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid>
+
+Benchmark on ASP.NET Core Orleans:  
+<https://github.com/dotnet/orleans/tree/main/test/Benchmarks>
+
+Benchmark on Dapper:  
+<https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance>
+
+Math library benchmark of Silk.NET:  
+<https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks>
+
+Benchmark ML.NET:  
+<https://github.com/dotnet/machinelearning/tree/main/test/Microsoft.ML.PerformanceTests>
+
+ComputeSharp's various Benchmarks project:  
+<https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark>
+
+## Learning resources {.scrollable}
+
+* BenchmarkDotNet official documentation:  
+  <https://benchmarkdotnet.org/articles/overview.html>
+* Book: **Pro .NET Benchmarking** by Andrey Akinshin:  
+  <https://aakinshin.net/prodotnetbenchmarking/>
+  <https://www.tenlong.com.tw/products/9781484249406>
+* Udemy course: **Benchmarking .NET Core Applications**:  
+  <https://www.udemy.com/course/benchmarking-dotnet-core-applications/>
+* Benchmarking ASP.NET Application with .NET Crank:  
+  <https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8>
+* See source codes of BenchmarkDotNet usage:  
+  <https://github.com/topics/benchmarkdotnet>  
+
+## Thanks for your attention! {.center-xy}
