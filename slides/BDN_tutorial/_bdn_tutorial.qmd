@@ -486,7 +486,7 @@ public class FibonacciSeqBenchmarks
 
 * Program.cs file in <code>FibSeqMicroBench</code> project:
 
-```{.csharp code-line-numbers="4"}
+```{.csharp code-line-numbers="7-8"}
 static void Main(string[] args)
 {
     var bdnConfig =
