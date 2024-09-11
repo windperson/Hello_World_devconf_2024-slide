@@ -579,11 +579,15 @@ You can invoke some BDN command line arguments to control the benchmark running 
 
 ## Run the microbenchmark {.scrollable}
 
-![]({{< meta bdn_1_prefix >}}/pics/run_fibSeq_micro-benchmark.png)
+![]({{< meta bdn_1_prefix >}}/pics/run_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
 
 ## Finish microbenchmark {.scrollable}
 
-![]({{< meta bdn_1_prefix >}}/pics/done_fibSeq_micro-benchmark.png)
+![]({{< meta bdn_1_prefix >}}/pics/done_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
+
+## Microbenchmark result {.scrollable}
+
+![]({{< meta bdn_1_prefix >}}/pics/benchmark_result.png){.nostretch fig-align="center" width="100%"}
 
 ## Conclusion
 
