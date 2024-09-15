@@ -1,4 +1,4 @@
-## Web
+## Web {.scrollable}
 
 For microservice architecture,  
 We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.  
@@ -16,12 +16,14 @@ flowchart LR
 ```
 
 * When design test data & benchmark method signature, Be caution of [C# Compiler limitation](https://github.com/dotnet/roslyn/issues/39676):  
+    
+   > CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.  
 
-> CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.  
+::: {.callout-caution collapse="true"}
+The workaround is to reduce the usage of primitive string type parameter in benchmark method signature.
+:::
 
-The only workaround is to reduce the usage of primitive string type parameter in benchmark method signature.
-
-## Web <br/>( deal with ASP.NET Core Dependency Injection) {.scrollable}
+## Web <br/>(deal with ASP.NET Core Dependency Injection) {.scrollable}
 
 **[GlobalSetup]** / **[GlobalCleanup]** / **[IterationSetup]** / **[IterationCleanup]** attributes to manually setup/cleanup the DI container.
 
