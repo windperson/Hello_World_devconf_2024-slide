@@ -1023,7 +1023,7 @@ Measure the performance of a whole application.</li>
 <h1>Use BDN on various C# applications</h1>
 
 </section>
-<section id="web" class="slide level2">
+<section id="web" class="slide level2 scrollable">
 <h2>Web</h2>
 <p>For microservice architecture,<br>
 We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.<br>
@@ -1048,15 +1048,27 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 </div>
 </div>
 <ul>
-<li>When design test data &amp; benchmark method signature, Be caution of <a href="https://github.com/dotnet/roslyn/issues/39676">C# Compiler limitation</a>:</li>
-</ul>
+<li><p>When design test data &amp; benchmark method signature, Be caution of <a href="https://github.com/dotnet/roslyn/issues/39676">C# Compiler limitation</a>:</p>
 <blockquote>
 <p>CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.</p>
-</blockquote>
-<p>The only workaround is to reduce the usage of primitive string type parameter in benchmark method signature.</p>
+</blockquote></li>
+</ul>
+<div class="callout callout-caution callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Caution</strong></p>
+</div>
+<div class="callout-content">
+<p>The workaround is to reduce the usage of primitive string type parameter in benchmark method signature.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="web-deal-with-asp.net-core-dependency-injection" class="slide level2 scrollable">
-<h2>Web <br>( deal with ASP.NET Core Dependency Injection)</h2>
+<h2>Web <br>(deal with ASP.NET Core Dependency Injection)</h2>
 <p><strong>[GlobalSetup]</strong> / <strong>[GlobalCleanup]</strong> / <strong>[IterationSetup]</strong> / <strong>[IterationCleanup]</strong> attributes to manually setup/cleanup the DI container.</p>
 <div class="sourceCode" id="cb12" data-code-line-numbers="4-21,42-46,56-60,62-66"><pre class="sourceCode numberSource csharp number-lines code-with-copy"><code class="sourceCode cs"><span id="cb12-1"><a href=""></a><span class="kw">private</span> ServiceProvider _serviceProvider <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
 <span id="cb12-2"><a href=""></a><span class="kw">private</span> Echo<span class="op">.</span><span class="fu">EchoClient</span> _client <span class="op">=</span> <span class="kw">null</span><span class="op">!;</span></span>
