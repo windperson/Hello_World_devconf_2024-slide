@@ -7,14 +7,19 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 
 ```{mermaid}
 flowchart LR
-  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> W[["Web API endpoint"]]
-  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> g[["gRPC Service"]]
-  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) <-..-> O[["MS Orleans Silo"]]
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) -...-> W[["Web API endpoint"]]
+  W -...-> B
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) -...-> g[["gRPC Service"]]
+  g -...-> B
+  B(["<em><b>Benchmark program</b></em><br/>(measure time🕥)"]) -...-> O[["MS Orleans Silo"]]
+  O -...-> B
 ```
 
 * When design test data & benchmark method signature, Be caution of [C# Compiler limitation](https://github.com/dotnet/roslyn/issues/39676):  
 
 > CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.  
+
+The only workaround is to reduce the usage of primitive string type parameter in benchmark method signature.
 
 ## Web <br/>( deal with ASP.NET Core Dependency Injection) {.scrollable}
 
