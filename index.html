@@ -1035,9 +1035,12 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <p></p><figure class=""><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
-  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; W[["Web API endpoint"]]
-  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; g[["gRPC Service"]]
-  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) &lt;-..-&gt; O[["MS Orleans Silo"]]
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) -...-&gt; W[["Web API endpoint"]]
+  W -...-&gt; B
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) -...-&gt; g[["gRPC Service"]]
+  g -...-&gt; B
+  B(["&lt;em&gt;&lt;b&gt;Benchmark program&lt;/b&gt;&lt;/em&gt;&lt;br/&gt;(measure time🕥)"]) -...-&gt; O[["MS Orleans Silo"]]
+  O -...-&gt; B
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -1050,6 +1053,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <blockquote>
 <p>CSC : error CS8103: Combined length of user strings used by the program exceeds allowed limit.</p>
 </blockquote>
+<p>The only workaround is to reduce the usage of primitive string type parameter in benchmark method signature.</p>
 </section>
 <section id="web-deal-with-asp.net-core-dependency-injection" class="slide level2 scrollable">
 <h2>Web <br>( deal with ASP.NET Core Dependency Injection)</h2>
