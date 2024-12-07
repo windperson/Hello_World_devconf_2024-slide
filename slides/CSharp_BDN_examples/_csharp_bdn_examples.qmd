@@ -79,7 +79,7 @@ public void CleanupServiceProvider()
 
 ## Benchmarking result {.scrollable}
 
-![]({{< meta bdn_2_prefix >}}/pics/microservice_benchmark_result.png){.nostretch fig-align="center" width="100%"}
+![]({{< meta bdn_2_prefix >}}pics/microservice_benchmark_result.png){.nostretch fig-align="center" width="100%"}
 
 ## Desktop Native
 
@@ -104,7 +104,7 @@ BDN can support .NET Core/.NET5+ WPF / WinForm applications.
 
 ## Benchmarking screen shot {.scrollable}
 
-![]({{< meta bdn_2_prefix >}}/pics/Blazor_rendertree_benchmark.png){.nostretch fig-align="center" width="100%"}
+![]({{< meta bdn_2_prefix >}}pics/Blazor_rendertree_benchmark.png){.nostretch fig-align="center" width="100%"}
 
 ## AI / ML (ONNX Runtime)
 
@@ -112,7 +112,7 @@ BDN can support .NET Core/.NET5+ WPF / WinForm applications.
   <https://github.com/windperson/DemoOnnxRuntimeBDN>
 * You can use [perfview](https://github.com/microsoft/perfview) to analyze the native part characteristcs of ONNX Runtime
 
-![]({{< meta bdn_2_prefix >}}/pics/ONNX_runtime_screen_shot.png)
+![]({{< meta bdn_2_prefix >}}pics/ONNX_runtime_screen_shot.png)
 
 ## Mobile
 

@@ -1,4 +1,9 @@
 project: 
-  title: "BenchmarkDotNET 科學化 .NET 應用效能調校"
+  title: BenchmarkDotNET<br/>科學化 .NET 應用效能調校
   render: 
     - slides/index.qmd
+
+# picture url prefix
+bdn_1_prefix: ./BDN_tutorial/
+bdn_2_prefix: ./CSharp_BDN_examples/
+bdn_3_prefix: ./GitHub_Action_CI/

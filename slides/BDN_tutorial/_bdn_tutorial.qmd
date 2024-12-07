@@ -31,7 +31,7 @@
 ::: {.column width="33%"}
 
 ### _Microbenchmark_ {.center}
-![]({{< meta bdn_1_prefix >}}/pics/microscope-2-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}pics/microscope-2-svgrepo-com.svg)
 
 [System.Diagnostics.Stopwatch](https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch), BenchmarkDotNET, NBench
 
@@ -40,7 +40,7 @@
 ::: {.column width="33%"}
 
 ### _Macrobenchmark_ {.center}
-![]({{< meta bdn_1_prefix >}}/pics/telescope-2-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}pics/telescope-2-svgrepo-com.svg)
 
 BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
 
@@ -49,7 +49,7 @@ BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier
 ::: {.column width="33%"}
 
 ### _Profiling_ {.center}
-![]({{< meta bdn_1_prefix >}}/pics/protractor-svgrepo-com.svg)
+![]({{< meta bdn_1_prefix >}}pics/protractor-svgrepo-com.svg)
 
 dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder
 
@@ -84,7 +84,7 @@ We can build a quick Hello world example using [.NET SDK](https://dotnet.microso
 dotnet new -i BenchmarkDotNet.Templates
 ```
 
-![]({{< meta bdn_1_prefix >}}/pics/install_BDN_template.png){.r-stretch}
+![]({{< meta bdn_1_prefix >}}pics/install_BDN_template.png){.r-stretch}
 
 ##
 
@@ -94,7 +94,7 @@ Generate a new Benchmark project:
 dotnet new benchmark -n HelloBDN
 ```
 
-![]({{< meta bdn_1_prefix >}}/pics/create_BDN_project.png)
+![]({{< meta bdn_1_prefix >}}pics/create_BDN_project.png)
 
 ## 
 
@@ -193,11 +193,11 @@ dotnet run -c Release
 
 ::: {.r-stack}
 ::: {.fragment}
-![]({{< meta bdn_1_prefix >}}/pics/running_HelloBDN_project-1.png)
+![]({{< meta bdn_1_prefix >}}pics/running_HelloBDN_project-1.png)
 :::
 
 ::: {.fragment .fade-in}
-![]({{< meta bdn_1_prefix >}}/pics/running_HelloBDN_project-2.png)
+![]({{< meta bdn_1_prefix >}}pics/running_HelloBDN_project-2.png)
 :::
 :::
 
@@ -206,10 +206,10 @@ dotnet run -c Release
 After running the benchmark, BDN will generate a report in the console, and also generate report file(s) in `BenchmarkDotNet.Artifacts/results` folder.
 
 
-![]({{< meta bdn_1_prefix >}}/pics/BDN_project_report_location.png)
+![]({{< meta bdn_1_prefix >}}pics/BDN_project_report_location.png)
 
 
-![]({{< meta bdn_1_prefix >}}/pics/BDN_project_html_report.png)
+![]({{< meta bdn_1_prefix >}}pics/BDN_project_html_report.png)
 
 So we achieved a quick benchmark demo with BenchmarkDotNET.
 
@@ -245,12 +245,12 @@ Source code: <https://github.com/windperson/DemoFibonacciBDN>
 
 ## Example project structure
 
-![]({{< meta bdn_1_prefix >}}/pics/microbenchmark_project_structure.png)
+![]({{< meta bdn_1_prefix >}}pics/microbenchmark_project_structure.png)
 
 * <code>FibonaccCore</code> project is a class library project, contains four Fibonacci Sequence generate algorithm.
 * <code>FibSeqMicroBench</code> project is a console project that we write BDN benchmark test code here.
 
-## C# code {.smaller .scrollable}
+## C# code {.smaller}
 
 * SequenceLib.cs file in <code>FibonaccCore</code> project:
 
@@ -398,7 +398,7 @@ public static class SequenceLib
 }
 ```
 
-## C# code {.smaller .scrollable}
+## {.smaller}
 
 * FibonacciSeqBenchmarks.cs file in <code>FibonaccCore</code> project:
 
@@ -532,8 +532,6 @@ static void Main(string[] args)
 </Project>
 ```
 
-## Project file {.smaller .scrollable}
-
 * <code>FibonacciCore.csproj</code> file:
 
 ```{.xml code-line-numbers="9-13"}
@@ -558,7 +556,7 @@ static void Main(string[] args)
 
 At first you may attempt to run the benchmark with `dotnet run -c Release` command directly inside the _FibSeqMicroBench_ folder, but you will get an error message like this:
 
-![]({{< meta bdn_1_prefix >}}/pics/not_release_mode_error_on_starting_microbenchmark_project.png)
+![]({{< meta bdn_1_prefix >}}pics/not_release_mode_error_on_starting_microbenchmark_project.png)
 
 This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don't specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.
 
@@ -573,17 +571,17 @@ You can invoke some BDN command line arguments to control the benchmark running 
 
 * `-f --filter` : filter the benchmark cases to run.
 * `--list tree` or `--list flat` : list all benchmark cases.
-    ![]({{< meta bdn_1_prefix >}}/pics/list_microbenchmark_project_tests.png)
+    ![]({{< meta bdn_1_prefix >}}pics/list_microbenchmark_project_tests.png)
 * `--help` : show help message.
-    ![]({{< meta bdn_1_prefix >}}/pics/get_microbenchmark_project_help.png)
+    ![]({{< meta bdn_1_prefix >}}pics/get_microbenchmark_project_help.png)
 
 ## Run the microbenchmark {.scrollable}
 
-![]({{< meta bdn_1_prefix >}}/pics/run_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
+![]({{< meta bdn_1_prefix >}}pics/run_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
 
 ## Finish microbenchmark {.scrollable}
 
-![]({{< meta bdn_1_prefix >}}/pics/done_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
+![]({{< meta bdn_1_prefix >}}pics/done_fibSeq_micro-benchmark.png){.nostretch fig-align="center" width="100%"}
 
 ## Microbenchmark result {.scrollable}
 

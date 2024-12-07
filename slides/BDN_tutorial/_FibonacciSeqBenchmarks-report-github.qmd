@@ -1,0 +1,425 @@
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.22631.4112/23H2/2023Update/SunValley3)
+13th Gen Intel Core i9-13900H, 1 CPU, 20 logical and 14 physical cores
+.NET SDK 8.0.401
+  [Host]   : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+  ShortRun : .NET 8.0.8 (8.0.824.36612), X64 RyuJIT AVX2
+
+Job=ShortRun  EnvironmentVariables=RecursLimit=45  PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7  
+InvocationCount=1  IterationCount=5  LaunchCount=1  
+RunStrategy=Throughput  UnrollFactor=1  WarmupCount=1  
+
+```
+| Method                          | Nth | Mean             | Error            | StdDev            | Median           | Ratio        | RatioSD    | Rank |
+|-------------------------------- |---- |-----------------:|-----------------:|------------------:|-----------------:|-------------:|-----------:|-----:|
+| **FibSeqUsingGoldenRatio**          | **1**   |         **34.18 μs** |         **32.30 μs** |          **8.388 μs** |         **35.90 μs** |         **1.13** |       **0.37** |    **I** |
+| FibSeqUsingMatrixExponentiation | 1   |         34.92 μs |         42.63 μs |          6.597 μs |         36.65 μs |         1.16 |       0.34 |    I |
+| FibSeqUsingFastDoubling         | 1   |         27.25 μs |         13.70 μs |          2.121 μs |         26.90 μs |         0.90 |       0.22 |    I |
+| FibSeqUsingLoop                 | 1   |         32.06 μs |         35.46 μs |          9.209 μs |         27.70 μs |         1.06 |       0.38 |    I |
+| FibSeqUsingRecursion            | 1   |         36.07 μs |         39.12 μs |         10.159 μs |         35.45 μs |         1.20 |       0.42 |    I |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **3**   |         **35.94 μs** |         **32.55 μs** |          **8.453 μs** |         **37.90 μs** |         **1.33** |       **0.35** |    **I** |
+| FibSeqUsingMatrixExponentiation | 3   |         35.52 μs |         33.71 μs |          8.755 μs |         34.40 μs |         1.31 |       0.36 |    I |
+| FibSeqUsingFastDoubling         | 3   |         29.80 μs |         18.41 μs |          2.848 μs |         29.65 μs |         1.10 |       0.19 |    I |
+| FibSeqUsingLoop                 | 3   |         27.68 μs |         32.14 μs |          4.974 μs |         26.30 μs |         1.02 |       0.23 |    I |
+| FibSeqUsingRecursion            | 3   |         31.35 μs |         36.65 μs |          5.671 μs |         30.50 μs |         1.16 |       0.26 |    I |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **5**   |         **35.88 μs** |         **60.18 μs** |          **9.313 μs** |         **34.25 μs** |         **1.25** |       **0.36** |    **I** |
+| FibSeqUsingMatrixExponentiation | 5   |         61.30 μs |         62.53 μs |         16.240 μs |         51.20 μs |         2.14 |       0.64 |   II |
+| FibSeqUsingFastDoubling         | 5   |         35.40 μs |         26.70 μs |          4.132 μs |         35.35 μs |         1.24 |       0.24 |    I |
+| FibSeqUsingLoop                 | 5   |         29.52 μs |         41.25 μs |          6.384 μs |         27.50 μs |         1.03 |       0.27 |    I |
+| FibSeqUsingRecursion            | 5   |         35.42 μs |         43.04 μs |          6.661 μs |         35.20 μs |         1.24 |       0.30 |    I |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **10**  |         **36.84 μs** |         **42.70 μs** |         **11.088 μs** |         **29.60 μs** |         **1.41** |       **0.40** |   **II** |
+| FibSeqUsingMatrixExponentiation | 10  |         40.26 μs |         35.66 μs |          9.260 μs |         42.20 μs |         1.54 |       0.34 |   II |
+| FibSeqUsingFastDoubling         | 10  |         33.38 μs |         27.98 μs |          4.330 μs |         33.45 μs |         1.28 |       0.17 |   II |
+| FibSeqUsingLoop                 | 10  |         26.18 μs |         11.53 μs |          1.784 μs |         25.75 μs |         1.00 |       0.08 |    I |
+| FibSeqUsingRecursion            | 10  |         37.28 μs |         20.93 μs |          5.436 μs |         37.30 μs |         1.43 |       0.21 |   II |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **20**  |         **33.65 μs** |         **39.86 μs** |         **10.352 μs** |         **29.05 μs** |         **1.25** |       **0.37** |    **I** |
+| FibSeqUsingMatrixExponentiation | 20  |         41.26 μs |         34.69 μs |          9.010 μs |         42.10 μs |         1.54 |       0.34 |    I |
+| FibSeqUsingFastDoubling         | 20  |         28.73 μs |         26.06 μs |          4.034 μs |         27.05 μs |         1.07 |       0.17 |    I |
+| FibSeqUsingLoop                 | 20  |         27.10 μs |         19.83 μs |          3.069 μs |         26.15 μs |         1.01 |       0.14 |    I |
+| FibSeqUsingRecursion            | 20  |        207.56 μs |         61.90 μs |         16.076 μs |        200.60 μs |         7.73 |       0.91 |   II |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **30**  |         **44.66 μs** |         **58.58 μs** |         **15.213 μs** |         **50.30 μs** |         **1.42** |       **0.50** |   **II** |
+| FibSeqUsingMatrixExponentiation | 30  |         28.30 μs |         13.21 μs |          2.044 μs |         27.70 μs |         0.90 |       0.15 |    I |
+| FibSeqUsingFastDoubling         | 30  |         28.25 μs |         24.09 μs |          3.728 μs |         26.65 μs |         0.90 |       0.18 |    I |
+| FibSeqUsingLoop                 | 30  |         32.22 μs |         22.48 μs |          5.839 μs |         29.70 μs |         1.03 |       0.23 |    I |
+| FibSeqUsingRecursion            | 30  |     20,692.12 μs |      1,252.50 μs |        325.270 μs |     20,532.70 μs |       658.44 |     103.09 |  III |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **35**  |         **54.72 μs** |         **68.46 μs** |         **17.778 μs** |         **48.90 μs** |         **1.73** |       **0.62** |   **II** |
+| FibSeqUsingMatrixExponentiation | 35  |         43.48 μs |         19.15 μs |          2.964 μs |         43.05 μs |         1.38 |       0.28 |   II |
+| FibSeqUsingFastDoubling         | 35  |         45.39 μs |         55.82 μs |         14.496 μs |         38.55 μs |         1.44 |       0.51 |   II |
+| FibSeqUsingLoop                 | 35  |         32.73 μs |         46.15 μs |          7.142 μs |         32.05 μs |         1.04 |       0.29 |    I |
+| FibSeqUsingRecursion            | 35  |    230,699.03 μs |      6,908.29 μs |      1,794.060 μs |    229,643.25 μs |     7,305.98 |   1,396.18 |  III |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **40**  |         **53.80 μs** |         **36.70 μs** |          **5.679 μs** |         **55.40 μs** |         **1.58** |       **0.38** |   **II** |
+| FibSeqUsingMatrixExponentiation | 40  |         41.60 μs |         62.46 μs |          9.666 μs |         37.85 μs |         1.22 |       0.37 |    I |
+| FibSeqUsingFastDoubling         | 40  |         35.20 μs |         45.35 μs |          7.019 μs |         35.00 μs |         1.04 |       0.29 |    I |
+| FibSeqUsingLoop                 | 40  |         35.56 μs |         32.15 μs |          8.350 μs |         36.20 μs |         1.05 |       0.32 |    I |
+| FibSeqUsingRecursion            | 40  |  2,669,808.30 μs |    348,635.56 μs |     90,539.548 μs |  2,666,918.90 μs |    78,569.98 |  17,314.34 |  III |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **45**  |         **37.42 μs** |         **33.72 μs** |          **8.756 μs** |         **37.30 μs** |         **1.36** |       **0.32** |    **I** |
+| FibSeqUsingMatrixExponentiation | 45  |         31.62 μs |         46.83 μs |          7.246 μs |         28.40 μs |         1.15 |       0.26 |    I |
+| FibSeqUsingFastDoubling         | 45  |         29.07 μs |         13.14 μs |          2.034 μs |         28.25 μs |         1.05 |       0.12 |    I |
+| FibSeqUsingLoop                 | 45  |         27.82 μs |         20.01 μs |          3.097 μs |         26.60 μs |         1.01 |       0.14 |    I |
+| FibSeqUsingRecursion            | 45  | 41,397,644.67 μs | 38,896,342.71 μs | 10,101,256.703 μs | 39,692,595.85 μs | 1,500,454.31 | 363,260.77 |   II |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **50**  |         **38.13 μs** |         **41.74 μs** |         **10.839 μs** |         **36.15 μs** |         **1.22** |       **0.43** |    **I** |
+| FibSeqUsingMatrixExponentiation | 50  |         33.12 μs |         48.59 μs |          7.520 μs |         30.05 μs |         1.06 |       0.33 |    I |
+| FibSeqUsingFastDoubling         | 50  |         31.90 μs |         40.64 μs |          6.289 μs |         29.65 μs |         1.02 |       0.30 |    I |
+| FibSeqUsingLoop                 | 50  |         32.96 μs |         34.46 μs |          8.950 μs |         28.00 μs |         1.06 |       0.36 |    I |
+| FibSeqUsingRecursion            | 50  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **55**  |         **30.43 μs** |         **36.98 μs** |          **5.723 μs** |         **28.80 μs** |         **0.79** |       **0.28** |    **I** |
+| FibSeqUsingMatrixExponentiation | 55  |         56.65 μs |        107.65 μs |         27.957 μs |         50.05 μs |         1.48 |       0.83 |    I |
+| FibSeqUsingFastDoubling         | 55  |         28.98 μs |         24.85 μs |          3.845 μs |         27.30 μs |         0.76 |       0.25 |    I |
+| FibSeqUsingLoop                 | 55  |         42.77 μs |         64.26 μs |         16.689 μs |         33.05 μs |         1.11 |       0.54 |    I |
+| FibSeqUsingRecursion            | 55  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **60**  |         **47.00 μs** |         **22.29 μs** |          **3.450 μs** |         **46.45 μs** |         **1.62** |       **0.19** |   **II** |
+| FibSeqUsingMatrixExponentiation | 60  |         49.35 μs |         33.66 μs |          5.210 μs |         48.50 μs |         1.70 |       0.23 |   II |
+| FibSeqUsingFastDoubling         | 60  |         60.96 μs |         68.34 μs |         17.747 μs |         56.20 μs |         2.10 |       0.60 |   II |
+| FibSeqUsingLoop                 | 60  |         29.27 μs |         22.60 μs |          3.497 μs |         28.20 μs |         1.01 |       0.15 |    I |
+| FibSeqUsingRecursion            | 60  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **65**  |         **38.69 μs** |         **28.87 μs** |          **7.497 μs** |         **39.25 μs** |         **1.35** |       **0.27** |   **II** |
+| FibSeqUsingMatrixExponentiation | 65  |         28.30 μs |         13.39 μs |          2.073 μs |         27.45 μs |         0.99 |       0.12 |    I |
+| FibSeqUsingFastDoubling         | 65  |        150.40 μs |        187.56 μs |         29.026 μs |        158.95 μs |         5.26 |       1.04 |  III |
+| FibSeqUsingLoop                 | 65  |         28.85 μs |         20.79 μs |          3.217 μs |         28.25 μs |         1.01 |       0.14 |    I |
+| FibSeqUsingRecursion            | 65  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **70**  |         **37.57 μs** |         **42.03 μs** |         **10.916 μs** |         **36.65 μs** |         **1.08** |       **0.32** |    **I** |
+| FibSeqUsingMatrixExponentiation | 70  |         42.14 μs |         37.37 μs |          9.705 μs |         38.70 μs |         1.21 |       0.30 |    I |
+| FibSeqUsingFastDoubling         | 70  |         31.05 μs |         13.27 μs |          2.053 μs |         31.25 μs |         0.89 |       0.12 |    I |
+| FibSeqUsingLoop                 | 70  |         35.25 μs |         30.22 μs |          4.677 μs |         36.05 μs |         1.01 |       0.17 |    I |
+| FibSeqUsingRecursion            | 70  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **71**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 71  |         30.27 μs |         11.90 μs |          1.841 μs |         29.65 μs |         0.86 |       0.08 |    I |
+| FibSeqUsingFastDoubling         | 71  |         30.40 μs |         32.89 μs |          5.089 μs |         28.20 μs |         0.86 |       0.15 |    I |
+| FibSeqUsingLoop                 | 71  |         35.35 μs |         20.48 μs |          3.170 μs |         34.50 μs |         1.01 |       0.11 |    I |
+| FibSeqUsingRecursion            | 71  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **72**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 72  |         30.40 μs |         19.86 μs |          3.074 μs |         29.25 μs |         0.84 |       0.23 |    I |
+| FibSeqUsingFastDoubling         | 72  |         34.20 μs |         42.45 μs |         11.023 μs |         28.60 μs |         0.95 |       0.37 |    I |
+| FibSeqUsingLoop                 | 72  |         38.59 μs |         46.24 μs |         12.009 μs |         32.55 μs |         1.07 |       0.41 |    I |
+| FibSeqUsingRecursion            | 72  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **73**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 73  |         37.83 μs |         36.92 μs |          9.588 μs |         37.35 μs |         0.94 |       0.24 |    I |
+| FibSeqUsingFastDoubling         | 73  |         32.85 μs |         39.36 μs |          6.091 μs |         31.60 μs |         0.81 |       0.16 |    I |
+| FibSeqUsingLoop                 | 73  |         40.77 μs |         32.16 μs |          4.977 μs |         40.60 μs |         1.01 |       0.16 |    I |
+| FibSeqUsingRecursion            | 73  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **74**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 74  |         41.36 μs |         27.35 μs |          7.102 μs |         40.90 μs |         1.13 |       0.27 |    I |
+| FibSeqUsingFastDoubling         | 74  |         35.80 μs |         42.50 μs |          6.577 μs |         36.55 μs |         0.98 |       0.24 |    I |
+| FibSeqUsingLoop                 | 74  |         37.79 μs |         32.48 μs |          8.435 μs |         36.15 μs |         1.04 |       0.28 |    I |
+| FibSeqUsingRecursion            | 74  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **75**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 75  |         38.95 μs |         43.47 μs |         11.288 μs |         37.05 μs |         1.14 |       0.44 |    I |
+| FibSeqUsingFastDoubling         | 75  |         42.21 μs |         38.91 μs |         10.104 μs |         44.65 μs |         1.24 |       0.43 |    I |
+| FibSeqUsingLoop                 | 75  |         36.88 μs |         46.43 μs |         12.059 μs |         29.10 μs |         1.08 |       0.44 |    I |
+| FibSeqUsingRecursion            | 75  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **80**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 80  |         39.89 μs |         39.79 μs |         10.334 μs |         35.25 μs |         1.18 |       0.33 |    I |
+| FibSeqUsingFastDoubling         | 80  |         52.04 μs |         68.70 μs |         17.842 μs |         42.50 μs |         1.54 |       0.54 |   II |
+| FibSeqUsingLoop                 | 80  |         34.58 μs |         36.25 μs |          5.609 μs |         34.75 μs |         1.02 |       0.21 |    I |
+| FibSeqUsingRecursion            | 80  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **85**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 85  |         43.05 μs |         43.94 μs |         11.412 μs |         39.85 μs |         1.02 |       0.30 |   II |
+| FibSeqUsingFastDoubling         | 85  |         31.48 μs |         28.03 μs |          4.337 μs |         30.25 μs |         0.74 |       0.16 |    I |
+| FibSeqUsingLoop                 | 85  |         43.66 μs |         34.07 μs |          8.849 μs |         41.60 μs |         1.03 |       0.26 |   II |
+| FibSeqUsingRecursion            | 85  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **90**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 90  |         33.50 μs |         31.18 μs |          4.826 μs |         33.90 μs |         0.86 |       0.19 |    I |
+| FibSeqUsingFastDoubling         | 90  |         29.90 μs |         27.54 μs |          4.262 μs |         28.15 μs |         0.77 |       0.17 |    I |
+| FibSeqUsingLoop                 | 90  |         40.34 μs |         32.24 μs |          8.373 μs |         38.80 μs |         1.03 |       0.28 |    I |
+| FibSeqUsingRecursion            | 90  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **91**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 91  |         41.80 μs |         51.70 μs |         13.427 μs |         41.00 μs |         0.77 |       0.43 |    I |
+| FibSeqUsingFastDoubling         | 91  |         32.60 μs |         34.52 μs |          8.965 μs |         27.40 μs |         0.60 |       0.32 |    I |
+| FibSeqUsingLoop                 | 91  |         63.82 μs |         94.41 μs |         24.518 μs |         62.70 μs |         1.17 |       0.70 |   II |
+| FibSeqUsingRecursion            | 91  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **92**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 92  |         37.16 μs |         35.95 μs |          9.335 μs |         32.70 μs |         0.27 |       0.07 |    I |
+| FibSeqUsingFastDoubling         | 92  |         36.70 μs |         43.11 μs |          6.671 μs |         37.90 μs |         0.27 |       0.05 |    I |
+| FibSeqUsingLoop                 | 92  |        139.05 μs |         41.81 μs |         10.857 μs |        142.45 μs |         1.01 |       0.11 |   II |
+| FibSeqUsingRecursion            | 92  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **93**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 93  |         45.45 μs |         87.51 μs |         13.543 μs |         46.80 μs |         1.22 |       0.42 |    I |
+| FibSeqUsingFastDoubling         | 93  |         39.82 μs |         39.43 μs |         10.239 μs |         34.40 μs |         1.07 |       0.34 |    I |
+| FibSeqUsingLoop                 | 93  |         39.04 μs |         40.80 μs |         10.595 μs |         34.30 μs |         1.05 |       0.35 |    I |
+| FibSeqUsingRecursion            | 93  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **94**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 94  |         48.86 μs |         58.01 μs |         15.065 μs |         44.60 μs |         1.13 |       0.33 |    I |
+| FibSeqUsingFastDoubling         | 94  |        104.38 μs |        116.86 μs |         30.347 μs |         92.60 μs |         2.41 |       0.66 |   II |
+| FibSeqUsingLoop                 | 94  |         43.38 μs |         16.89 μs |          2.613 μs |         42.65 μs |         1.00 |       0.08 |    I |
+| FibSeqUsingRecursion            | 94  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **95**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 95  |         37.58 μs |         59.17 μs |          9.156 μs |         34.65 μs |         1.18 |       0.29 |    I |
+| FibSeqUsingFastDoubling         | 95  |         31.15 μs |         17.57 μs |          2.718 μs |         31.05 μs |         0.98 |       0.13 |    I |
+| FibSeqUsingLoop                 | 95  |         32.25 μs |         27.55 μs |          4.263 μs |         31.15 μs |         1.01 |       0.16 |    I |
+| FibSeqUsingRecursion            | 95  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **96**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 96  |         31.77 μs |         17.23 μs |          2.666 μs |         31.90 μs |         0.88 |       0.10 |    I |
+| FibSeqUsingFastDoubling         | 96  |         29.25 μs |         22.18 μs |          3.432 μs |         28.45 μs |         0.81 |       0.11 |    I |
+| FibSeqUsingLoop                 | 96  |         36.17 μs |         23.01 μs |          3.561 μs |         36.10 μs |         1.01 |       0.13 |    I |
+| FibSeqUsingRecursion            | 96  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **97**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 97  |         29.23 μs |         14.62 μs |          2.262 μs |         28.55 μs |         0.68 |       0.10 |    I |
+| FibSeqUsingFastDoubling         | 97  |         28.88 μs |         24.75 μs |          3.830 μs |         27.30 μs |         0.67 |       0.12 |    I |
+| FibSeqUsingLoop                 | 97  |         43.41 μs |         20.52 μs |          5.329 μs |         45.15 μs |         1.01 |       0.17 |   II |
+| FibSeqUsingRecursion            | 97  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **98**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 98  |         30.48 μs |         18.83 μs |          2.914 μs |         29.25 μs |         0.48 |       0.08 |    I |
+| FibSeqUsingFastDoubling         | 98  |         40.52 μs |         12.99 μs |          2.011 μs |         41.40 μs |         0.64 |       0.09 |   II |
+| FibSeqUsingLoop                 | 98  |         64.80 μs |         63.79 μs |          9.872 μs |         65.15 μs |         1.02 |       0.20 |  III |
+| FibSeqUsingRecursion            | 98  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **99**  |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 99  |         31.30 μs |         24.32 μs |          3.764 μs |         29.65 μs |         0.74 |       0.14 |    I |
+| FibSeqUsingFastDoubling         | 99  |         29.43 μs |         19.11 μs |          2.957 μs |         28.70 μs |         0.69 |       0.12 |    I |
+| FibSeqUsingLoop                 | 99  |         43.47 μs |         28.64 μs |          7.439 μs |         44.05 μs |         1.02 |       0.22 |   II |
+| FibSeqUsingRecursion            | 99  |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **100** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 100 |         33.00 μs |         15.73 μs |          2.434 μs |         32.15 μs |         0.82 |       0.07 |    I |
+| FibSeqUsingFastDoubling         | 100 |         44.68 μs |         31.34 μs |          8.138 μs |         46.70 μs |         1.11 |       0.19 |    I |
+| FibSeqUsingLoop                 | 100 |         40.40 μs |         14.35 μs |          2.221 μs |         40.40 μs |         1.00 |       0.07 |    I |
+| FibSeqUsingRecursion            | 100 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **110** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 110 |         37.40 μs |         42.15 μs |         10.946 μs |         30.50 μs |         0.95 |       0.30 |    I |
+| FibSeqUsingFastDoubling         | 110 |         43.58 μs |         17.34 μs |          4.502 μs |         40.60 μs |         1.11 |       0.20 |    I |
+| FibSeqUsingLoop                 | 110 |         40.35 μs |         46.60 μs |          7.212 μs |         39.75 μs |         1.02 |       0.23 |    I |
+| FibSeqUsingRecursion            | 110 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **120** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 120 |         39.55 μs |         39.37 μs |         10.224 μs |         35.65 μs |         1.00 |       0.31 |    I |
+| FibSeqUsingFastDoubling         | 120 |         38.12 μs |         55.79 μs |          8.633 μs |         37.25 μs |         0.97 |       0.27 |    I |
+| FibSeqUsingLoop                 | 120 |         41.08 μs |         36.64 μs |          9.515 μs |         38.80 μs |         1.04 |       0.30 |    I |
+| FibSeqUsingRecursion            | 120 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **130** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 130 |         30.65 μs |         15.69 μs |          2.428 μs |         30.05 μs |         0.81 |       0.18 |    I |
+| FibSeqUsingFastDoubling         | 130 |         33.55 μs |         30.31 μs |          4.691 μs |         32.55 μs |         0.89 |       0.22 |    I |
+| FibSeqUsingLoop                 | 130 |         39.70 μs |         74.62 μs |         11.548 μs |         34.70 μs |         1.05 |       0.35 |    I |
+| FibSeqUsingRecursion            | 130 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **140** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 140 |         41.56 μs |         50.63 μs |         13.147 μs |         34.00 μs |         1.22 |       0.37 |    I |
+| FibSeqUsingFastDoubling         | 140 |         32.88 μs |         32.03 μs |          4.957 μs |         31.05 μs |         0.97 |       0.15 |    I |
+| FibSeqUsingLoop                 | 140 |         34.15 μs |         19.33 μs |          2.992 μs |         33.50 μs |         1.01 |       0.11 |    I |
+| FibSeqUsingRecursion            | 140 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **150** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 150 |        142.89 μs |        273.37 μs |         70.994 μs |        150.35 μs |         3.38 |       1.72 |  III |
+| FibSeqUsingFastDoubling         | 150 |         30.48 μs |         30.21 μs |          4.675 μs |         28.60 μs |         0.72 |       0.18 |    I |
+| FibSeqUsingLoop                 | 150 |         44.40 μs |         44.43 μs |         11.538 μs |         41.00 μs |         1.05 |       0.34 |   II |
+| FibSeqUsingRecursion            | 150 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **160** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 160 |         32.38 μs |         11.58 μs |          1.791 μs |         32.10 μs |         0.69 |       0.08 |    I |
+| FibSeqUsingFastDoubling         | 160 |         99.20 μs |         53.37 μs |          8.259 μs |        101.55 μs |         2.11 |       0.27 |  III |
+| FibSeqUsingLoop                 | 160 |         47.48 μs |         33.68 μs |          5.212 μs |         49.20 μs |         1.01 |       0.15 |   II |
+| FibSeqUsingRecursion            | 160 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **170** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 170 |         31.40 μs |         19.44 μs |          3.008 μs |         30.60 μs |         0.80 |       0.10 |    I |
+| FibSeqUsingFastDoubling         | 170 |         60.82 μs |         75.91 μs |         19.714 μs |         64.80 μs |         1.54 |       0.48 |  III |
+| FibSeqUsingLoop                 | 170 |         39.75 μs |         28.60 μs |          4.426 μs |         38.50 μs |         1.01 |       0.14 |   II |
+| FibSeqUsingRecursion            | 170 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **180** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 180 |         40.24 μs |         43.70 μs |         11.348 μs |         33.60 μs |         0.89 |       0.26 |    I |
+| FibSeqUsingFastDoubling         | 180 |         36.08 μs |         35.55 μs |          5.501 μs |         36.65 μs |         0.80 |       0.16 |    I |
+| FibSeqUsingLoop                 | 180 |         46.05 μs |         42.03 μs |          6.505 μs |         48.20 μs |         1.02 |       0.20 |    I |
+| FibSeqUsingRecursion            | 180 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **190** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 190 |         42.16 μs |         53.38 μs |         13.863 μs |         33.50 μs |         0.93 |       0.31 |    I |
+| FibSeqUsingFastDoubling         | 190 |         30.57 μs |         19.96 μs |          3.089 μs |         29.35 μs |         0.67 |       0.12 |    I |
+| FibSeqUsingLoop                 | 190 |         46.62 μs |         31.44 μs |          8.164 μs |         45.20 μs |         1.02 |       0.23 |    I |
+| FibSeqUsingRecursion            | 190 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **200** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 200 |         45.61 μs |         55.39 μs |         14.384 μs |         40.55 μs |         0.88 |       0.31 |    I |
+| FibSeqUsingFastDoubling         | 200 |         46.64 μs |         65.89 μs |         17.111 μs |         34.90 μs |         0.90 |       0.36 |    I |
+| FibSeqUsingLoop                 | 200 |         53.90 μs |         92.00 μs |         14.237 μs |         49.15 μs |         1.05 |       0.33 |   II |
+| FibSeqUsingRecursion            | 200 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **210** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 210 |         39.30 μs |         41.23 μs |         10.708 μs |         34.10 μs |         0.85 |       0.27 |    I |
+| FibSeqUsingFastDoubling         | 210 |         47.44 μs |         94.40 μs |         24.515 μs |         31.40 μs |         1.03 |       0.53 |    I |
+| FibSeqUsingLoop                 | 210 |         47.96 μs |         43.77 μs |         11.368 μs |         40.80 μs |         1.04 |       0.30 |   II |
+| FibSeqUsingRecursion            | 210 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **220** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 220 |         48.88 μs |         31.89 μs |          8.282 μs |         49.70 μs |         0.91 |       0.27 |   II |
+| FibSeqUsingFastDoubling         | 220 |         30.10 μs |         16.17 μs |          2.502 μs |         29.15 μs |         0.56 |       0.15 |    I |
+| FibSeqUsingLoop                 | 220 |         56.08 μs |         47.58 μs |         12.356 μs |         57.10 μs |         1.05 |       0.34 |   II |
+| FibSeqUsingRecursion            | 220 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **230** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 230 |         40.83 μs |         48.09 μs |          7.442 μs |         38.10 μs |         0.86 |       0.23 |    I |
+| FibSeqUsingFastDoubling         | 230 |         42.77 μs |         42.82 μs |         11.121 μs |         43.05 μs |         0.90 |       0.29 |    I |
+| FibSeqUsingLoop                 | 230 |         49.98 μs |         48.80 μs |         12.673 μs |         42.10 μs |         1.05 |       0.33 |   II |
+| FibSeqUsingRecursion            | 230 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **240** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 240 |         41.65 μs |         33.51 μs |          8.702 μs |         37.45 μs |         0.78 |       0.22 |    I |
+| FibSeqUsingFastDoubling         | 240 |         30.93 μs |         17.66 μs |          2.733 μs |         30.05 μs |         0.58 |       0.13 |    I |
+| FibSeqUsingLoop                 | 240 |         55.80 μs |         47.75 μs |         12.400 μs |         52.40 μs |         1.04 |       0.30 |   II |
+| FibSeqUsingRecursion            | 240 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **250** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 250 |         42.65 μs |         13.84 μs |          2.142 μs |         42.45 μs |         0.87 |       0.15 |    I |
+| FibSeqUsingFastDoubling         | 250 |         57.67 μs |        113.73 μs |         29.535 μs |         51.65 μs |         1.18 |       0.59 |    I |
+| FibSeqUsingLoop                 | 250 |         50.39 μs |         37.12 μs |          9.640 μs |         52.35 μs |         1.03 |       0.25 |    I |
+| FibSeqUsingRecursion            | 250 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **260** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 260 |         43.39 μs |         35.27 μs |          9.159 μs |         42.15 μs |         0.91 |       0.20 |    I |
+| FibSeqUsingFastDoubling         | 260 |         66.92 μs |        103.73 μs |         26.939 μs |         49.80 μs |         1.41 |       0.54 |    I |
+| FibSeqUsingLoop                 | 260 |         48.02 μs |         34.17 μs |          5.289 μs |         45.90 μs |         1.01 |       0.13 |    I |
+| FibSeqUsingRecursion            | 260 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **270** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 270 |         33.17 μs |         20.58 μs |          3.185 μs |         32.30 μs |         0.59 |       0.14 |    I |
+| FibSeqUsingFastDoubling         | 270 |         29.82 μs |         22.17 μs |          3.431 μs |         28.95 μs |         0.53 |       0.13 |    I |
+| FibSeqUsingLoop                 | 270 |         59.72 μs |         67.16 μs |         17.442 μs |         54.10 μs |         1.06 |       0.38 |   II |
+| FibSeqUsingRecursion            | 270 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **280** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 280 |         44.82 μs |         31.95 μs |          8.296 μs |         50.20 μs |         0.92 |       0.19 |    I |
+| FibSeqUsingFastDoubling         | 280 |         38.48 μs |         52.22 μs |         13.560 μs |         32.20 μs |         0.79 |       0.27 |    I |
+| FibSeqUsingLoop                 | 280 |         49.45 μs |         43.52 μs |          6.734 μs |         47.15 μs |         1.01 |       0.17 |    I |
+| FibSeqUsingRecursion            | 280 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **285** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 285 |         96.26 μs |         67.01 μs |         17.403 μs |         92.90 μs |         1.87 |       0.44 |   II |
+| FibSeqUsingFastDoubling         | 285 |         42.74 μs |         40.34 μs |         10.477 μs |         40.20 μs |         0.83 |       0.23 |    I |
+| FibSeqUsingLoop                 | 285 |         53.10 μs |         40.45 μs |         10.504 μs |         46.70 μs |         1.03 |       0.26 |    I |
+| FibSeqUsingRecursion            | 285 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **290** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 290 |         45.06 μs |         37.78 μs |          9.812 μs |         43.10 μs |         0.94 |       0.21 |    I |
+| FibSeqUsingFastDoubling         | 290 |        109.50 μs |         58.27 μs |          9.017 μs |        109.60 μs |         2.27 |       0.30 |   II |
+| FibSeqUsingLoop                 | 290 |         48.77 μs |         43.13 μs |          6.674 μs |         46.40 μs |         1.01 |       0.17 |    I |
+| FibSeqUsingRecursion            | 290 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **295** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 295 |         42.34 μs |         41.99 μs |         10.904 μs |         36.90 μs |         0.72 |       0.19 |    I |
+| FibSeqUsingFastDoubling         | 295 |         54.69 μs |        111.66 μs |         28.997 μs |         41.65 μs |         0.93 |       0.47 |    I |
+| FibSeqUsingLoop                 | 295 |         59.60 μs |         31.50 μs |          8.181 μs |         56.70 μs |         1.02 |       0.18 |   II |
+| FibSeqUsingRecursion            | 295 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+|                                 |     |                  |                  |                   |                  |              |            |      |
+| **FibSeqUsingGoldenRatio**          | **300** |               **NA** |               **NA** |                **NA** |               **NA** |            **?** |          **?** |    **?** |
+| FibSeqUsingMatrixExponentiation | 300 |         45.03 μs |         44.55 μs |         11.569 μs |         44.25 μs |         0.73 |       0.21 |   II |
+| FibSeqUsingFastDoubling         | 300 |         30.02 μs |         29.86 μs |          4.621 μs |         28.15 μs |         0.49 |       0.10 |    I |
+| FibSeqUsingLoop                 | 300 |         63.20 μs |         40.27 μs |         10.459 μs |         61.40 μs |         1.02 |       0.23 |  III |
+| FibSeqUsingRecursion            | 300 |               NA |               NA |                NA |               NA |            ? |          ? |    ? |
+
+Benchmarks with issues:
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=50]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=55]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=60]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=65]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=70]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=71]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=71]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=72]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=72]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=73]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=73]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=74]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=74]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=75]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=75]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=80]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=80]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=85]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=85]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=90]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=90]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=91]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=91]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=92]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=92]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=93]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=93]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=94]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=94]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=95]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=95]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=96]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=96]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=97]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=97]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=98]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=98]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=99]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=99]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=100]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=100]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=110]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=110]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=120]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=120]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=130]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=130]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=140]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=140]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=150]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=150]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=160]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=160]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=170]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=170]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=180]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=180]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=190]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=190]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=200]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=200]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=210]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=210]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=220]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=220]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=230]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=230]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=240]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=240]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=250]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=250]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=260]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=260]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=270]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=270]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=280]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=280]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=285]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=285]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=290]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=290]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=295]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=295]
+  FibonacciSeqBenchmarks.FibSeqUsingGoldenRatio: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=300]
+  FibonacciSeqBenchmarks.FibSeqUsingRecursion: ShortRun(EnvironmentVariables=RecursLimit=45, PowerPlanMode=67b4a053-3646-4532-affd-0535c9ea82a7, InvocationCount=1, IterationCount=5, LaunchCount=1, RunStrategy=Throughput, UnrollFactor=1, WarmupCount=1) [Nth=300]
