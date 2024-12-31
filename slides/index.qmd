@@ -53,12 +53,14 @@ from: markdown+emoji
 
 {{< include GitHub_Action_CI/_github_action_ci.qmd >}}
 
-## Opensource projects that use BDN: {.smaller .scrollable}
+# Open Source projects use BDN: {.smallest style="font-size: 50%;"}
+
+::: {style="overflow-y: scroll; height: 850px;"}
 
 "dotnet performance" use BDN to do micro benchmark:  
 <https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md>
 
-gRpc ASP.NET core microbenchmark:  
+gRPC ASP.NET core microbenchmark:  
 <https://github.com/grpc/grpc-dotnet/tree/master/perf/Grpc.AspNetCore.Microbenchmarks>
 
 ASP.NET Core routing component micro benchmarks:
@@ -76,11 +78,20 @@ C# Open-Telemetry SDK core component benchmark:
 .NET MAUI performance test:  
 <https://github.com/dotnet/maui/tree/main/src/Core/tests/Benchmarks.Droid>
 
+Avalonia UI framework benchmark:  
+<https://github.com/AvaloniaUI/Avalonia/tree/master/tests/Avalonia.Benchmarks>
+
 Benchmark on ASP.NET Core Orleans:  
 <https://github.com/dotnet/orleans/tree/main/test/Benchmarks>
 
+EFCore benchmark projects:  
+<https://github.com/dotnet/efcore/tree/main/benchmark>
+
 Benchmark on Dapper:  
 <https://github.com/DapperLib/Dapper/tree/main/benchmarks/Dapper.Tests.Performance>
+
+Newtonsoft.Json benchmarks:  
+<https://github.com/JamesNK/Newtonsoft.Json/tree/master/Src/Newtonsoft.Json.Tests/Benchmarks>
 
 Math library benchmark of Silk.NET:  
 <https://github.com/dotnet/Silk.NET/tree/main/src/Maths/Silk.NET.Maths.Benchmarks>
@@ -90,6 +101,8 @@ Benchmark ML.NET:
 
 ComputeSharp's various Benchmarks project:  
 <https://github.com/Sergio0694/ComputeSharp/tree/main/samples/ComputeSharp.Benchmark>
+
+:::
 
 ## Learning resources {.scrollable}
 
