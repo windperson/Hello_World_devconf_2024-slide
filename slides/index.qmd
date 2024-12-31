@@ -53,9 +53,9 @@ from: markdown+emoji
 
 {{< include GitHub_Action_CI/_github_action_ci.qmd >}}
 
-# Open Source projects use BDN: {.smallest style="font-size: 50%;"}
+# Open Source projects use BDN: {.smallest style="font-size: 60%;"}
 
-::: {style="overflow-y: scroll; height: 850px;"}
+::: {style="overflow-y: scroll; height: 850px; font-size: 80%;"}
 
 "dotnet performance" use BDN to do micro benchmark:  
 <https://github.com/dotnet/performance/blob/main/src/benchmarks/micro/README.md>
@@ -68,6 +68,9 @@ ASP.NET Core routing component micro benchmarks:
 
 Micro Benchmarks of PowerShell 7:  
 <https://github.com/PowerShell/PowerShell/tree/master/test/perf/benchmarks>
+
+RX.NET([ReactiveX](http://reactivex.io/)) benchmark:  
+<https://github.com/dotnet/reactive/tree/main/Rx.NET/Source/benchmarks/Benchmarks.System.Reactive>
 
 The dotnet runtime benchmark tool Microsoft.Crank can combine use of BDN to do micro benchmark:  
 <https://github.com/dotnet/crank/blob/main/docs/microbenchmarks.md>
@@ -104,7 +107,9 @@ ComputeSharp's various Benchmarks project:
 
 :::
 
-## Learning resources {.scrollable}
+## Learning Resources
+
+::: {style="overflow-y: scroll; height: 850px;"}
 
 * BenchmarkDotNet official documentation:  
   <https://benchmarkdotnet.org/articles/overview.html>
@@ -117,5 +122,9 @@ ComputeSharp's various Benchmarks project:
   <https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8>
 * See source codes of BenchmarkDotNet usage:  
   <https://github.com/topics/benchmarkdotnet>  
+* Use Crank to Benchmark Libraries:  
+  <https://www.c-sharpcorner.com/article/using-crank-to-benchmark-libraries>
+
+:::
 
 ## Thanks / Q & A {.center-xy}
