@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.39">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.40">
 
   <meta name="author" content="老鮑伯">
   <title>index</title>
@@ -229,7 +229,7 @@
 </section>
 <section id="what-is-benchmarkdotnet" class="slide level2">
 <h2>What is BenchmarkDotNET?</h2>
-<p><strong>BenchmarkDotNet</strong>(<strong><em>BDN</em></strong>): .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./BDN_tutorial//pics/logo-wide.png" alt="web site loge"></p>
+<p><strong>BenchmarkDotNet</strong>(<strong><em>BDN</em></strong>): .NET library for benchmarking you C#/F#/VB code. <br><img data-src="./01_BDN_tutorial//pics/logo-wide.png" alt="web site loge"></p>
 <ul>
 <li>MIT License</li>
 <li>GitHub: <a href="https://github.com/dotnet/BenchmarkDotNet" class="uri">https://github.com/dotnet/BenchmarkDotNet</a></li>
@@ -263,15 +263,15 @@ Measure the performance of a whole application.</li>
 <div class="columns">
 <div class="column" style="width:33%;">
 <h3 class="center" id="microbenchmark"><em>Microbenchmark</em></h3>
-<p><img data-src="./BDN_tutorial/pics/microscope-2-svgrepo-com.svg"></p>
+<p><img data-src="./01_BDN_tutorial/pics/microscope-2-svgrepo-com.svg"></p>
 <p><a href="https://learn.microsoft.com/dotnet/api/system.diagnostics.stopwatch">System.Diagnostics.Stopwatch</a>, BenchmarkDotNET, NBench</p>
 </div><div class="column" style="width:33%;">
 <h3 class="center" id="macrobenchmark"><em>Macrobenchmark</em></h3>
-<p><img data-src="./BDN_tutorial/pics/telescope-2-svgrepo-com.svg"></p>
+<p><img data-src="./01_BDN_tutorial/pics/telescope-2-svgrepo-com.svg"></p>
 <p>BenchmarkDotNET(partial), JMeter, Vegeta, Bombardier</p>
 </div><div class="column" style="width:33%;">
 <h3 class="center" id="profiling"><em>Profiling</em></h3>
-<p><img data-src="./BDN_tutorial/pics/protractor-svgrepo-com.svg"></p>
+<p><img data-src="./01_BDN_tutorial/pics/protractor-svgrepo-com.svg"></p>
 <p>dotTrace, dotMemory, PerfView, PerfMon, Windows Performance Recorder</p>
 </div></div>
 </section>
@@ -309,14 +309,14 @@ Measure the performance of a whole application.</li>
 <h2>A Hello World example</h2>
 <p>We can build a quick Hello world example using <a href="https://dotnet.microsoft.com/download">.NET SDK</a> with <a href="https://benchmarkdotnet.org/articles/guides/dotnet-new-templates.html">BenchmarkDotNET templates</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href=""></a>dotnet new -i BenchmarkDotNet.Templates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<img data-src="./BDN_tutorial/pics/install_BDN_template.png" class="r-stretch">
+<img data-src="./01_BDN_tutorial/pics/install_BDN_template.png" class="r-stretch">
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
 <p>Generate a new Benchmark project:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href=""></a>dotnet new benchmark -n HelloBDN</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<img data-src="./BDN_tutorial/pics/create_BDN_project.png" class="r-stretch"></section>
+<img data-src="./01_BDN_tutorial/pics/create_BDN_project.png" class="r-stretch"></section>
 <section id="section-2" class="slide level2">
 <h2></h2>
 <p>Generated <code>HelloBDN.csproj</code> file:</p>
@@ -403,18 +403,18 @@ Measure the performance of a whole application.</li>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource shell number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>dotnet run -c Release</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="r-stack">
 <div class="fragment">
-<p><img data-src="./BDN_tutorial/pics/running_HelloBDN_project-1.png"></p>
+<p><img data-src="./01_BDN_tutorial/pics/running_HelloBDN_project-1.png"></p>
 </div>
 <div class="fragment fade-in">
-<p><img data-src="./BDN_tutorial/pics/running_HelloBDN_project-2.png"></p>
+<p><img data-src="./01_BDN_tutorial/pics/running_HelloBDN_project-2.png"></p>
 </div>
 </div>
 </section>
 <section id="benchmarkdotnet-report" class="slide level2">
 <h2>BenchmarkDotNET report</h2>
 <p>After running the benchmark, BDN will generate a report in the console, and also generate report file(s) in <code>BenchmarkDotNet.Artifacts/results</code> folder.</p>
-<p><img data-src="./BDN_tutorial/pics/BDN_project_report_location.png"></p>
-<p><img data-src="./BDN_tutorial/pics/BDN_project_html_report.png"></p>
+<p><img data-src="./01_BDN_tutorial/pics/BDN_project_report_location.png"></p>
+<p><img data-src="./01_BDN_tutorial/pics/BDN_project_html_report.png"></p>
 <p>So we achieved a quick benchmark demo with BenchmarkDotNET.</p>
 </section>
 <section id="bdn-mechanism" class="slide level2 small scrollable">
@@ -454,7 +454,7 @@ Measure the performance of a whole application.</li>
 <section id="example-project-structure" class="slide level2">
 <h2>Example project structure</h2>
 
-<img data-src="./BDN_tutorial/pics/microbenchmark_project_structure.png" class="r-stretch"><ul>
+<img data-src="./01_BDN_tutorial/pics/microbenchmark_project_structure.png" class="r-stretch"><ul>
 <li><code>FibonaccCore</code> project is a class library project, contains four Fibonacci Sequence generate algorithm.</li>
 <li><code>FibSeqMicroBench</code> project is a console project that we write BDN benchmark test code here.</li>
 </ul>
@@ -758,7 +758,7 @@ Measure the performance of a whole application.</li>
 <h2>Run the microbenchmark</h2>
 <p>At first you may attempt to run the benchmark with <code>dotnet run -c Release</code> command directly inside the <em>FibSeqMicroBench</em> folder, but you will get an error message like this:</p>
 
-<img data-src="./BDN_tutorial/pics/not_release_mode_error_on_starting_microbenchmark_project.png" class="r-stretch"><p>This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don’t specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.</p>
+<img data-src="./01_BDN_tutorial/pics/not_release_mode_error_on_starting_microbenchmark_project.png" class="r-stretch"><p>This is due to BDN default wants to run benchmark using optimized build, and by design of .NET Core SDK, if you don’t specify the solution file but just run the command in the project folder, the dependency project will not be built in optimized mode.</p>
 <p>So you need to execuate the <code>dotnet run</code> command in the solution folder.</p>
 <p>(See readme file in the github project root folder)</p>
 </section>
@@ -767,15 +767,15 @@ Measure the performance of a whole application.</li>
 <p>You can invoke some BDN command line arguments to control the benchmark running behavior:</p>
 <ul>
 <li><code>-f --filter</code> : filter the benchmark cases to run.</li>
-<li><code>--list tree</code> or <code>--list flat</code> : list all benchmark cases. <img data-src="./BDN_tutorial/pics/list_microbenchmark_project_tests.png"></li>
-<li><code>--help</code> : show help message. <img data-src="./BDN_tutorial/pics/get_microbenchmark_project_help.png"></li>
+<li><code>--list tree</code> or <code>--list flat</code> : list all benchmark cases. <img data-src="./01_BDN_tutorial/pics/list_microbenchmark_project_tests.png"></li>
+<li><code>--help</code> : show help message. <img data-src="./01_BDN_tutorial/pics/get_microbenchmark_project_help.png"></li>
 </ul>
 </section>
 <section id="run-the-microbenchmark-1" class="slide level2 scrollable">
 <h2>Run the microbenchmark</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./BDN_tutorial/pics/run_fibSeq_micro-benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./01_BDN_tutorial/pics/run_fibSeq_micro-benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -783,7 +783,7 @@ Measure the performance of a whole application.</li>
 <h2>Finish microbenchmark</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./BDN_tutorial/pics/done_fibSeq_micro-benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./01_BDN_tutorial/pics/done_fibSeq_micro-benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -791,7 +791,7 @@ Measure the performance of a whole application.</li>
 <h2>Microbenchmark result</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./BDN_tutorial//pics/benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./01_BDN_tutorial//pics/benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -909,7 +909,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <h2>Benchmarking result</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./CSharp_BDN_examples/pics/microservice_benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./02_CSharp_BDN_examples/pics/microservice_benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -942,7 +942,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <h2>Benchmarking screen shot</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./CSharp_BDN_examples/pics/Blazor_rendertree_benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p><img data-src="./02_CSharp_BDN_examples/pics/Blazor_rendertree_benchmark.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </section>
@@ -954,7 +954,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <li>You can use <a href="https://github.com/microsoft/perfview">perfview</a> to analyze the native part characteristcs of ONNX Runtime</li>
 </ul>
 
-<img data-src="./CSharp_BDN_examples/pics/ONNX_runtime_screen_shot.png" class="r-stretch"></section>
+<img data-src="./02_CSharp_BDN_examples/pics/ONNX_runtime_screen_shot.png" class="r-stretch"></section>
 <section id="mobile" class="slide level2">
 <h2>Mobile</h2>
 <p>Benchmark on Xamarin Forms / .NET MAUI Android &amp; iOS:</p>
