@@ -2,8 +2,10 @@ project:
   title: BenchmarkDotNET<br/>科學化 .NET 應用效能調校
   render: 
     - slides/index.qmd
+    - slides/_perfview_intro.qmd
 
 # picture url prefix
-bdn_1_prefix: ./BDN_tutorial/
-bdn_2_prefix: ./CSharp_BDN_examples/
-bdn_3_prefix: ./GitHub_Action_CI/
+bdn_1_prefix: ./01_BDN_tutorial/
+bdn_2_prefix: ./02_CSharp_BDN_examples/
+bdn_3_prefix: ./03_GitHub_Action_CI/
+perfview_intro_prefix: ./_Perfview_Intro/

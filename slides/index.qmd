@@ -43,15 +43,15 @@ from: markdown+emoji
 
 # BenchmarkDotNET 入門
 
-{{< include BDN_tutorial/_bdn_tutorial.qmd >}}
+{{< include 01_BDN_tutorial/_bdn_tutorial.qmd >}}
 
 # Use BDN on various C# applications
 
-{{< include CSharp_BDN_examples/_csharp_bdn_examples.qmd >}}
+{{< include 02_CSharp_BDN_examples/_csharp_bdn_examples.qmd >}}
 
 # GitHub Action CI Integration & Other Tools 
 
-{{< include GitHub_Action_CI/_github_action_ci.qmd >}}
+{{< include 03_GitHub_Action_CI/_github_action_ci.qmd >}}
 
 # Open Source projects use BDN: {.smallest style="font-size: 60%;"}
 
