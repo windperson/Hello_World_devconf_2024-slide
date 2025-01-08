@@ -53,6 +53,8 @@ from: markdown+emoji
 
 {{< include 03_GitHub_Action_CI/_github_action_ci.qmd >}}
 
+{{< include _Perfview_Intro/_perfview_intro.qmd >}}
+
 # Open Source projects use BDN: {.smallest style="font-size: 60%;"}
 
 ::: {style="overflow-y: scroll; height: 850px; font-size: 80%;"}
