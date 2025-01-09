@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.6.40">
 
   <meta name="author" content="老鮑伯">
-  <title>index</title>
+  <title>BenchmarkDotNET 科學化 .NET 應用效能調校</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -204,7 +204,18 @@
   <div class="reveal">
     <div class="slides">
 
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">BenchmarkDotNET<br>科學化 .NET 應用效能調校</h1>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+老鮑伯 
+</div>
+</div>
+</div>
+
+</section>
 <section id="agenda" class="title-slide slide level1 center">
 <h1>Agenda</h1>
 <div class="columns">
@@ -1010,27 +1021,43 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>A MIT-license tool for collecting / inspect performance data based on ETW(Event Tracing for Windows): <a href="https://github.com/microsoft/perfview" class="uri">https://github.com/microsoft/perfview</a></li>
+<li>A MIT-license tool for collecting / inspect performance data based on ETW(Event Tracing for Windows):<br><a href="https://github.com/microsoft/perfview" class="uri">https://github.com/microsoft/perfview</a></li>
 <li>Lightweight &amp; fast for both collecting process-wide / system-wide performance data</li>
-<li>Don’t require software installation.<br>(Simply copy the <strong>PerfView.exe</strong> and run it.)</li>
+<li>Don’t require software installation.<br><span style="font-size: 85%;">(Simply copy the <strong>PerfView.exe</strong> and run it.)</span></li>
 </ul>
 </div><div class="column" style="width:40%;">
-<p><img data-src="./_Perfview_Intro/pics/download_perfview_exe.png"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./PerfView_Intro/pics/download_PerfView_exe.png" class="quarto-figure quarto-figure-center" style="height:150.0%"></p>
+</figure>
+</div>
 </div></div>
 </section>
-<section id="etwevent-tracing-for-windows" class="slide level2">
+<section id="etwevent-tracing-for-windows" class="slide level2 smaller">
 <h2>ETW(Event Tracing for Windows)</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li>Event Tracing for Windows (ETW) provides an OS-level infra to trace and log events that are raised by user-mode applications and kernel-mode drivers</li>
+<li><a href="https://learn.microsoft.com/windows/win32/etw/event-tracing-portal"><strong>Event Tracing for Windows</strong> (ETW)</a> provides an OS-level infra to trace and log events that are raised by user-mode applications and kernel-mode drivers</li>
 <li>Built-in with Windows, provides developers a fast, reliable, and versatile set of event tracing features</li>
 <li>Performance data collection tools that use ETW infra:
 <ul>
-<li>dotnet-trace</li>
-<li>Windows Performance Analyzer</li>
-<li>PerfView</li>
-<li>JetBrains ETW Host Service: Provides ETW facilities for JetBrains dotTrace “Timeline Profiling” feature</li>
+<li><a href="https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-trace">dotnet-trace</a></li>
+<li><a href="https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-analyzer">Windows Performance Analyzer</a></li>
+<li><a href="https://learn.microsoft.com/visualstudio/ide/report-a-problem-perfview-minidumps">PerfView</a></li>
+<li><a href="https://www.jetbrains.com/profiler/etw/">JetBrains ETW Host Service</a>:<br>Provides ETW facilities for JetBrains dotTrace <a href="https://www.jetbrains.com/help/profiler/Basic_Concepts.html#timeline">“Timeline Profiling”</a> feature</li>
 </ul></li>
 </ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./PerfView_Intro/pics/ETW_architecture.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div style="font-size: 55%;">
+<p>Image Source:<br><a href="https://learn.microsoft.com/windows/win32/etw/about-event-tracing" class="uri">https://learn.microsoft.com/windows/win32/etw/about-event-tracing</a></p>
+</div>
+</div></div>
 </section></section>
 <section>
 <section id="open-source-projects-use-bdn" class="title-slide slide level1 smallest center" style="font-size: 60%;">
