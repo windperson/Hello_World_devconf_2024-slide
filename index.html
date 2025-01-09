@@ -1016,19 +1016,19 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <a href="https://makolyte.com/comparing-performance-with-benchmarkdotnet-graphs/" class="uri">https://makolyte.com/comparing-performance-with-benchmarkdotnet-graphs/</a></p></li>
 </ul>
 </section>
-<section id="what-is-perfview" class="slide level2">
+<section id="what-is-perfview" class="slide level2 smaller">
 <h2>What is PerfView?</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:50%;">
 <ul>
 <li>A MIT-license tool for collecting / inspect performance data based on ETW(Event Tracing for Windows):<br><a href="https://github.com/microsoft/perfview" class="uri">https://github.com/microsoft/perfview</a></li>
 <li>Lightweight &amp; fast for both collecting process-wide / system-wide performance data</li>
 <li>Don’t require software installation.<br><span style="font-size: 85%;">(Simply copy the <strong>PerfView.exe</strong> and run it.)</span></li>
 </ul>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./PerfView_Intro/pics/download_PerfView_exe.png" class="quarto-figure quarto-figure-center" style="height:150.0%"></p>
+<p><img data-src="./PerfView_Intro/pics/download_PerfView_exe.png" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 </div></div>
@@ -1058,9 +1058,30 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <p>Image Source:<br><a href="https://learn.microsoft.com/windows/win32/etw/about-event-tracing" class="uri">https://learn.microsoft.com/windows/win32/etw/about-event-tracing</a></p>
 </div>
 </div></div>
-</section></section>
-<section>
-<section id="open-source-projects-use-bdn" class="title-slide slide level1 smallest center" style="font-size: 60%;">
+</section>
+<section id="perfview-features---export-flame-graph" class="slide level2 smaller">
+<h2>PerfView Features - Export flame graph</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>Use “Flame Graph” to get an entire performance overview of the application</p>
+<ul>
+<li>Move mouse pointer to hover on the block to see method name.</li>
+<li>Zoom in/out via mouse wheel.</li>
+<li>Left click &amp; drag to move viewport.</li>
+<li>Right click and select “Save Frame Graph” to save current view as .png file<br>
+<img data-src="./PerfView_Intro/pics/save_flame_graph.png" class="quarto-figure quarto-figure-center" style="height:50.0%"></li>
+<li>It is possible to export other format of Flame Graph: <a href="https://adamsitnik.com/speedscope/" class="uri">https://adamsitnik.com/speedscope/</a></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./PerfView_Intro/pics/flamegraph_intro.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div style="font-size: 55%;">
+<p>Source:<br><a href="https://x.com/b0rk/status/945680809712857090" class="uri">https://x.com/b0rk/status/945680809712857090</a></p>
+</div>
+</div><section id="open-source-projects-use-bdn" class="title-slide slide level1 smallest center" style="font-size: 60%;">
 <h1>Open Source projects use BDN:</h1>
 <div style="overflow-y: scroll; height: 850px; font-size: 80%;">
 <p>“dotnet performance” use BDN to do micro benchmark:<br>
@@ -1119,6 +1140,9 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <section id="thanks-q-a" class="slide level2 center-xy">
 <h2>Thanks / Q &amp; A</h2>
 
+</section>
+
+</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
