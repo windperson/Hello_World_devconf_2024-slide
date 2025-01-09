@@ -23,11 +23,11 @@ format:
 from: markdown+emoji
 ---
 
-## What is PerfView?
+## What is PerfView? {.smaller}
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 
 * A MIT-license tool for collecting / inspect performance data based on ETW(Event Tracing for Windows):<br/><https://github.com/microsoft/perfview>
 * Lightweight & fast for both collecting process-wide / system-wide performance data
@@ -35,9 +35,9 @@ from: markdown+emoji
  
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 
-![]({{< meta perfview_intro_prefix >}}pics/download_PerfView_exe.png){height=150% fig-align="center"}
+![]({{< meta perfview_intro_prefix >}}pics/download_PerfView_exe.png){fig-align="center"}
 
 :::
 
@@ -70,3 +70,31 @@ Image Source:<br/><https://learn.microsoft.com/windows/win32/etw/about-event-tra
 :::
 
 ::::      
+
+## PerfView Features - Export flame graph {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+Use "Flame Graph" to get an entire performance overview of the application
+
+* Move mouse pointer to hover on the block to see method name.
+* Zoom in/out via mouse wheel.
+* Left click & drag to move viewport.
+* Right click and select “Save Frame Graph” to save current view as .png file  
+  ![]({{< meta perfview_intro_prefix >}}pics/save_flame_graph.png){height=50% fig-align="center"}
+* It is possible to export other format of Flame Graph: <https://adamsitnik.com/speedscope/>
+
+:::
+
+::: {.column width="40%"}
+
+![]({{< meta perfview_intro_prefix >}}pics/flamegraph_intro.png){fig-align="center"}
+
+
+::: {style="font-size: 55%;"}
+Source:<br/><https://x.com/b0rk/status/945680809712857090>
+:::
+
+:::
