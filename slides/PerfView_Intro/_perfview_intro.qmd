@@ -1,0 +1,72 @@
+---
+author: 老鮑伯
+format:
+    revealjs:
+        width: 1200
+        height: 900
+        slide-tone: false
+        theme: simple
+        menu:
+            side: right
+        include-in-header: 
+            text: |
+                <style>
+                .center-xy {
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -ms-transform: translateY(-50%), translateX(-50%);
+                transform: translateY(-50%), translateX(-50%);
+                }
+                </style>
+from: markdown+emoji
+---
+
+## What is PerfView?
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+* A MIT-license tool for collecting / inspect performance data based on ETW(Event Tracing for Windows):<br/><https://github.com/microsoft/perfview>
+* Lightweight & fast for both collecting process-wide / system-wide performance data
+* Don’t require software installation.<br/>[(Simply copy the **PerfView.exe** and run it.)]{style="font-size: 85%;"}
+ 
+:::
+
+::: {.column width="40%"}
+
+![]({{< meta perfview_intro_prefix >}}pics/download_PerfView_exe.png){height=150% fig-align="center"}
+
+:::
+
+::::      
+
+## ETW(Event Tracing for Windows){.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+* [**Event Tracing for Windows** (ETW)](https://learn.microsoft.com/windows/win32/etw/event-tracing-portal) provides an OS-level infra to trace and log events that are raised by user-mode applications and kernel-mode drivers
+* Built-in with Windows, provides developers a fast, reliable, and versatile set of event tracing features
+* Performance data collection tools that use ETW infra:
+  * [dotnet-trace](https://learn.microsoft.com/dotnet/core/diagnostics/dotnet-trace)
+  * [Windows Performance Analyzer](https://learn.microsoft.com/windows-hardware/test/wpt/windows-performance-analyzer)
+  * [PerfView](https://learn.microsoft.com/visualstudio/ide/report-a-problem-perfview-minidumps)
+  * [JetBrains ETW Host Service](https://www.jetbrains.com/profiler/etw/):<br/>Provides ETW facilities for JetBrains dotTrace ["Timeline Profiling"](https://www.jetbrains.com/help/profiler/Basic_Concepts.html#timeline) feature
+
+:::
+
+::: {.column width="40%"}
+
+![]({{< meta perfview_intro_prefix >}}pics/ETW_architecture.png){fig-align="center"}
+
+::: {style="font-size: 55%;"}
+Image Source:<br/><https://learn.microsoft.com/windows/win32/etw/about-event-tracing>
+:::
+
+:::
+
+::::      
