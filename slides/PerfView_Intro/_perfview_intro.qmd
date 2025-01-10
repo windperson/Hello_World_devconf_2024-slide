@@ -69,7 +69,16 @@ Image Source:<br/><https://learn.microsoft.com/windows/win32/etw/about-event-tra
 
 :::
 
-::::      
+:::: 
+
+## PerfView - how to use it? {.smaller}
+
+1. Run PerfView with Administrative access right in Windows
+2. Setup Collection configuration and press Start collection on PerfView
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_start_collection.png){fig-align="center"}
+3. Do any activities that you want to record performance
+4. Stop collection on PerfView, it will generate the collection file ( ***&#42;.etl.zip*** )
+5. Inspect the performance characteristics of collection file via many PerfView feature:<br/>**CPU Stacks** / **GC Stats** / **Flame Graph**
 
 ## PerfView Features - Export flame graph {.smaller}
 
@@ -98,3 +107,4 @@ Source:<br/><https://x.com/b0rk/status/945680809712857090>
 :::
 
 :::
+
