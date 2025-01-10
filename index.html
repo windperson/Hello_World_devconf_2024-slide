@@ -1059,7 +1059,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 </div>
 </div></div>
 </section>
-<section id="perfview---how-to-use-it" class="slide level2 smaller">
+<section id="perfview---how-to-use-it" class="slide level2 smaller scrollable">
 <h2>PerfView - how to use it?</h2>
 <ol type="1">
 <li>Run PerfView with Administrative access right in Windows</li>
@@ -1068,7 +1068,44 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <li>Stop collection on PerfView, it will generate the collection file ( <strong><em>*.etl.zip</em></strong> )</li>
 <li>Inspect the performance characteristics of collection file via many PerfView feature:<br><strong>CPU Stacks</strong> / <strong>GC Stats</strong> / <strong>Flame Graph</strong></li>
 </ol>
+<table class="caption-top">
+<caption>Icons of PerfView</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Icon</th>
+<th style="text-align: left;">Purpose</th>
+<th style="text-align: left;">Document / Tutorial Video</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img data-src="./PerfView_Intro/pics/PerfView_HTML_Report_Icon.png" class="quarto-figure quarto-figure-center"></td>
+<td style="text-align: left;">HTML Report</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><img data-src="./PerfView_Intro/pics/PerfView_Stack_Viewer_Icon.png" class="quarto-figure quarto-figure-center"></td>
+<td style="text-align: left;">Stack Viewer</td>
+<td style="text-align: left;"><a href="https://html-preview.github.io/?url=https://github.com/Microsoft/perfview/blob/main/src/PerfView/SupportFiles/UsersGuide.htm#StackViewer">document</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><img data-src="./PerfView_Intro/pics/PerfView_Event_Viewer_Icon.png" class="quarto-figure quarto-figure-center"></td>
+<td style="text-align: left;">Raw Trace Event</td>
+<td style="text-align: left;"><a href="https://learn.microsoft.com/en-us/shows/perfview-tutorial/6-event-viewer-basics">video</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><img data-src="./PerfView_Intro/pics/PerfView_Heap_Analyzer_Icon.png" class="quarto-figure quarto-figure-center"></td>
+<td style="text-align: left;">GC Heap Analyzer</td>
+<td style="text-align: left;"><a href="https://learn.microsoft.com/en-us/shows/perfview-tutorial/9-net-memory-investigation-basics-of-gc-heap-snapshots">video</a></td>
+</tr>
+</tbody>
+</table>
 </section>
+<section id="perfview---sample-performance-data-inspection" class="slide level2 smaller">
+<h2>PerfView - sample performance data inspection</h2>
+<p>Use the official <a href="https://apps.microsoft.com/detail/9ndlx60wx4kq">WPF Gallery Preview</a> sample app’s Icons Page to record performance data.</p>
+
+<img data-src="./PerfView_Intro/pics/WPF_Gallery_Preview_Icons_UI.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://github.com/microsoft/WPF-Samples/tree/main/Sample%20Applications/WPFGallery">github source</a></p></section>
 <section id="perfview-features---export-flame-graph" class="slide level2 smaller">
 <h2>PerfView Features - Export flame graph</h2>
 <div class="columns">
