@@ -75,7 +75,7 @@ Image Source:<br/><https://learn.microsoft.com/windows/win32/etw/about-event-tra
 
 1. Run PerfView with Administrative access right in Windows
 2. Setup Collection configuration and press Start collection on PerfView
-   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_start_collection.png){fig-align="center"}
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_start_collect.png){fig-align="center"}
 3. Do any activities that you want to record performance
 4. Stop collection on PerfView, it will generate the collection file ( ***&#42;.etl.zip*** )
 5. Inspect the performance characteristics of collection file via many PerfView feature:<br/>**CPU Stacks** / **GC Stats** / **Flame Graph**
@@ -89,11 +89,27 @@ Image Source:<br/><https://learn.microsoft.com/windows/win32/etw/about-event-tra
 
 : Icons of PerfView
 
-## PerfView - sample performance data inspection {.smaller}
+## PerfView - sample performance data inspection {.smaller .scrollable}
 
 Use the official [WPF Gallery Preview](https://apps.microsoft.com/detail/9ndlx60wx4kq) sample app's Icons Page to record performance data.
 
 ![[github source](https://github.com/microsoft/WPF-Samples/tree/main/Sample%20Applications/WPFGallery)]({{< meta perfview_intro_prefix >}}pics/WPF_Gallery_Preview_Icons_UI.png){fig-align="center"}
+
+1. After clone the git repository, Open the solution file (**Sample Applications/WPFGallery/WPFGallery.sln**) using Visual Studio 2022 with .NET 9 Desktop Development workload installed folder,  
+   ![]({{< meta perfview_intro_prefix >}}pics/SampleApp-WPF_Gallery_solution_file.png){fig-align="center"}
+2. Then run the WPF Gallery Preview app in Visual Studio 2022 once to generate the executable file (***WPFGallery.exe***) inside the **Sample Applications\WPFGallery\bin\x64\Debug\net9.0-windows** folder:  
+   ![]({{< meta perfview_intro_prefix >}}pics/SampleApp-WPF_Gallery_exe_file.png){fig-align="center"}
+3. Run PerfView with Administrative access right in Windows, select [Collect]/[Collect(Alt+C)] menu entry, on opened dialog, Set "**Current Dir:**" to a folder that will store collected *.etl.zip file; Add `E13B77A8-14B6-11DE-8069-001B212B5009:2:*` in "**Additional Providers**", make sure the "**.NET Symbol Collection**" is checked, then press **Start Collection** button:  
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_collect_config.png){fig-align="center"}
+4. Run the **WPFGallery.exe** and go to the Icons page to record performance, then back to PerfView and press **Stop Collection** button.
+5. Waiting for PerfView to generate the collection file ( **PerfViewData.etl.zip*** ) and it will show on PerfView main window left tree view, which is expandable to see the performance data:
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_collect_done.png){fig-align="center"}
+6. Double click the "CPU Stacks", then select the WPFGallery:  
+   ![]({{< meta perfview_intro_prefix >}}pics/Open_PerfView_WPF_Gallery_collection_data.png){fig-align="center"}
+7. On opened new window, select all entires in "By Name?" tab, then right click open context menu to select **Lookup Symbols**   
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_collection_lookup_symbols.png){fig-align="center"}
+8. After lookup symbols done, you can type `IconsPageViewModel` in the top **Find** input box to search for the ViewModel class entries in the list, PerfView will auto switch to a **Call Tree** view to see call tree view, and select correct view style in **GroupPats:** list:  
+   ![]({{< meta perfview_intro_prefix >}}pics/PerfView_collection_find_target_ViewModel_invocation.png){fig-align="center"}
 
 
 ## PerfView Features - Export flame graph {.smaller}
