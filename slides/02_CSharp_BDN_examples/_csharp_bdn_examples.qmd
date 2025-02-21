@@ -1,4 +1,78 @@
-## Web {.scrollable}
+## Web (Web API){.smaller .scrollable}
+
+For a basic ASP.NET Core Web API / minimal API project, we can create the [`WebApplication`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.webapplication) instance and associated HttpClient in the [GlobalSetup] method, and dispose of them in the `[GlobalCleanup]` method.
+
+Example project: <https://github.com/windperson/DemoAspNetCoreBenchmark>
+
+![]({{< meta bdn_2_prefix >}}pics/Benchmark_MvcWebApiVsMinimalApi.png){.nostretch fig-align="center" width="100%"}
+
+The `[GlobalSetup]` and `[GlobalCleanup]` can accept `async Task` method return value signature:
+
+```csharp{.cs filename="WebApiBenchmarks/MvcVsMinimalApiBenchmarks.cs" code-line-numbers="false"}
+[GlobalSetup]
+public async Task Setup()
+{
+    _sutMvcWebApi = WebApplicationHelper.CreateSutMvcWebApi(["--urls", MvcWebApiUrl]);
+    await _sutMvcWebApi.StartAsync();                                                       // <1>
+    _mvcWebApiClient = new HttpClient()
+    {
+        BaseAddress = new Uri(MvcWebApiUrl)
+    };
+
+    _sutMinimalApi = WebApplicationHelper.CreateSutMinimalApi(["--urls", MinimalApiUrl]);
+    await _sutMinimalApi.StartAsync();                                                      // <2>
+    _minimalApiClient = new HttpClient()
+    {
+        BaseAddress = new Uri(MinimalApiUrl)
+    };
+}
+
+[GlobalCleanup]
+public async Task Cleanup()
+{
+    _mvcWebApiClient.Dispose();
+    await _sutMvcWebApi.StopAsync();
+
+    _minimalApiClient.Dispose();
+    await _sutMinimalApi.StopAsync();
+}
+
+[Benchmark]
+public async Task<string> MvcWebApi()
+{
+    var response = await _mvcWebApiClient.GetAsync("/weatherforecast");
+    response.EnsureSuccessStatusCode();
+    return await response.Content.ReadAsStringAsync();
+}
+```
+1. Don't use `RunAsync()` because it will block the thread until WebApplication shutdown, use `StartAsync()` instead.
+2. The same on Minimal API instance.
+
+```csharp{.cs filename="WebApiBenchmarks/WebApplicationHelper.cs" code-line-numbers="false"}
+public static WebApplication CreateSutMvcWebApi(string[] args)
+{
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+    builder.Services.AddAuthorization();
+
+    builder.Services.AddControllers()
+        .AddApplicationPart(
+          typeof(SutMvcWebApi.Controllers.WeatherForecastController).Assembly);  // <1>
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+
+    return app;
+}
+```
+1. Add the controller assembly from referenced ASP.NET Core Web API project to the WebApplication instance created in Benchmark project.
+
+## Web (MicrosService) {.smaller .scrollable}
 
 For microservice architecture,  
 We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.  
@@ -89,7 +163,7 @@ BDN can support .NET Core/.NET5+ WPF / WinForm applications.
 
 ![]({{< meta bdn_2_prefix >}}pics/WPF_run_benchmark.png){.nostretch fig-align="center" width="100%"}
 
-And also the example project can use [ETW Profiler of BenchmarkDotNet](https://benchmarkdotnet.org/articles/features/etwprofiler.html) to analyze the performance of that WPF view UI:
+And also the example project can use [ETW Profiler of BenchmarkDotNet](https://benchmarkdotnet.org/articles/features/etwprofiler.html) to analyze the performance of WPF view:
 
 ![]({{< meta bdn_2_prefix >}}pics/PerfView_see_benchmark_time_portion-final.png){.nostretch fig-align="center" width="100%"}
 

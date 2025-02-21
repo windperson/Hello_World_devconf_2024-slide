@@ -112,7 +112,7 @@ ComputeSharp's various Benchmarks project:
 
 ## Learning Resources
 
-::: {style="overflow-y: scroll; height: 850px;"}
+::: {style="overflow-y: scroll; height: 850px; font-size: 70%;"}
 
 * BenchmarkDotNet official documentation:  
   <https://benchmarkdotnet.org/articles/overview.html>
@@ -121,12 +121,25 @@ ComputeSharp's various Benchmarks project:
   <https://www.tenlong.com.tw/products/9781484249406>
 * Udemy course: **Benchmarking .NET Core Applications**:  
   <https://www.udemy.com/course/benchmarking-dotnet-core-applications/>
-* Benchmarking ASP.NET Application with .NET Crank:  
-  <https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8>
 * See source codes of BenchmarkDotNet usage:  
   <https://github.com/topics/benchmarkdotnet>  
+* Entity Framework Core and high performance  
+  <https://medium.com/@anton_shyrokykh/entity-framework-core-and-high-performance-b68e107972d4>  
+* Profiling Concurrent .NET Code with BenchmarkDotNet and visualizing it with Concurrency Visualizer  
+  <https://adamsitnik.com/ConcurrencyVisualizer-Profiler/>
+* Analyzing WPF performance by enabling ETW  
+  <https://endjin.com/blog/2024/01/wpf-performance-enable-etw>
+* Benchmarking ASP.NET Application with .NET Crank:  
+  <https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8>
 * Use Crank to Benchmark Libraries:  
   <https://www.c-sharpcorner.com/article/using-crank-to-benchmark-libraries>
+* Microsoft Crank 介紹文：  
+  <https://segmentfault.com/a/1190000041513275>  
+  <https://segmentfault.com/a/1190000041708236>
+* Comparing the performance between the Minimal API and classic Controllers  
+  <https://steven-giesel.com/blogPost/698c45c3-58c5-4157-b4da-2cde4e27862e>
+* How to Integrate BenchmarkDotNet With Unit Tests  
+  <https://code-maze.com/how-to-integrate-benchmarkdotnet-with-unit-tests/>
 
 :::
 
