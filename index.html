@@ -821,8 +821,100 @@ Measure the performance of a whole application.</li>
 <h1>Use BDN on various C# applications</h1>
 
 </section>
-<section id="web" class="slide level2 scrollable">
-<h2>Web</h2>
+<section id="web-web-api" class="slide level2 smaller scrollable">
+<h2>Web (Web API)</h2>
+<p>For a basic ASP.NET Core Web API / minimal API project, we can create the <a href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.webapplication"><code>WebApplication</code></a> instance and associated HttpClient in the [GlobalSetup] method, and dispose of them in the <code>[GlobalCleanup]</code> method.</p>
+<p>Example project: <a href="https://github.com/windperson/DemoAspNetCoreBenchmark" class="uri">https://github.com/windperson/DemoAspNetCoreBenchmark</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./02_CSharp_BDN_examples/pics/Benchmark_MvcWebApiVsMinimalApi.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+<p>The <code>[GlobalSetup]</code> and <code>[GlobalCleanup]</code> can accept <code>async Task</code> method return value signature:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>WebApiBenchmarks/MvcVsMinimalApiBenchmarks.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-12" data-filename="WebApiBenchmarks/MvcVsMinimalApiBenchmarks.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>GlobalSetup<span class="op">]</span></span>
+<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> async Task <span class="fu">Setup</span><span class="op">()</span></span>
+<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a>    _sutMvcWebApi <span class="op">=</span> WebApplicationHelper<span class="op">.</span><span class="fu">CreateSutMvcWebApi</span><span class="op">([</span><span class="st">"--urls"</span><span class="op">,</span> MvcWebApiUrl<span class="op">]);</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-12-5" class="code-annotation-target"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>    await _sutMvcWebApi<span class="op">.</span><span class="fu">StartAsync</span><span class="op">();</span></span>
+<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a>    _mvcWebApiClient <span class="op">=</span> <span class="kw">new</span> <span class="fu">HttpClient</span><span class="op">()</span></span>
+<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a>        BaseAddress <span class="op">=</span> <span class="kw">new</span> <span class="fu">Uri</span><span class="op">(</span>MvcWebApiUrl<span class="op">)</span></span>
+<span id="annotated-cell-12-9"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-12-10"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-11"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>    _sutMinimalApi <span class="op">=</span> WebApplicationHelper<span class="op">.</span><span class="fu">CreateSutMinimalApi</span><span class="op">([</span><span class="st">"--urls"</span><span class="op">,</span> MinimalApiUrl<span class="op">]);</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-12-12" class="code-annotation-target"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a>    await _sutMinimalApi<span class="op">.</span><span class="fu">StartAsync</span><span class="op">();</span></span>
+<span id="annotated-cell-12-13"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>    _minimalApiClient <span class="op">=</span> <span class="kw">new</span> <span class="fu">HttpClient</span><span class="op">()</span></span>
+<span id="annotated-cell-12-14"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="annotated-cell-12-15"><a href="#annotated-cell-12-15" aria-hidden="true" tabindex="-1"></a>        BaseAddress <span class="op">=</span> <span class="kw">new</span> <span class="fu">Uri</span><span class="op">(</span>MinimalApiUrl<span class="op">)</span></span>
+<span id="annotated-cell-12-16"><a href="#annotated-cell-12-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="annotated-cell-12-17"><a href="#annotated-cell-12-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-12-18"><a href="#annotated-cell-12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-19"><a href="#annotated-cell-12-19" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>GlobalCleanup<span class="op">]</span></span>
+<span id="annotated-cell-12-20"><a href="#annotated-cell-12-20" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> async Task <span class="fu">Cleanup</span><span class="op">()</span></span>
+<span id="annotated-cell-12-21"><a href="#annotated-cell-12-21" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-12-22"><a href="#annotated-cell-12-22" aria-hidden="true" tabindex="-1"></a>    _mvcWebApiClient<span class="op">.</span><span class="fu">Dispose</span><span class="op">();</span></span>
+<span id="annotated-cell-12-23"><a href="#annotated-cell-12-23" aria-hidden="true" tabindex="-1"></a>    await _sutMvcWebApi<span class="op">.</span><span class="fu">StopAsync</span><span class="op">();</span></span>
+<span id="annotated-cell-12-24"><a href="#annotated-cell-12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-25"><a href="#annotated-cell-12-25" aria-hidden="true" tabindex="-1"></a>    _minimalApiClient<span class="op">.</span><span class="fu">Dispose</span><span class="op">();</span></span>
+<span id="annotated-cell-12-26"><a href="#annotated-cell-12-26" aria-hidden="true" tabindex="-1"></a>    await _sutMinimalApi<span class="op">.</span><span class="fu">StopAsync</span><span class="op">();</span></span>
+<span id="annotated-cell-12-27"><a href="#annotated-cell-12-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="annotated-cell-12-28"><a href="#annotated-cell-12-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-29"><a href="#annotated-cell-12-29" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Benchmark<span class="op">]</span></span>
+<span id="annotated-cell-12-30"><a href="#annotated-cell-12-30" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> async Task<span class="op">&lt;</span><span class="dt">string</span><span class="op">&gt;</span> <span class="fu">MvcWebApi</span><span class="op">()</span></span>
+<span id="annotated-cell-12-31"><a href="#annotated-cell-12-31" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-12-32"><a href="#annotated-cell-12-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> response <span class="op">=</span> await _mvcWebApiClient<span class="op">.</span><span class="fu">GetAsync</span><span class="op">(</span><span class="st">"/weatherforecast"</span><span class="op">);</span></span>
+<span id="annotated-cell-12-33"><a href="#annotated-cell-12-33" aria-hidden="true" tabindex="-1"></a>    response<span class="op">.</span><span class="fu">EnsureSuccessStatusCode</span><span class="op">();</span></span>
+<span id="annotated-cell-12-34"><a href="#annotated-cell-12-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> await response<span class="op">.</span><span class="fu">Content</span><span class="op">.</span><span class="fu">ReadAsStringAsync</span><span class="op">();</span></span>
+<span id="annotated-cell-12-35"><a href="#annotated-cell-12-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="5" data-code-annotation="1">Don’t use <code>RunAsync()</code> because it will block the thread until WebApplication shutdown, use <code>StartAsync()</code> instead.</span>
+</dd>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="12" data-code-annotation="2">The same on Minimal API instance.</span>
+</dd>
+</dl>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>WebApiBenchmarks/WebApplicationHelper.cs</strong></pre>
+</div>
+<div class="sourceCode" id="annotated-cell-13" data-filename="WebApiBenchmarks/WebApplicationHelper.cs"><pre class="sourceCode csharp cs code-annotation-code code-with-copy code-annotated"><code class="sourceCode cs"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">static</span> WebApplication <span class="fu">CreateSutMvcWebApi</span><span class="op">(</span><span class="dt">string</span><span class="op">[]</span> args<span class="op">)</span></span>
+<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> builder <span class="op">=</span> WebApplication<span class="op">.</span><span class="fu">CreateBuilder</span><span class="op">(</span>args<span class="op">);</span></span>
+<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Add services to the container.</span></span>
+<span id="annotated-cell-13-6"><a href="#annotated-cell-13-6" aria-hidden="true" tabindex="-1"></a>    builder<span class="op">.</span><span class="fu">Services</span><span class="op">.</span><span class="fu">AddAuthorization</span><span class="op">();</span></span>
+<span id="annotated-cell-13-7"><a href="#annotated-cell-13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-8"><a href="#annotated-cell-13-8" aria-hidden="true" tabindex="-1"></a>    builder<span class="op">.</span><span class="fu">Services</span><span class="op">.</span><span class="fu">AddControllers</span><span class="op">()</span></span>
+<span id="annotated-cell-13-9"><a href="#annotated-cell-13-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">AddApplicationPart</span><span class="op">(</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-13-10" class="code-annotation-target"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>          <span class="kw">typeof</span><span class="op">(</span>SutMvcWebApi<span class="op">.</span><span class="fu">Controllers</span><span class="op">.</span><span class="fu">WeatherForecastController</span><span class="op">).</span><span class="fu">Assembly</span><span class="op">);</span></span>
+<span id="annotated-cell-13-11"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-12"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> app <span class="op">=</span> builder<span class="op">.</span><span class="fu">Build</span><span class="op">();</span></span>
+<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-14"><a href="#annotated-cell-13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Configure the HTTP request pipeline.</span></span>
+<span id="annotated-cell-13-15"><a href="#annotated-cell-13-15" aria-hidden="true" tabindex="-1"></a>    app<span class="op">.</span><span class="fu">UseHttpsRedirection</span><span class="op">();</span></span>
+<span id="annotated-cell-13-16"><a href="#annotated-cell-13-16" aria-hidden="true" tabindex="-1"></a>    app<span class="op">.</span><span class="fu">UseAuthorization</span><span class="op">();</span></span>
+<span id="annotated-cell-13-17"><a href="#annotated-cell-13-17" aria-hidden="true" tabindex="-1"></a>    app<span class="op">.</span><span class="fu">MapControllers</span><span class="op">();</span></span>
+<span id="annotated-cell-13-18"><a href="#annotated-cell-13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-13-19"><a href="#annotated-cell-13-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> app<span class="op">;</span></span>
+<span id="annotated-cell-13-20"><a href="#annotated-cell-13-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="10" data-code-annotation="1">Add the controller assembly from referenced ASP.NET Core Web API project to the WebApplication instance created in Benchmark project.</span>
+</dd>
+</dl>
+</section>
+<section id="web-microsservice" class="slide level2 smaller scrollable">
+<h2>Web (MicrosService)</h2>
 <p>For microservice architecture,<br>
 We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orleans with BenchmarkDotNet.<br>
 (A kind of Macro benchmark project)<br>
@@ -934,7 +1026,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <p><img data-src="./02_CSharp_BDN_examples/pics/WPF_run_benchmark.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
-<p>And also the example project can use <a href="https://benchmarkdotnet.org/articles/features/etwprofiler.html">ETW Profiler of BenchmarkDotNet</a> to analyze the performance of that WPF view UI:</p>
+<p>And also the example project can use <a href="https://benchmarkdotnet.org/articles/features/etwprofiler.html">ETW Profiler of BenchmarkDotNet</a> to analyze the performance of WPF view:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./02_CSharp_BDN_examples/pics/PerfView_see_benchmark_time_portion-final.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
@@ -1220,7 +1312,7 @@ ASP.NET Core “Benchmark” repository using Crank to do micro benchmark perfor
 </section>
 <section id="learning-resources" class="slide level2">
 <h2>Learning Resources</h2>
-<div style="overflow-y: scroll; height: 850px;">
+<div style="overflow-y: scroll; height: 850px; font-size: 70%;">
 <ul>
 <li>BenchmarkDotNet official documentation:<br>
 <a href="https://benchmarkdotnet.org/articles/overview.html" class="uri">https://benchmarkdotnet.org/articles/overview.html</a></li>
@@ -1228,13 +1320,27 @@ ASP.NET Core “Benchmark” repository using Crank to do micro benchmark perfor
 <a href="https://aakinshin.net/prodotnetbenchmarking/" class="uri">https://aakinshin.net/prodotnetbenchmarking/</a> <a href="https://www.tenlong.com.tw/products/9781484249406" class="uri">https://www.tenlong.com.tw/products/9781484249406</a></li>
 <li>Udemy course: <strong>Benchmarking .NET Core Applications</strong>:<br>
 <a href="https://www.udemy.com/course/benchmarking-dotnet-core-applications/" class="uri">https://www.udemy.com/course/benchmarking-dotnet-core-applications/</a></li>
-<li>Benchmarking ASP.NET Application with .NET Crank:<br>
-<a href="https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8" class="uri">https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8</a></li>
 <li>See source codes of BenchmarkDotNet usage:<br>
 <a href="https://github.com/topics/benchmarkdotnet" class="uri">https://github.com/topics/benchmarkdotnet</a><br>
 </li>
+<li>Entity Framework Core and high performance<br>
+<a href="https://medium.com/@anton_shyrokykh/entity-framework-core-and-high-performance-b68e107972d4" class="uri">https://medium.com/@anton_shyrokykh/entity-framework-core-and-high-performance-b68e107972d4</a><br>
+</li>
+<li>Profiling Concurrent .NET Code with BenchmarkDotNet and visualizing it with Concurrency Visualizer<br>
+<a href="https://adamsitnik.com/ConcurrencyVisualizer-Profiler/" class="uri">https://adamsitnik.com/ConcurrencyVisualizer-Profiler/</a></li>
+<li>Analyzing WPF performance by enabling ETW<br>
+<a href="https://endjin.com/blog/2024/01/wpf-performance-enable-etw" class="uri">https://endjin.com/blog/2024/01/wpf-performance-enable-etw</a></li>
+<li>Benchmarking ASP.NET Application with .NET Crank:<br>
+<a href="https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8" class="uri">https://youtu.be/2IgfrnG-128?si=LIPeHSy4ox2b3fh8</a></li>
 <li>Use Crank to Benchmark Libraries:<br>
 <a href="https://www.c-sharpcorner.com/article/using-crank-to-benchmark-libraries" class="uri">https://www.c-sharpcorner.com/article/using-crank-to-benchmark-libraries</a></li>
+<li>Microsoft Crank 介紹文：<br>
+<a href="https://segmentfault.com/a/1190000041513275" class="uri">https://segmentfault.com/a/1190000041513275</a><br>
+<a href="https://segmentfault.com/a/1190000041708236" class="uri">https://segmentfault.com/a/1190000041708236</a></li>
+<li>Comparing the performance between the Minimal API and classic Controllers<br>
+<a href="https://steven-giesel.com/blogPost/698c45c3-58c5-4157-b4da-2cde4e27862e" class="uri">https://steven-giesel.com/blogPost/698c45c3-58c5-4157-b4da-2cde4e27862e</a></li>
+<li>How to Integrate BenchmarkDotNet With Unit Tests<br>
+<a href="https://code-maze.com/how-to-integrate-benchmarkdotnet-with-unit-tests/" class="uri">https://code-maze.com/how-to-integrate-benchmarkdotnet-with-unit-tests/</a></li>
 </ul>
 </div>
 </section>
