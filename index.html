@@ -1007,11 +1007,30 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <li><p>GitHub Action plugin to include Micro Benchmark on CI/CD:<br>
 <a href="https://github.com/benchmark-action/github-action-benchmark" class="uri">https://github.com/benchmark-action/github-action-benchmark</a> default using BDN on .NET C#:<br>
 <a href="https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md" class="uri">https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md</a></p></li>
-<li><p>Or just using command line in GitHub Action .yml file:<br>
+<li><p>Or just using command line in GitHub Action .yml configuration file:<br>
 <a href="https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed" class="uri">https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed</a></p></li>
-<li><p>Microsoft Crank benchmark tool:<br>
-<a href="https://github.com/dotnet/crank" class="uri">https://github.com/dotnet/crank</a></p></li>
 </ul>
+</section>
+<section id="microsoft-crank" class="slide level2 smaller scrollable">
+<h2>Microsoft Crank</h2>
+<ul>
+<li><p>A stress test platform for .NET CLR &amp; AsP.NET Core developer team to do performance test:<br>
+<a href="https://github.com/dotnet/crank" class="uri">https://github.com/dotnet/crank</a><br>
+ASP.NET Core “Benchmark” repository using Crank to do micro benchmark performance test:<br>
+<a href="https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks" class="uri">https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks</a></p></li>
+<li><p>A “Client-Server” architect, which can accept BDN project to build &amp; run for doing micro benchmark:<br>
+<img data-src="./03_GitHub_Action_CI/pics/crank_architect.svg" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p></li>
+<li><p>Write a .yml file to specify the .NET SDK, runtime version, and how to run the benchmark project, then submit project folder data to a remote machine for building &amp; running benchmark test on <strong><em>“Crank-Agent”</em></strong> server:<br>
+<img data-src="./03_GitHub_Action_CI/pics/crank_run_BDN_project_on_remote_Linux.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p></li>
+</ul>
+<h3 id="demo-projects-to-run-bdn-with-microsoft-crank">Demo Projects to run BDN with Microsoft Crank</h3>
+<p><a href="https://github.com/windperson/DemoMultipleNugetVersionBenchmark" class="uri">https://github.com/windperson/DemoMultipleNugetVersionBenchmark</a></p>
+<p>Its purpose is to compare Object to JSON string serialization performance of different libraries:<br>
+<img data-src="./03_GitHub_Action_CI/pics/SerializeLibBenchmark_on_crank.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p>It will help you resolve the issue when you need to do some performance comparison between different versions of the same library by using <a href="https://benchmarkdotnet.org/articles/samples/IntroNuGet.html"><code>WithNuget()</code> API of BDN</a>:<br>
+<img data-src="./03_GitHub_Action_CI/pics/becnhmark_NewtonsoftJsonNet_multiple_versions.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<p>or different libraries that consume the same nuget package(eq. JSON.NET) but with different versions, and you want to write benchmarks to compare:<br>
+<img data-src="./03_GitHub_Action_CI/pics/NewtonsoftJsonNet_version_conflict.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </section>
 <section id="benchmarkdotnet-additional-tools" class="slide level2">
 <h2>BenchmarkDotNet additional tools</h2>
