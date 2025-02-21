@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.41">
 
   <meta name="author" content="老鮑伯">
   <title>BenchmarkDotNET 科學化 .NET 應用效能調校</title>
@@ -94,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-423d414d36ce366a9d05f36d06304417.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-8f3eebe07241f08526c91a7e9cbef8fd.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -924,11 +924,22 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 </figure>
 </div>
 </section>
-<section id="desktop-native" class="slide level2">
+<section id="desktop-native" class="slide level2 scrollable">
 <h2>Desktop Native</h2>
 <p>BDN can support .NET Core/.NET5+ WPF / WinForm applications.<br>
 (Besure to set the <a href="https://benchmarkdotnet.org/articles/samples/IntroStaThread.html#sample-introstathread"><strong>[STAThread]</strong> attribute</a> on benchmark method)<br>
 <a href="https://github.com/windperson/DemoWpfAppBDN" class="uri">https://github.com/windperson/DemoWpfAppBDN</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./02_CSharp_BDN_examples/pics/WPF_run_benchmark.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+<p>And also the example project can use <a href="https://benchmarkdotnet.org/articles/features/etwprofiler.html">ETW Profiler of BenchmarkDotNet</a> to analyze the performance of that WPF view UI:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./02_CSharp_BDN_examples/pics/PerfView_see_benchmark_time_portion-final.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
 </section>
 <section id="blazor-wasm" class="slide level2 smaller scrollable">
 <h2>Blazor / WASM</h2>
@@ -1063,7 +1074,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <h2>PerfView - how to use it?</h2>
 <ol type="1">
 <li>Run PerfView with Administrative access right in Windows</li>
-<li>Setup Collection configuration and press Start collection on PerfView <img data-src="./PerfView_Intro/pics/PerfView_start_collection.png" class="quarto-figure quarto-figure-center"></li>
+<li>Setup Collection configuration and press Start collection on PerfView <img data-src="./PerfView_Intro/pics/PerfView_start_collect.png" class="quarto-figure quarto-figure-center"></li>
 <li>Do any activities that you want to record performance</li>
 <li>Stop collection on PerfView, it will generate the collection file ( <strong><em>*.etl.zip</em></strong> )</li>
 <li>Inspect the performance characteristics of collection file via many PerfView feature:<br><strong>CPU Stacks</strong> / <strong>GC Stats</strong> / <strong>Flame Graph</strong></li>
@@ -1101,11 +1112,32 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 </tbody>
 </table>
 </section>
-<section id="perfview---sample-performance-data-inspection" class="slide level2 smaller">
+<section id="perfview---sample-performance-data-inspection" class="slide level2 smaller scrollable">
 <h2>PerfView - sample performance data inspection</h2>
 <p>Use the official <a href="https://apps.microsoft.com/detail/9ndlx60wx4kq">WPF Gallery Preview</a> sample app’s Icons Page to record performance data.</p>
-
-<img data-src="./PerfView_Intro/pics/WPF_Gallery_Preview_Icons_UI.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://github.com/microsoft/WPF-Samples/tree/main/Sample%20Applications/WPFGallery">github source</a></p></section>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./PerfView_Intro/pics/WPF_Gallery_Preview_Icons_UI.png"></p>
+<figcaption><a href="https://github.com/microsoft/WPF-Samples/tree/main/Sample%20Applications/WPFGallery">github source</a></figcaption>
+</figure>
+</div>
+<ol type="1">
+<li>After clone the git repository, Open the solution file (<strong>Sample Applications/WPFGallery/WPFGallery.sln</strong>) using Visual Studio 2022 with .NET 9 Desktop Development workload installed folder,<br>
+<img data-src="./PerfView_Intro/pics/SampleApp-WPF_Gallery_solution_file.png" class="quarto-figure quarto-figure-center"></li>
+<li>Then run the WPF Gallery Preview app in Visual Studio 2022 once to generate the executable file (<strong><em>WPFGallery.exe</em></strong>) inside the <strong>Sample Applications-windows</strong> folder:<br>
+<img data-src="./PerfView_Intro/pics/SampleApp-WPF_Gallery_exe_file.png" class="quarto-figure quarto-figure-center"></li>
+<li>Run PerfView with Administrative access right in Windows, select [Collect]/[Collect(Alt+C)] menu entry, on opened dialog, Set “<strong>Current Dir:</strong>” to a folder that will store collected *.etl.zip file; Add <code>E13B77A8-14B6-11DE-8069-001B212B5009:2:*</code> in “<strong>Additional Providers</strong>”, make sure the “<strong>.NET Symbol Collection</strong>” is checked, then press <strong>Start Collection</strong> button:<br>
+<img data-src="./PerfView_Intro/pics/PerfView_collect_config.png" class="quarto-figure quarto-figure-center"></li>
+<li>Run the <strong>WPFGallery.exe</strong> and go to the Icons page to record performance, then back to PerfView and press <strong>Stop Collection</strong> button.</li>
+<li>Waiting for PerfView to generate the collection file ( <strong>PerfViewData.etl.zip</strong>* ) and it will show on PerfView main window left tree view, which is expandable to see the performance data: <img data-src="./PerfView_Intro/pics/PerfView_collect_done.png" class="quarto-figure quarto-figure-center"></li>
+<li>Double click the “CPU Stacks”, then select the WPFGallery:<br>
+<img data-src="./PerfView_Intro/pics/Open_PerfView_WPF_Gallery_collection_data.png" class="quarto-figure quarto-figure-center"></li>
+<li>On opened new window, select all entires in “By Name?” tab, then right click open context menu to select <strong>Lookup Symbols</strong><br>
+<img data-src="./PerfView_Intro/pics/PerfView_collection_lookup_symbols.png" class="quarto-figure quarto-figure-center"></li>
+<li>After lookup symbols done, you can type <code>IconsPageViewModel</code> in the top <strong>Find</strong> input box to search for the ViewModel class entries in the list, PerfView will auto switch to a <strong>Call Tree</strong> view to see call tree view, and select correct view style in <strong>GroupPats:</strong> list:<br>
+<img data-src="./PerfView_Intro/pics/PerfView_collection_find_target_ViewModel_invocation.png" class="quarto-figure quarto-figure-center"></li>
+</ol>
+</section>
 <section id="perfview-features---export-flame-graph" class="slide level2 smaller">
 <h2>PerfView Features - Export flame graph</h2>
 <div class="columns">
