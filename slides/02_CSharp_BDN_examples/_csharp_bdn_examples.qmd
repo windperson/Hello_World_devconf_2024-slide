@@ -81,11 +81,17 @@ public void CleanupServiceProvider()
 
 ![]({{< meta bdn_2_prefix >}}pics/microservice_benchmark_result.png){.nostretch fig-align="center" width="100%"}
 
-## Desktop Native
+## Desktop Native {.scrollable}
 
 BDN can support .NET Core/.NET5+ WPF / WinForm applications.  
 (Besure to set the [**[STAThread]** attribute](https://benchmarkdotnet.org/articles/samples/IntroStaThread.html#sample-introstathread) on benchmark method)  
 <https://github.com/windperson/DemoWpfAppBDN>
+
+![]({{< meta bdn_2_prefix >}}pics/WPF_run_benchmark.png){.nostretch fig-align="center" width="100%"}
+
+And also the example project can use [ETW Profiler of BenchmarkDotNet](https://benchmarkdotnet.org/articles/features/etwprofiler.html) to analyze the performance of that WPF view UI:
+
+![]({{< meta bdn_2_prefix >}}pics/PerfView_see_benchmark_time_portion-final.png){.nostretch fig-align="center" width="100%"}
 
 ## Blazor / WASM {.smaller .scrollable}
 
