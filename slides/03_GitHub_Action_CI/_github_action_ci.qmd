@@ -5,11 +5,34 @@
   default using BDN on .NET C#:  
   <https://github.com/benchmark-action/github-action-benchmark/blob/master/examples/benchmarkdotnet/README.md>
 
-* Or just using command line in GitHub Action .yml file:  
+* Or just using command line in GitHub Action .yml configuration file:  
   <https://codezen.medium.com/buckle-up-for-benchmarkdotnet-def73302abed>
 
-* Microsoft Crank benchmark tool:  
-  <https://github.com/dotnet/crank>
+## Microsoft Crank {.smaller .scrollable}
+
+* A stress test platform for .NET CLR & AsP.NET Core developer team to do performance test:  
+  <https://github.com/dotnet/crank>  
+  ASP.NET Core "Benchmark" repository using Crank to do micro benchmark performance test:  
+  <https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks>
+
+* A "Client-Server" architect, which can accept BDN project to build & run for doing micro benchmark:  
+   ![]({{< meta bdn_3_prefix >}}pics/crank_architect.svg){.nostretch fig-align="center" width="100%"}
+
+* Write a .yml file to specify the .NET SDK, runtime version, and how to run the benchmark project, then submit project folder data to a remote machine for building & running benchmark test on ***"Crank-Agent"*** server:  
+   ![]({{< meta bdn_3_prefix >}}pics/crank_run_BDN_project_on_remote_Linux.png){.nostretch fig-align="center" width="100%"}
+ 
+### Demo Projects to run BDN with Microsoft Crank
+
+<https://github.com/windperson/DemoMultipleNugetVersionBenchmark>
+
+Its purpose is to  compare Object to JSON string serialization performance of different libraries:  
+![]({{< meta bdn_3_prefix >}}pics/SerializeLibBenchmark_on_crank.png){.nostretch fig-align="center" width="100%"}
+
+It will help you resolve the issue when you need to do some performance comparison between different versions of the same library by using [`WithNuget()` API of BDN](https://benchmarkdotnet.org/articles/samples/IntroNuGet.html):  
+![]({{< meta bdn_3_prefix >}}pics/becnhmark_NewtonsoftJsonNet_multiple_versions.png){.nostretch fig-align="center" width="100%"}
+
+or different libraries that consume the same nuget package(eq. JSON.NET) but with different versions, and you want to write benchmarks to compare:  
+![]({{< meta bdn_3_prefix >}}pics/NewtonsoftJsonNet_version_conflict.png){.nostretch fig-align="center" width="100%"}
 
 ## BenchmarkDotNet additional tools
 
