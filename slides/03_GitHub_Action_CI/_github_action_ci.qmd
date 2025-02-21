@@ -10,7 +10,7 @@
 
 ## Microsoft Crank {.smaller .scrollable}
 
-* A stress test platform for .NET CLR & AsP.NET Core developer team to do performance test:  
+* A stress test platform for .NET CLR & ASP.NET Core develop team to run performance test:  
   <https://github.com/dotnet/crank>  
   ASP.NET Core "Benchmark" repository using Crank to do micro benchmark performance test:  
   <https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks>

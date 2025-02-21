@@ -116,9 +116,9 @@ Use the official [WPF Gallery Preview](https://apps.microsoft.com/detail/9ndlx60
 
 :::: {.columns}
 
-::: {.column width="60%"}
+::: {.column width="60%" .smaller style="font-size: 70%;"}
 
-Use "Flame Graph" to get an entire performance overview of the application
+Use "[Flame Graph](https://www.brendangregg.com/flamegraphs.html)" to get visualized overview of performance data.
 
 * Move mouse pointer to hover on the block to see method name.
 * Zoom in/out via mouse wheel.
