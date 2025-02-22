@@ -1119,10 +1119,12 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <a href="https://github.com/dotnet/crank" class="uri">https://github.com/dotnet/crank</a><br>
 ASP.NET Core “Benchmark” repository using Crank to do micro benchmark performance test:<br>
 <a href="https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks" class="uri">https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks</a></p></li>
-<li><p>A “Client-Server” architect, which can accept BDN project to build &amp; run for doing micro benchmark:<br>
+<li><p>“Client-Server” architect, which can accept BDN project to build &amp; run for doing micro benchmark:<br>
 <img data-src="./03_GitHub_Action_CI/pics/crank_architect.svg" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p></li>
 <li><p>Write a .yml file to specify the .NET SDK, runtime version, and how to run the benchmark project, then submit project folder data to a remote machine for building &amp; running benchmark test on <strong><em>“Crank-Agent”</em></strong> server:<br>
 <img data-src="./03_GitHub_Action_CI/pics/crank_run_BDN_project_on_remote_Linux.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p></li>
+<li><p>Crank-Controller side can use <code>--json</code> argument to export Crank-Agent benchmark running raw data as json format file in controller side , then use <code>compare</code> command option to merge results:<br>
+<img data-src="./03_GitHub_Action_CI/pics/crank_merge_result.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p></li>
 </ul>
 <h3 id="demo-projects-to-run-bdn-with-microsoft-crank">Demo Projects to run BDN with Microsoft Crank</h3>
 <p><a href="https://github.com/windperson/DemoMultipleNugetVersionBenchmark" class="uri">https://github.com/windperson/DemoMultipleNugetVersionBenchmark</a></p>
