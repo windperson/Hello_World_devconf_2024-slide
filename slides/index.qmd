@@ -140,7 +140,9 @@ ComputeSharp's various Benchmarks project:
   <https://steven-giesel.com/blogPost/698c45c3-58c5-4157-b4da-2cde4e27862e>
 * How to Integrate BenchmarkDotNet With Unit Tests  
   <https://code-maze.com/how-to-integrate-benchmarkdotnet-with-unit-tests/>
-
+* Various BenchmarkDotNet examples on C# language features:  
+  <https://github.com/windperson/LINQPerformanceCompare>
+  <https://github.com/windperson/SpanPerformanceCompare>  
 :::
 
 ## Thanks / Q & A {.center-xy}
