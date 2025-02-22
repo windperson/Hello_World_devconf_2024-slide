@@ -15,11 +15,14 @@
   ASP.NET Core "Benchmark" repository using Crank to do micro benchmark performance test:  
   <https://github.com/aspnet/Benchmarks/tree/main/scenarios#micro-benchmarks>
 
-* A "Client-Server" architect, which can accept BDN project to build & run for doing micro benchmark:  
+* "Client-Server" architect, which can accept BDN project to build & run for doing micro benchmark:  
    ![]({{< meta bdn_3_prefix >}}pics/crank_architect.svg){.nostretch fig-align="center" width="100%"}
 
 * Write a .yml file to specify the .NET SDK, runtime version, and how to run the benchmark project, then submit project folder data to a remote machine for building & running benchmark test on ***"Crank-Agent"*** server:  
    ![]({{< meta bdn_3_prefix >}}pics/crank_run_BDN_project_on_remote_Linux.png){.nostretch fig-align="center" width="100%"}
+
+* Crank-Controller side can use `--json` argument to export Crank-Agent benchmark running raw data  as json format file in controller side , then use `compare` command option to merge results:  
+   ![]({{< meta bdn_3_prefix >}}pics/crank_merge_result.png){.nostretch fig-align="center" width="100%"}
  
 ### Demo Projects to run BDN with Microsoft Crank
 
