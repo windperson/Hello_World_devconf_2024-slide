@@ -151,7 +151,7 @@ public void CleanupServiceProvider()
 }
 ```
 
-## Benchmarking result {.scrollable}
+### Benchmarking result {.scrollable}
 
 ![]({{< meta bdn_2_prefix >}}pics/microservice_benchmark_result.png){.nostretch fig-align="center" width="100%"}
 
@@ -163,7 +163,17 @@ BDN can support .NET Core/.NET5+ WPF / WinForm applications.
 
 ![]({{< meta bdn_2_prefix >}}pics/WPF_run_benchmark.png){.nostretch fig-align="center" width="100%"}
 
-And also the example project can use [ETW Profiler of BenchmarkDotNet](https://benchmarkdotnet.org/articles/features/etwprofiler.html) to analyze the performance of WPF view:
+```csharp{.cs filename="WpfFlowDocBenchmark\RichTextFlowDocBenchmarks.cs" code-line-numbers="false"}
+[Benchmark(Description = "Open RichTextFlowDoc"), System.STAThread]
+public void Run()
+{
+    var richTextFlowDoc = new RichTextFlowDoc();
+    richTextFlowDoc.Show();
+}
+```        
+
+
+And also this example project can use [ETW Profiler of BenchmarkDotNet](https://benchmarkdotnet.org/articles/features/etwprofiler.html) to analyze the performance of WPF view:
 
 ![]({{< meta bdn_2_prefix >}}pics/PerfView_see_benchmark_time_portion-final.png){.nostretch fig-align="center" width="100%"}
 
