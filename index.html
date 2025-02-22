@@ -1007,9 +1007,7 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <span id="cb12-45"><a href=""></a><span class="op">{</span></span>
 <span id="cb12-46"><a href=""></a>    _serviceProvider<span class="op">.</span><span class="fu">Dispose</span><span class="op">();</span></span>
 <span id="cb12-47"><a href=""></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="benchmarking-result" class="slide level2 scrollable">
-<h2>Benchmarking result</h2>
+<h3 class="scrollable" id="benchmarking-result">Benchmarking result</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./02_CSharp_BDN_examples/pics/microservice_benchmark_result.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
@@ -1026,7 +1024,18 @@ We can verify the performance of ASP.NET Core Web API, gRPC, and Microsoft Orlea
 <p><img data-src="./02_CSharp_BDN_examples/pics/WPF_run_benchmark.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
-<p>And also the example project can use <a href="https://benchmarkdotnet.org/articles/features/etwprofiler.html">ETW Profiler of BenchmarkDotNet</a> to analyze the performance of WPF view:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>WpfFlowDocBenchmark\RichTextFlowDocBenchmarks.cs</strong></pre>
+</div>
+<div class="sourceCode" id="cb13" data-filename="WpfFlowDocBenchmark\RichTextFlowDocBenchmarks.cs"><pre class="sourceCode csharp cs code-with-copy"><code class="sourceCode cs"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fu">Benchmark</span><span class="op">(</span>Description <span class="op">=</span> <span class="st">"Open RichTextFlowDoc"</span><span class="op">),</span> System<span class="op">.</span><span class="fu">STAThread</span><span class="op">]</span></span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">Run</span><span class="op">()</span></span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> richTextFlowDoc <span class="op">=</span> <span class="kw">new</span> <span class="fu">RichTextFlowDoc</span><span class="op">();</span></span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a>    richTextFlowDoc<span class="op">.</span><span class="fu">Show</span><span class="op">();</span></span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And also this example project can use <a href="https://benchmarkdotnet.org/articles/features/etwprofiler.html">ETW Profiler of BenchmarkDotNet</a> to analyze the performance of WPF view:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./02_CSharp_BDN_examples/pics/PerfView_see_benchmark_time_portion-final.png" class="nostretch quarto-figure quarto-figure-center" style="width:100.0%"></p>
