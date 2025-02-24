@@ -567,7 +567,7 @@ So you need to execuate the `dotnet run` command in the solution folder.
 
 ## Run the microbenchmark with arguments {.smaller .scrollable}
 
-You can invoke some BDN command line arguments to control the benchmark running behavior:
+You can invoke some [BDN command line arguments](https://benchmarkdotnet.org/articles/guides/console-args.html) to control benchmark running behavior:
 
 * `-f --filter` : filter the benchmark cases to run.
 * `--list tree` or `--list flat` : list all benchmark cases.
